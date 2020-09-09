@@ -40,8 +40,6 @@
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
 							<input type="checkbox" id="tsd-filter-externals" checked />
 							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -77,22 +75,9 @@
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
-							<h3>Interfaces</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_asynciterplus_.asynciter.html" class="tsd-kind-icon">Async<wbr>Iter</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_asynciterplus_.canasynciter.html" class="tsd-kind-icon">Can<wbr>Async<wbr>Iter</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Type aliases</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter"><a href="_asynciterplus_.html#asynciteryield" class="tsd-kind-icon">Async<wbr>Iter<wbr>Yield</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_asynciterplus_.html#canasynciter-1" class="tsd-kind-icon">can<wbr>Async<wbr>Iter</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_asynciterplus_.html#canasynciter" class="tsd-kind-icon">can<wbr>Async<wbr>Iter</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_asynciterplus_.html#isasynciter" class="tsd-kind-icon">is<wbr>Async<wbr>Iter</a></li>
 							</ul>
 						</section>
@@ -100,42 +85,18 @@
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Type aliases</h2>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
-					<a name="asynciteryield" class="tsd-anchor"></a>
-					<h3>Async<wbr>Iter<wbr>Yield</h3>
-					<div class="tsd-signature tsd-kind-icon">Async<wbr>Iter<wbr>Yield&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>done<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>done<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in AsyncIterPlus.ts:4</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>A value that an iterator yields. Intentionally ignores the return value.</p>
-						</div>
-					</div>
-					<h4 class="tsd-type-parameters-title">Type parameters</h4>
-					<ul class="tsd-type-parameters">
-						<li>
-							<h4>T</h4>
-						</li>
-					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="canasynciter-1" class="tsd-anchor"></a>
+					<a name="canasynciter" class="tsd-anchor"></a>
 					<h3>can<wbr>Async<wbr>Iter</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">can<wbr>Async<wbr>Iter<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">obj</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">CanAsyncIter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">can<wbr>Async<wbr>Iter<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">obj</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">AsyncIterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in AsyncIterPlus.ts:50</li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L19">AsyncIterPlus.ts:19</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -152,7 +113,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">obj</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">CanAsyncIter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">obj</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">AsyncIterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>If <code>obj</code> is an iterable.</p>
 						</li>
 					</ul>
@@ -161,13 +122,13 @@
 					<a name="isasynciter" class="tsd-anchor"></a>
 					<h3>is<wbr>Async<wbr>Iter</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">is<wbr>Async<wbr>Iter<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">obj</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">AsyncIter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Async<wbr>Iter<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">obj</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">AsyncIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in AsyncIterPlus.ts:37</li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L6">AsyncIterPlus.ts:6</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -184,7 +145,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">obj</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">AsyncIter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">obj</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">AsyncIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>If <code>obj</code> is an iterator.</p>
 						</li>
 					</ul>
@@ -216,17 +177,8 @@
 					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../classes/_asynciterplus_.asynciterplus.html" class="tsd-kind-icon">Async<wbr>Iter<wbr>Plus</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="../interfaces/_asynciterplus_.asynciter.html" class="tsd-kind-icon">Async<wbr>Iter</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="../interfaces/_asynciterplus_.canasynciter.html" class="tsd-kind-icon">Can<wbr>Async<wbr>Iter</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="_asynciterplus_.html#asynciteryield" class="tsd-kind-icon">Async<wbr>Iter<wbr>Yield</a>
-					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_asynciterplus_.html#canasynciter-1" class="tsd-kind-icon">can<wbr>Async<wbr>Iter</a>
+						<a href="_asynciterplus_.html#canasynciter" class="tsd-kind-icon">can<wbr>Async<wbr>Iter</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_asynciterplus_.html#isasynciter" class="tsd-kind-icon">is<wbr>Async<wbr>Iter</a>
@@ -242,10 +194,6 @@
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>

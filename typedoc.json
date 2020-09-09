@@ -6,5 +6,6 @@
     "theme": "default",
     "name": "iterplus",
     "includeVersion": true,
-    "readme": "./README.md"
+    "readme": "./README.md",
+    "excludeNotExported": true
 }
