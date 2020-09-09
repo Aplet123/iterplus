@@ -152,5 +152,30 @@ describe("Static functions", () => {
             [4, 4],
         ]);
     });
+    it(".product works", () => {
+        const iter = index_1.IterPlus.product([1, 2], [3, 4], [5, 6]);
+        expectIter(iter).toEqual([
+            [1, 3, 5],
+            [1, 3, 6],
+            [1, 4, 5],
+            [1, 4, 6],
+            [2, 3, 5],
+            [2, 3, 6],
+            [2, 4, 5],
+            [2, 4, 6]
+        ]);
+    });
+});
+describe("Methods", () => {
+    describe(".every", () => {
+        it("works normally", () => {
+            expect(index_1.iterplus([1, 2, 3, 4, 5]).every(x => x < 10)).toBe(true);
+        });
+        it("short circuits", () => {
+            const iter = index_1.iterplus([1, 2, 3, 4, 5]);
+            expect(iter.every(x => x < 3)).toBe(false);
+            expectIter(iter).toEqual([4, 5]);
+        });
+    });
 });
 //# sourceMappingURL=iterplus.js.map

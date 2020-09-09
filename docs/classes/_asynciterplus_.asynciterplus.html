@@ -117,6 +117,7 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asynciterplus_.asynciterplus.html#_symbol_asynciterator_" class="tsd-kind-icon">[<wbr>Symbol.async<wbr>Iterator]</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asynciterplus_.asynciterplus.html#every" class="tsd-kind-icon">every</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asynciterplus_.asynciterplus.html#next" class="tsd-kind-icon">next</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_asynciterplus_.asynciterplus.html#combinations" class="tsd-kind-icon">combinations</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_asynciterplus_.asynciterplus.html#combinationswithrepetition" class="tsd-kind-icon">combinations<wbr>With<wbr>Repetition</a></li>
@@ -127,6 +128,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_asynciterplus_.asynciterplus.html#oncewith" class="tsd-kind-icon">once<wbr>With</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_asynciterplus_.asynciterplus.html#permutations" class="tsd-kind-icon">permutations</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_asynciterplus_.asynciterplus.html#permutationswithrepetition" class="tsd-kind-icon">permutations<wbr>With<wbr>Repetition</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_asynciterplus_.asynciterplus.html#product" class="tsd-kind-icon">product</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_asynciterplus_.asynciterplus.html#repeat" class="tsd-kind-icon">repeat</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_asynciterplus_.asynciterplus.html#repeatwith" class="tsd-kind-icon">repeat<wbr>With</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_asynciterplus_.asynciterplus.html#successors" class="tsd-kind-icon">successors</a></li>
@@ -147,7 +149,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L37">AsyncIterPlus.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L44">AsyncIterPlus.ts:44</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -169,7 +171,7 @@
 					<div class="tsd-signature tsd-kind-icon">internal<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AsyncIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L37">AsyncIterPlus.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L44">AsyncIterPlus.ts:44</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -191,10 +193,63 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L46">AsyncIterPlus.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L53">AsyncIterPlus.ts:53</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AsyncIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="every" class="tsd-anchor"></a>
+					<h3>every</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">every<span class="tsd-signature-symbol">(</span>pred<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L422">AsyncIterPlus.ts:422</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Checks if every element in the iterator matches a predicate.</p>
+								</div>
+								<p>This function is short-circuiting,
+									so if any element returns false,
+								the function immediately returns false.</p>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>pred: <span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The predicate function.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>elem: <span class="tsd-signature-type">T</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>If every element satisfies the predicate.</p>
 						</li>
 					</ul>
 				</section>
@@ -208,7 +263,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L42">AsyncIterPlus.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L49">AsyncIterPlus.ts:49</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IteratorResult</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -225,7 +280,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L191">AsyncIterPlus.ts:191</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L198">AsyncIterPlus.ts:198</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -269,7 +324,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L233">AsyncIterPlus.ts:233</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L240">AsyncIterPlus.ts:240</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -313,7 +368,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L170">AsyncIterPlus.ts:170</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L177">AsyncIterPlus.ts:177</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -354,7 +409,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L57">AsyncIterPlus.ts:57</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L64">AsyncIterPlus.ts:64</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -386,7 +441,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L68">AsyncIterPlus.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L75">AsyncIterPlus.ts:75</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -436,7 +491,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L100">AsyncIterPlus.ts:100</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L107">AsyncIterPlus.ts:107</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -474,7 +529,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L87">AsyncIterPlus.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L94">AsyncIterPlus.ts:94</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -524,7 +579,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L275">AsyncIterPlus.ts:275</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L282">AsyncIterPlus.ts:282</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -568,7 +623,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L327">AsyncIterPlus.ts:327</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L333">AsyncIterPlus.ts:333</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -603,6 +658,44 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<a name="product" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> product</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">product&lt;T&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayMap</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_asynciterplus_.asynciterplus.html" class="tsd-signature-type">AsyncIterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L373">AsyncIterPlus.ts:373</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Generates an iterator that generates a lexicographically sorted cartesian product.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">[]</span></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>data: <span class="tsd-signature-type">ArrayMap</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The iterators to take the product of.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_asynciterplus_.asynciterplus.html" class="tsd-signature-type">AsyncIterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The generated iterator.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
 					<a name="repeat" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> repeat</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
@@ -612,7 +705,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L128">AsyncIterPlus.ts:128</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L135">AsyncIterPlus.ts:135</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -650,7 +743,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L113">AsyncIterPlus.ts:113</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L120">AsyncIterPlus.ts:120</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -700,7 +793,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/fd24fa9/src/AsyncIterPlus.ts#L144">AsyncIterPlus.ts:144</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/42955ce/src/AsyncIterPlus.ts#L151">AsyncIterPlus.ts:151</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -791,6 +884,9 @@
 								<a href="_asynciterplus_.asynciterplus.html#_symbol_asynciterator_" class="tsd-kind-icon">[<wbr>Symbol.async<wbr>Iterator]</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_asynciterplus_.asynciterplus.html#every" class="tsd-kind-icon">every</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_asynciterplus_.asynciterplus.html#next" class="tsd-kind-icon">next</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
@@ -819,6 +915,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
 								<a href="_asynciterplus_.asynciterplus.html#permutationswithrepetition" class="tsd-kind-icon">permutations<wbr>With<wbr>Repetition</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+								<a href="_asynciterplus_.asynciterplus.html#product" class="tsd-kind-icon">product</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
 								<a href="_asynciterplus_.asynciterplus.html#repeat" class="tsd-kind-icon">repeat</a>
@@ -855,6 +954,7 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>

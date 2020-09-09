@@ -28,6 +28,13 @@ export function canAsyncIter(obj: any): obj is AsyncIterable<unknown> {
 type CurIter<T> = AsyncIterator<T>;
 
 /**
+ * Typescript-abusing type that wraps every type in a tuple type with an array.
+ */
+type ArrayMap<T extends unknown[]> = {
+    [K in keyof T]: T[K][];
+};
+
+/**
  * A wrapper around an iterator to add additional functionality. The types intentionally ignore return value.
  */
 export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
@@ -235,7 +242,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
         count: number = data.length
     ): AsyncIterPlus<T[]> {
         async function* ret() {
-            if (count <= 0) {
+            if (data.length <= 0 || count <= 0) {
                 return;
             }
             const indices: number[] = [];
@@ -288,7 +295,6 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
             for (let i = data.length; i > data.length - count; i--) {
                 cycles.push(i);
             }
-            console.log(indices, cycles);
             yield indices.slice(0, count).map((v) => data[v]);
             while (true) {
                 let i;
@@ -329,7 +335,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
         count: number = data.length
     ): AsyncIterPlus<T[]> {
         async function* ret() {
-            if (count > data.length || count <= 0) {
+            if (data.length <= 0 || count <= 0) {
                 return;
             }
             const indices: number[] = [];
@@ -356,5 +362,69 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
             }
         }
         return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Generates an iterator that generates a lexicographically sorted cartesian product.
+     *
+     * @param data The iterators to take the product of.
+     * @returns The generated iterator.
+     */
+    static product<T extends unknown[]>(
+        ...data: ArrayMap<T>
+    ): AsyncIterPlus<T> {
+        async function* ret() {
+            if (data.length <= 0) {
+                return;
+            }
+            const indices: number[] = [];
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].length == 0) {
+                    return;
+                }
+                indices.push(0);
+            }
+            while (true) {
+                yield indices.map((v, i) => data[i][v]) as T;
+                let i;
+                for (i = 0; i < indices.length; i++) {
+                    if (
+                        indices[data.length - i - 1] <
+                        data[data.length - i - 1].length - 1
+                    ) {
+                        indices[data.length - i - 1]++;
+                        break;
+                    }
+                }
+                if (i == indices.length) {
+                    break;
+                }
+                i--;
+                while (i >= 0) {
+                    indices[data.length - i - 1] = 0;
+                    i--;
+                }
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Checks if every element in the iterator matches a predicate.
+     *
+     * This function is short-circuiting,
+     * so if any element returns false,
+     * the function immediately returns false.
+     *
+     * @param pred The predicate function.
+     * @returns If every element satisfies the predicate.
+     */
+    async every(pred: (elem: T) => boolean): Promise<boolean> {
+        for await (const elem of this) {
+            if (!pred(elem)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

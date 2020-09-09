@@ -206,7 +206,7 @@ class IterPlus {
      */
     static combinationsWithRepetition(data, count = data.length) {
         /* o:async */ function* ret() {
-            if (count <= 0) {
+            if (data.length <= 0 || count <= 0) {
                 return;
             }
             const indices = [];
@@ -255,7 +255,6 @@ class IterPlus {
             for (let i = data.length; i > data.length - count; i--) {
                 cycles.push(i);
             }
-            console.log(indices, cycles);
             yield indices.slice(0, count).map((v) => data[v]);
             while (true) {
                 let i;
@@ -293,7 +292,7 @@ class IterPlus {
      */
     static permutationsWithRepetition(data, count = data.length) {
         /* o:async */ function* ret() {
-            if (count > data.length || count <= 0) {
+            if (data.length <= 0 || count <= 0) {
                 return;
             }
             const indices = [];
@@ -320,6 +319,64 @@ class IterPlus {
             }
         }
         return new /* o:Async- */ IterPlus(ret());
+    }
+    /**
+     * Generates an iterator that generates a lexicographically sorted cartesian product.
+     *
+     * @param data The iterators to take the product of.
+     * @returns The generated iterator.
+     */
+    static product(...data) {
+        /* o:async */ function* ret() {
+            if (data.length <= 0) {
+                return;
+            }
+            const indices = [];
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].length == 0) {
+                    return;
+                }
+                indices.push(0);
+            }
+            while (true) {
+                yield indices.map((v, i) => data[i][v]);
+                let i;
+                for (i = 0; i < indices.length; i++) {
+                    if (indices[data.length - i - 1] <
+                        data[data.length - i - 1].length - 1) {
+                        indices[data.length - i - 1]++;
+                        break;
+                    }
+                }
+                if (i == indices.length) {
+                    break;
+                }
+                i--;
+                while (i >= 0) {
+                    indices[data.length - i - 1] = 0;
+                    i--;
+                }
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+    /**
+     * Checks if every element in the iterator matches a predicate.
+     *
+     * This function is short-circuiting,
+     * so if any element returns false,
+     * the function immediately returns false.
+     *
+     * @param pred The predicate function.
+     * @returns If every element satisfies the predicate.
+     */
+    /* o:async */ every(pred) {
+        /* r:for await */ for (const elem of this) {
+            if (!pred(elem)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 exports.IterPlus = IterPlus;

@@ -15,6 +15,12 @@ export declare function canIter(obj: any): obj is Iterable<unknown>;
  */
 declare type CurIter<T> = Iterator<T>;
 /**
+ * Typescript-abusing type that wraps every type in a tuple type with an array.
+ */
+declare type ArrayMap<T extends unknown[]> = {
+    [K in keyof T]: T[K][];
+};
+/**
  * A wrapper around an iterator to add additional functionality. The types intentionally ignore return value.
  */
 export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<T> {
@@ -118,5 +124,23 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * @returns The generated iterator.
      */
     static permutationsWithRepetition<T>(data: T[], count?: number): IterPlus<T[]>;
+    /**
+     * Generates an iterator that generates a lexicographically sorted cartesian product.
+     *
+     * @param data The iterators to take the product of.
+     * @returns The generated iterator.
+     */
+    static product<T extends unknown[]>(...data: ArrayMap<T>): IterPlus<T>;
+    /**
+     * Checks if every element in the iterator matches a predicate.
+     *
+     * This function is short-circuiting,
+     * so if any element returns false,
+     * the function immediately returns false.
+     *
+     * @param pred The predicate function.
+     * @returns If every element satisfies the predicate.
+     */
+    every(pred: (elem: T) => boolean): boolean;
 }
 export {};

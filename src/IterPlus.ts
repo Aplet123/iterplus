@@ -34,6 +34,13 @@ export function /* r:canAsyncIter */ canIter(
 type CurIter<T> = /* o:Async- */ Iterator<T>;
 
 /**
+ * Typescript-abusing type that wraps every type in a tuple type with an array.
+ */
+type ArrayMap<T extends unknown[]> = {
+    [K in keyof T]: T[K][];
+};
+
+/**
  * A wrapper around an iterator to add additional functionality. The types intentionally ignore return value.
  */
 export class /* o:Async- */ IterPlus<T>
@@ -254,7 +261,7 @@ export class /* o:Async- */ IterPlus<T>
         count: number = data.length
     ): /* o:Async- */ IterPlus<T[]> {
         /* o:async */ function* ret() {
-            if (count <= 0) {
+            if (data.length <= 0 || count <= 0) {
                 return;
             }
             const indices: number[] = [];
@@ -347,7 +354,7 @@ export class /* o:Async- */ IterPlus<T>
         count: number = data.length
     ): /* o:Async- */ IterPlus<T[]> {
         /* o:async */ function* ret() {
-            if (count > data.length || count <= 0) {
+            if (data.length <= 0 || count <= 0) {
                 return;
             }
             const indices: number[] = [];
@@ -374,5 +381,71 @@ export class /* o:Async- */ IterPlus<T>
             }
         }
         return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Generates an iterator that generates a lexicographically sorted cartesian product.
+     *
+     * @param data The iterators to take the product of.
+     * @returns The generated iterator.
+     */
+    static product<T extends unknown[]>(
+        ...data: ArrayMap<T>
+    ): /* o:Async- */ IterPlus<T> {
+        /* o:async */ function* ret() {
+            if (data.length <= 0) {
+                return;
+            }
+            const indices: number[] = [];
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].length == 0) {
+                    return;
+                }
+                indices.push(0);
+            }
+            while (true) {
+                yield indices.map((v, i) => data[i][v]) as T;
+                let i;
+                for (i = 0; i < indices.length; i++) {
+                    if (
+                        indices[data.length - i - 1] <
+                        data[data.length - i - 1].length - 1
+                    ) {
+                        indices[data.length - i - 1]++;
+                        break;
+                    }
+                }
+                if (i == indices.length) {
+                    break;
+                }
+                i--;
+                while (i >= 0) {
+                    indices[data.length - i - 1] = 0;
+                    i--;
+                }
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Checks if every element in the iterator matches a predicate.
+     *
+     * This function is short-circuiting,
+     * so if any element returns false,
+     * the function immediately returns false.
+     *
+     * @param pred The predicate function.
+     * @returns If every element satisfies the predicate.
+     */
+    /* o:async */ every(
+        pred: (elem: T) => boolean
+    ): /* o:Promise<- */ boolean /* o:-> */ {
+        /* r:for await */ for (const elem of this) {
+            if (!pred(elem)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
