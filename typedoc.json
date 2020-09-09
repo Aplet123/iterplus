@@ -1,0 +1,10 @@
+{
+    "inputFiles": ["./src"],
+    "mode": "modules",
+    "exclude": [],
+    "out": "./docs",
+    "theme": "default",
+    "name": "iterplus",
+    "includeVersion": true,
+    "readme": "./README.md"
+}

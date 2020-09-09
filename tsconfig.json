@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es2017",
+        "outDir": "dest",
+        "rootDir": ".",
+        "module": "commonjs",
+        "declaration": true,
+        "esModuleInterop": true,
+        "strict": true,
+        "pretty": true,
+        "lib": ["es2017", "dom", "esnext.asynciterable"],
+        "typeRoots": ["node_modules/@types"],
+        "sourceMap": true,
+        "allowJs": false
+    },
+    "include": ["src/**/*.ts", "test/**/*.ts"],
+    "exclude": ["node_modules/**"],
+    "compileOnSave": false
+}
