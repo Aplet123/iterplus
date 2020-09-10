@@ -5,7 +5,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, "bundle"),
         filename: "index.min.js",
-        library: "iterplus",
+        library: "iterplusLib",
         libraryTarget: "var"
     },
     mode: "production"
