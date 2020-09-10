@@ -1,4 +1,4 @@
-import {IterPlus, iterplus, nullVal, Null, range} from "../src/index";
+import {IterPlus, iterplus, nullVal, Null, range, count} from "../src/index";
 
 function genYielder(bound: number = 5): () => number | Null {
     let count = 0;
@@ -25,6 +25,17 @@ describe("Utility functions", () => {
         expectIter(range(5)).toEqual([0, 1, 2, 3, 4]);
         expectIter(range(BigInt(1), BigInt(5))).toEqual(
             [1, 2, 3, 4].map((v) => BigInt(v))
+        );
+    });
+
+    it("count works", () => {
+        expectIter(count(0).take(5)).toEqual([0, 1, 2, 3, 4]);
+        expectIter(count(5, -1).take(5)).toEqual([5, 4, 3, 2, 1]);
+        expectIter(count(BigInt(3)).take(5)).toEqual(
+            [3, 4, 5, 6, 7].map((v) => BigInt(v))
+        );
+        expectIter(count(BigInt(3), BigInt(-1)).take(5)).toEqual(
+            [3, 2, 1, 0, -1].map((v) => BigInt(v))
         );
     });
 });
@@ -190,6 +201,20 @@ describe("Static functions", () => {
             [2, 3, 6],
             [2, 4, 5],
             [2, 4, 6],
+        ]);
+    });
+
+    it(".powerset works", () => {
+        const iter = IterPlus.powerset([1, 2, 3]);
+        expectIter(iter).toEqual([
+            [],
+            [1],
+            [2],
+            [3],
+            [1, 2],
+            [1, 3],
+            [2, 3],
+            [1, 2, 3],
         ]);
     });
 });
@@ -507,14 +532,22 @@ describe("Methods", () => {
 
     describe(".starmap", () => {
         it("works normally", () => {
-            expectIter(iterplus([[3, 2], [4, 3], [1, 1]]).starmap(Math.pow)).toEqual([
-                9, 64, 1
-            ]);
+            expectIter(
+                iterplus([
+                    [3, 2],
+                    [4, 3],
+                    [1, 1],
+                ]).starmap(Math.pow)
+            ).toEqual([9, 64, 1]);
         });
 
         it("is lazy", () => {
             const mock = jest.fn(Math.pow);
-            const iter = iterplus([[3, 2], [4, 3], [1, 1]]).starmap(mock);
+            const iter = iterplus([
+                [3, 2],
+                [4, 3],
+                [1, 1],
+            ]).starmap(mock);
             expect(mock).toBeCalledTimes(0);
             expect(iter.next().value).toBe(9);
             expect(mock).toBeCalledTimes(1);

@@ -34,12 +34,26 @@ export function iterplus<T>(
     }
 }
 
+/**
+ * Creates an inclusive-exclusive range iterator that's useful for loops.
+ *
+ * @param start The starting point.
+ * @param dest The ending point, exclusive.
+ * @param step The step, can be negative to go down.
+ */
 // @ts-ignore
 export declare function range(
     start: bigint,
     dest?: bigint,
     step?: bigint
 ): IterPlus<bigint>;
+/**
+ * Creates an inclusive-exclusive range iterator that's useful for loops.
+ *
+ * @param start The starting point.
+ * @param dest The ending point, exclusive.
+ * @param step The step, can be negative to go down.
+ */
 // @ts-ignore
 export declare function range(
     start: number,
@@ -75,6 +89,39 @@ export function range<T>(start: T, dest?: T, step?: T): IterPlus<T> {
                     break;
                 }
             }
+            yield cur;
+            cur += actualStep;
+        }
+    }
+    return new IterPlus(ret());
+}
+
+/**
+ * Creates an iterator that keeps adding values to a starting point.
+ *
+ * @param start The starting point.
+ * @param step The step.
+ */
+// @ts-ignore
+export declare function count(start: bigint, step?: bigint): IterPlus<bigint>;
+/**
+ * Creates an iterator that keeps adding values to a starting point.
+ *
+ * @param start The starting point.
+ * @param step The step.
+ */
+// @ts-ignore
+export declare function count(start: number, step?: number): IterPlus<number>;
+export function count<T>(start: T, step?: T): IterPlus<T> {
+    let actualStep: any = step;
+    if (typeof start === "bigint" && step === undefined) {
+        actualStep = BigInt(1);
+    } else if (step === undefined) {
+        actualStep = 1;
+    }
+    function* ret() {
+        let cur = start;
+        while (true) {
             yield cur;
             cur += actualStep;
         }

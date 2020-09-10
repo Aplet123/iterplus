@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.asyncify = exports.liftAsync = exports.range = exports.iterplus = void 0;
+exports.asyncify = exports.liftAsync = exports.count = exports.range = exports.iterplus = void 0;
 const IterPlus_1 = require("./IterPlus");
 const AsyncIterPlus_1 = require("./AsyncIterPlus");
 /**
@@ -58,6 +58,24 @@ function range(start, dest, step) {
     return new IterPlus_1.IterPlus(ret());
 }
 exports.range = range;
+function count(start, step) {
+    let actualStep = step;
+    if (typeof start === "bigint" && step === undefined) {
+        actualStep = BigInt(1);
+    }
+    else if (step === undefined) {
+        actualStep = 1;
+    }
+    function* ret() {
+        let cur = start;
+        while (true) {
+            yield cur;
+            cur += actualStep;
+        }
+    }
+    return new IterPlus_1.IterPlus(ret());
+}
+exports.count = count;
 /**
  * Lifts an iterable to an async iterable that immediately resolves promises.
  *

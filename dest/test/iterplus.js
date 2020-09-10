@@ -24,6 +24,12 @@ describe("Utility functions", () => {
         expectIter(index_1.range(5)).toEqual([0, 1, 2, 3, 4]);
         expectIter(index_1.range(BigInt(1), BigInt(5))).toEqual([1, 2, 3, 4].map((v) => BigInt(v)));
     });
+    it("count works", () => {
+        expectIter(index_1.count(0).take(5)).toEqual([0, 1, 2, 3, 4]);
+        expectIter(index_1.count(5, -1).take(5)).toEqual([5, 4, 3, 2, 1]);
+        expectIter(index_1.count(BigInt(3)).take(5)).toEqual([3, 4, 5, 6, 7].map((v) => BigInt(v)));
+        expectIter(index_1.count(BigInt(3), BigInt(-1)).take(5)).toEqual([3, 2, 1, 0, -1].map((v) => BigInt(v)));
+    });
 });
 describe("Static functions", () => {
     it(".empty works", () => {
@@ -175,6 +181,19 @@ describe("Static functions", () => {
             [2, 3, 6],
             [2, 4, 5],
             [2, 4, 6],
+        ]);
+    });
+    it(".powerset works", () => {
+        const iter = index_1.IterPlus.powerset([1, 2, 3]);
+        expectIter(iter).toEqual([
+            [],
+            [1],
+            [2],
+            [3],
+            [1, 2],
+            [1, 3],
+            [2, 3],
+            [1, 2, 3],
         ]);
     });
 });
@@ -383,13 +402,19 @@ describe("Methods", () => {
     });
     describe(".starmap", () => {
         it("works normally", () => {
-            expectIter(index_1.iterplus([[3, 2], [4, 3], [1, 1]]).starmap(Math.pow)).toEqual([
-                9, 64, 1
-            ]);
+            expectIter(index_1.iterplus([
+                [3, 2],
+                [4, 3],
+                [1, 1],
+            ]).starmap(Math.pow)).toEqual([9, 64, 1]);
         });
         it("is lazy", () => {
             const mock = jest.fn(Math.pow);
-            const iter = index_1.iterplus([[3, 2], [4, 3], [1, 1]]).starmap(mock);
+            const iter = index_1.iterplus([
+                [3, 2],
+                [4, 3],
+                [1, 1],
+            ]).starmap(mock);
             expect(mock).toBeCalledTimes(0);
             expect(iter.next().value).toBe(9);
             expect(mock).toBeCalledTimes(1);

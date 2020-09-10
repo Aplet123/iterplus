@@ -1,9 +1,31 @@
+/**
+ * A circular buffer with constant time push and pop on both ends.
+ *
+ * @typeParam T The type of item contained inside.
+ */
 export class CircularBuffer<T> {
+    /**
+     * The index of the start of the buffer.
+     */
     private start: number;
+    /**
+     * The index of the end of the buffer.
+     */
     private end: number;
+    /**
+     * The data contained in the buffer.
+     */
     private data: T[];
+    /**
+     * The number of data elements in the buffer.
+     */
     private len: number;
 
+    /**
+     * Constructs a new `CircularBuffer` from a dataset.
+     *
+     * @param init The initial data.
+     */
     constructor(init: Iterable<T> = []) {
         const data = [];
         for (const elem of init) {
@@ -20,10 +42,21 @@ export class CircularBuffer<T> {
         this.len = totlen;
     }
 
+    /**
+     * Returns the number of elements in the buffer.
+     *
+     * @returns The number of elements.
+     */
     size(): number {
         return this.len;
     }
 
+    /**
+     * Gets an element from the buffer. Errors on out of bound access.
+     *
+     * @param ind The index to get.
+     * @returns The element at the index.
+     */
     get(ind: number): T {
         if (ind < 0 || ind >= this.size()) {
             throw new RangeError("Index out of bounds.");
@@ -31,6 +64,12 @@ export class CircularBuffer<T> {
         return this.data[(this.start + ind) % this.data.length];
     }
 
+    /**
+     * Sets an element in the buffer. Errors on out of bounds access.
+     *
+     * @param ind The index to set.
+     * @param val The value to set to.
+     */
     set(ind: number, val: T) {
         if (ind < 0 || ind >= this.size()) {
             throw new RangeError("Index out of bounds.");
@@ -38,6 +77,11 @@ export class CircularBuffer<T> {
         this.data[(this.start + ind) % this.data.length] = val;
     }
 
+    /**
+     * Generates an iterator for the buffer.
+     *
+     * @returns An iterator.
+     */
     *[Symbol.iterator](): Generator<T> {
         for (
             let i = this.start;
@@ -48,6 +92,9 @@ export class CircularBuffer<T> {
         }
     }
 
+    /**
+     * Expands the buffer if needed.
+     */
     private possiblyExpand() {
         if (this.size() >= this.data.length - 1) {
             const newData = new Array(this.data.length * 2);
@@ -62,6 +109,9 @@ export class CircularBuffer<T> {
         }
     }
 
+    /**
+     * Shrinks the buffer if needed.
+     */
     private possiblyShrink() {
         if (this.size() * 4 <= this.data.length) {
             const newData = new Array(Math.floor(this.data.length / 2));
@@ -76,6 +126,11 @@ export class CircularBuffer<T> {
         }
     }
 
+    /**
+     * Pushes a value to the end of the buffer.
+     *
+     * @param val The value to push.
+     */
     pushEnd(val: T) {
         this.possiblyExpand();
         this.data[this.end] = val;
@@ -83,6 +138,11 @@ export class CircularBuffer<T> {
         this.len++;
     }
 
+    /**
+     * Pushes a value to the start of the buffer.
+     *
+     * @param val The value to push.
+     */
     pushStart(val: T) {
         this.possiblyExpand();
         this.start = (this.start - 1 + this.data.length) % this.data.length;
@@ -90,6 +150,11 @@ export class CircularBuffer<T> {
         this.len++;
     }
 
+    /**
+     * Pops a value from the start of the buffer.
+     *
+     * @returns The popped value.
+     */
     popEnd(): T {
         if (this.size() == 0) {
             throw new RangeError("Index out of bounds.");
@@ -101,6 +166,11 @@ export class CircularBuffer<T> {
         return ret;
     }
 
+    /**
+     * Pops a value from the end of the buffer.
+     *
+     * @returns The popped value.
+     */
     popStart(): T {
         if (this.size() == 0) {
             throw new RangeError("Index out of bounds.");

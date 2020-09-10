@@ -115,6 +115,7 @@ class AsyncIterPlus {
     /**
      * Generates an iterator that yields values from a function and ends once the function returns null.
      *
+     * @typeParam T The item type of the iterator.
      * @param func The function to yield values, or null to end the iterator.
      * @returns The generated iterator.
      */
@@ -135,6 +136,7 @@ class AsyncIterPlus {
     /**
      * Generates an iterator that lazily yields a single value.
      *
+     * @typeParam T The item type of the iterator.
      * @param func The function to generate a single value.
      * @returns The generated iterator.
      */
@@ -149,6 +151,7 @@ class AsyncIterPlus {
     /**
      * Generates an iterator that yields a single value.
      *
+     * @typeParam T The item type of the iterator.
      * @param val The value to yield.
      * @returns The generated iterator.
      */
@@ -163,6 +166,7 @@ class AsyncIterPlus {
     /**
      * Generates an iterator that endlessly calls a function.
      *
+     * @typeParam T The item type of the iterator.
      * @param func The function to generate values.
      * @returns The generated iterator.
      */
@@ -179,6 +183,7 @@ class AsyncIterPlus {
     /**
      * Generates an iterator that endlessly repeats a value.
      *
+     * @typeParam T The item type of the iterator.
      * @param val The value to yield.
      * @returns The generated iterator.
      */
@@ -195,6 +200,7 @@ class AsyncIterPlus {
     /**
      * Generates an iterator that generates values based on the previous value.
      *
+     * @typeParam T The item type of the iterator.
      * @param first The initial value.
      * @param func The function to generate new values.
      * @returns The generated iterator.
@@ -220,6 +226,7 @@ class AsyncIterPlus {
      * it should be avoided as it stores all elements,
      * leading to an ever-growing memory usage.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The iterable to cycle through.
      * @returns The generated iterator.
      */
@@ -252,6 +259,7 @@ class AsyncIterPlus {
     /**
      * Generates an iterator that iterates through lexicographically sorted combinations without repetition of a dataset.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The data to generate combinations from.
      * @param count The number of elements in each combination.
      * @returns The generated iterator.
@@ -259,7 +267,7 @@ class AsyncIterPlus {
     static combinations(data, count = data.length) {
         function ret() {
             return __asyncGenerator(this, arguments, function* ret_9() {
-                if (count > data.length || count <= 0) {
+                if (count > data.length || count < 0) {
                     return yield __await(void 0);
                 }
                 const indices = [];
@@ -292,6 +300,7 @@ class AsyncIterPlus {
     /**
      * Generates an iterator that iterates through lexicographically sorted combinations with repetition of a dataset.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The data to generate combinations from.
      * @param count The number of elements in each combination.
      * @returns The generated iterator.
@@ -299,7 +308,7 @@ class AsyncIterPlus {
     static combinationsWithRepetition(data, count = data.length) {
         function ret() {
             return __asyncGenerator(this, arguments, function* ret_10() {
-                if (data.length <= 0 || count <= 0) {
+                if (data.length <= 0 || count < 0) {
                     return yield __await(void 0);
                 }
                 const indices = [];
@@ -332,6 +341,7 @@ class AsyncIterPlus {
     /**
      * Generates an iterator that iterates through lexicographically sorted permutations without repetition of a dataset.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The data to generate permutations from.
      * @param count The number of elements in each permutations.
      * @returns The generated iterator.
@@ -339,7 +349,11 @@ class AsyncIterPlus {
     static permutations(data, count = data.length) {
         function ret() {
             return __asyncGenerator(this, arguments, function* ret_11() {
-                if (count > data.length || count <= 0) {
+                if (count > data.length || count < 0) {
+                    return yield __await(void 0);
+                }
+                if (count == 0) {
+                    yield yield __await([]);
                     return yield __await(void 0);
                 }
                 const indices = [];
@@ -382,6 +396,7 @@ class AsyncIterPlus {
     /**
      * Generates an iterator that iterates through lexicographically sorted permutations with repetition of a dataset.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The data to generate permutations from.
      * @param count The number of elements in each permutations.
      * @returns The generated iterator.
@@ -389,7 +404,11 @@ class AsyncIterPlus {
     static permutationsWithRepetition(data, count = data.length) {
         function ret() {
             return __asyncGenerator(this, arguments, function* ret_12() {
-                if (data.length <= 0 || count <= 0) {
+                if (data.length <= 0 || count < 0) {
+                    return yield __await(void 0);
+                }
+                if (count == 0) {
+                    yield yield __await([]);
                     return yield __await(void 0);
                 }
                 const indices = [];
@@ -419,14 +438,32 @@ class AsyncIterPlus {
         return new AsyncIterPlus(ret());
     }
     /**
+     * Generates an iterator that iterates through the lexicographically sorted powerset of a dataset.
+     *
+     * @typeParam T The item type of the iterator.
+     * @param data The data to get the powerset of.
+     * @return The generated iterator.
+     */
+    static powerset(data) {
+        function ret() {
+            return __asyncGenerator(this, arguments, function* ret_13() {
+                for (let i = 0; i <= data.length; i++) {
+                    yield __await(yield* __asyncDelegator(__asyncValues(AsyncIterPlus.combinations(data, i))));
+                }
+            });
+        }
+        return new AsyncIterPlus(ret());
+    }
+    /**
      * Generates an iterator that generates a lexicographically sorted cartesian product.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The iterators to take the product of.
      * @returns The generated iterator.
      */
     static product(...data) {
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_13() {
+            return __asyncGenerator(this, arguments, function* ret_14() {
                 if (data.length <= 0) {
                     return yield __await(void 0);
                 }
@@ -528,7 +565,7 @@ class AsyncIterPlus {
     concat(...iters) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_14() {
+            return __asyncGenerator(this, arguments, function* ret_15() {
                 var e_4, _a;
                 for (const iter of [that, ...iters]) {
                     try {
@@ -684,7 +721,7 @@ class AsyncIterPlus {
     enumerate() {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_15() {
+            return __asyncGenerator(this, arguments, function* ret_16() {
                 var e_7, _a;
                 let count = 0;
                 try {
@@ -776,7 +813,7 @@ class AsyncIterPlus {
     filter(pred) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_16() {
+            return __asyncGenerator(this, arguments, function* ret_17() {
                 var e_8, _a;
                 try {
                     for (var that_2 = __asyncValues(that), that_2_1; that_2_1 = yield __await(that_2.next()), !that_2_1.done;) {
@@ -808,7 +845,7 @@ class AsyncIterPlus {
     filterMap(func) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_17() {
+            return __asyncGenerator(this, arguments, function* ret_18() {
                 var e_9, _a;
                 try {
                     for (var that_3 = __asyncValues(that), that_3_1; that_3_1 = yield __await(that_3.next()), !that_3_1.done;) {
@@ -899,7 +936,7 @@ class AsyncIterPlus {
     flatten() {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_18() {
+            return __asyncGenerator(this, arguments, function* ret_19() {
                 var e_12, _a;
                 try {
                     for (var that_4 = __asyncValues(that), that_4_1; that_4_1 = yield __await(that_4.next()), !that_4_1.done;) {
@@ -930,7 +967,7 @@ class AsyncIterPlus {
     map(func) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_19() {
+            return __asyncGenerator(this, arguments, function* ret_20() {
                 var e_13, _a;
                 try {
                     for (var that_5 = __asyncValues(that), that_5_1; that_5_1 = yield __await(that_5.next()), !that_5_1.done;) {
@@ -961,7 +998,7 @@ class AsyncIterPlus {
     starmap(func) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_20() {
+            return __asyncGenerator(this, arguments, function* ret_21() {
                 var e_14, _a;
                 try {
                     for (var that_6 = __asyncValues(that), that_6_1; that_6_1 = yield __await(that_6.next()), !that_6_1.done;) {
@@ -1050,7 +1087,7 @@ class AsyncIterPlus {
     fuse() {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_21() {
+            return __asyncGenerator(this, arguments, function* ret_22() {
                 var e_17, _a;
                 try {
                     for (var that_7 = __asyncValues(that), that_7_1; that_7_1 = yield __await(that_7.next()), !that_7_1.done;) {
@@ -1080,7 +1117,7 @@ class AsyncIterPlus {
     inspect(func) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_22() {
+            return __asyncGenerator(this, arguments, function* ret_23() {
                 var e_18, _a;
                 try {
                     for (var that_8 = __asyncValues(that), that_8_1; that_8_1 = yield __await(that_8.next()), !that_8_1.done;) {
@@ -1250,7 +1287,7 @@ class AsyncIterPlus {
     mapWhile(func) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_23() {
+            return __asyncGenerator(this, arguments, function* ret_24() {
                 var e_23, _a;
                 try {
                     for (var that_9 = __asyncValues(that), that_9_1; that_9_1 = yield __await(that_9.next()), !that_9_1.done;) {
@@ -1626,7 +1663,7 @@ class AsyncIterPlus {
     skip(n) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_24() {
+            return __asyncGenerator(this, arguments, function* ret_25() {
                 for (let i = 0; i < n; i++) {
                     const val = yield __await(that.next());
                     if (val.done) {
@@ -1647,7 +1684,7 @@ class AsyncIterPlus {
     skipWhile(pred) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_25() {
+            return __asyncGenerator(this, arguments, function* ret_26() {
                 while (true) {
                     const val = yield __await(that.next());
                     if (val.done) {
@@ -1672,7 +1709,7 @@ class AsyncIterPlus {
     take(n) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_26() {
+            return __asyncGenerator(this, arguments, function* ret_27() {
                 for (let i = 0; i < n; i++) {
                     const val = yield __await(that.next());
                     if (val.done) {
@@ -1693,7 +1730,7 @@ class AsyncIterPlus {
     takeWhile(pred) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_27() {
+            return __asyncGenerator(this, arguments, function* ret_28() {
                 while (true) {
                     const val = yield __await(that.next());
                     if (val.done) {
@@ -1751,7 +1788,7 @@ class AsyncIterPlus {
     zipWith(func, ...iters) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_28() {
+            return __asyncGenerator(this, arguments, function* ret_29() {
                 const zippers = [
                     that,
                     ...iters.map((v) => v[Symbol.asyncIterator]()),
@@ -1804,7 +1841,7 @@ class AsyncIterPlus {
         const tot = [];
         const indices = [];
         function ret(index) {
-            return __asyncGenerator(this, arguments, function* ret_29() {
+            return __asyncGenerator(this, arguments, function* ret_30() {
                 let n = 0;
                 while (true) {
                     if (n >= init + stored.size()) {

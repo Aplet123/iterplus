@@ -87,6 +87,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
     /**
      * Generates an iterator that yields values from a function and ends once the function returns null.
      *
+     * @typeParam T The item type of the iterator.
      * @param func The function to yield values, or null to end the iterator.
      * @returns The generated iterator.
      */
@@ -94,6 +95,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
     /**
      * Generates an iterator that lazily yields a single value.
      *
+     * @typeParam T The item type of the iterator.
      * @param func The function to generate a single value.
      * @returns The generated iterator.
      */
@@ -101,6 +103,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
     /**
      * Generates an iterator that yields a single value.
      *
+     * @typeParam T The item type of the iterator.
      * @param val The value to yield.
      * @returns The generated iterator.
      */
@@ -108,6 +111,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
     /**
      * Generates an iterator that endlessly calls a function.
      *
+     * @typeParam T The item type of the iterator.
      * @param func The function to generate values.
      * @returns The generated iterator.
      */
@@ -115,6 +119,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
     /**
      * Generates an iterator that endlessly repeats a value.
      *
+     * @typeParam T The item type of the iterator.
      * @param val The value to yield.
      * @returns The generated iterator.
      */
@@ -122,6 +127,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
     /**
      * Generates an iterator that generates values based on the previous value.
      *
+     * @typeParam T The item type of the iterator.
      * @param first The initial value.
      * @param func The function to generate new values.
      * @returns The generated iterator.
@@ -134,6 +140,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * it should be avoided as it stores all elements,
      * leading to an ever-growing memory usage.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The iterable to cycle through.
      * @returns The generated iterator.
      */
@@ -141,6 +148,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
     /**
      * Generates an iterator that iterates through lexicographically sorted combinations without repetition of a dataset.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The data to generate combinations from.
      * @param count The number of elements in each combination.
      * @returns The generated iterator.
@@ -149,6 +157,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
     /**
      * Generates an iterator that iterates through lexicographically sorted combinations with repetition of a dataset.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The data to generate combinations from.
      * @param count The number of elements in each combination.
      * @returns The generated iterator.
@@ -157,6 +166,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
     /**
      * Generates an iterator that iterates through lexicographically sorted permutations without repetition of a dataset.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The data to generate permutations from.
      * @param count The number of elements in each permutations.
      * @returns The generated iterator.
@@ -165,14 +175,24 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
     /**
      * Generates an iterator that iterates through lexicographically sorted permutations with repetition of a dataset.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The data to generate permutations from.
      * @param count The number of elements in each permutations.
      * @returns The generated iterator.
      */
     static permutationsWithRepetition<T>(data: T[], count?: number): IterPlus<T[]>;
     /**
+     * Generates an iterator that iterates through the lexicographically sorted powerset of a dataset.
+     *
+     * @typeParam T The item type of the iterator.
+     * @param data The data to get the powerset of.
+     * @return The generated iterator.
+     */
+    static powerset<T>(data: T[]): IterPlus<T[]>;
+    /**
      * Generates an iterator that generates a lexicographically sorted cartesian product.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The iterators to take the product of.
      * @returns The generated iterator.
      */

@@ -93,6 +93,7 @@ class IterPlus {
     /**
      * Generates an iterator that yields values from a function and ends once the function returns null.
      *
+     * @typeParam T The item type of the iterator.
      * @param func The function to yield values, or null to end the iterator.
      * @returns The generated iterator.
      */
@@ -111,6 +112,7 @@ class IterPlus {
     /**
      * Generates an iterator that lazily yields a single value.
      *
+     * @typeParam T The item type of the iterator.
      * @param func The function to generate a single value.
      * @returns The generated iterator.
      */
@@ -123,6 +125,7 @@ class IterPlus {
     /**
      * Generates an iterator that yields a single value.
      *
+     * @typeParam T The item type of the iterator.
      * @param val The value to yield.
      * @returns The generated iterator.
      */
@@ -135,6 +138,7 @@ class IterPlus {
     /**
      * Generates an iterator that endlessly calls a function.
      *
+     * @typeParam T The item type of the iterator.
      * @param func The function to generate values.
      * @returns The generated iterator.
      */
@@ -149,6 +153,7 @@ class IterPlus {
     /**
      * Generates an iterator that endlessly repeats a value.
      *
+     * @typeParam T The item type of the iterator.
      * @param val The value to yield.
      * @returns The generated iterator.
      */
@@ -163,6 +168,7 @@ class IterPlus {
     /**
      * Generates an iterator that generates values based on the previous value.
      *
+     * @typeParam T The item type of the iterator.
      * @param first The initial value.
      * @param func The function to generate new values.
      * @returns The generated iterator.
@@ -186,6 +192,7 @@ class IterPlus {
      * it should be avoided as it stores all elements,
      * leading to an ever-growing memory usage.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The iterable to cycle through.
      * @returns The generated iterator.
      */
@@ -205,13 +212,14 @@ class IterPlus {
     /**
      * Generates an iterator that iterates through lexicographically sorted combinations without repetition of a dataset.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The data to generate combinations from.
      * @param count The number of elements in each combination.
      * @returns The generated iterator.
      */
     static combinations(data, count = data.length) {
         /* o:async */ function* ret() {
-            if (count > data.length || count <= 0) {
+            if (count > data.length || count < 0) {
                 return;
             }
             const indices = [];
@@ -243,13 +251,14 @@ class IterPlus {
     /**
      * Generates an iterator that iterates through lexicographically sorted combinations with repetition of a dataset.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The data to generate combinations from.
      * @param count The number of elements in each combination.
      * @returns The generated iterator.
      */
     static combinationsWithRepetition(data, count = data.length) {
         /* o:async */ function* ret() {
-            if (data.length <= 0 || count <= 0) {
+            if (data.length <= 0 || count < 0) {
                 return;
             }
             const indices = [];
@@ -281,13 +290,18 @@ class IterPlus {
     /**
      * Generates an iterator that iterates through lexicographically sorted permutations without repetition of a dataset.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The data to generate permutations from.
      * @param count The number of elements in each permutations.
      * @returns The generated iterator.
      */
     static permutations(data, count = data.length) {
         /* o:async */ function* ret() {
-            if (count > data.length || count <= 0) {
+            if (count > data.length || count < 0) {
+                return;
+            }
+            if (count == 0) {
+                yield [];
                 return;
             }
             const indices = [];
@@ -329,13 +343,18 @@ class IterPlus {
     /**
      * Generates an iterator that iterates through lexicographically sorted permutations with repetition of a dataset.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The data to generate permutations from.
      * @param count The number of elements in each permutations.
      * @returns The generated iterator.
      */
     static permutationsWithRepetition(data, count = data.length) {
         /* o:async */ function* ret() {
-            if (data.length <= 0 || count <= 0) {
+            if (data.length <= 0 || count < 0) {
+                return;
+            }
+            if (count == 0) {
+                yield [];
                 return;
             }
             const indices = [];
@@ -364,8 +383,24 @@ class IterPlus {
         return new /* o:Async- */ IterPlus(ret());
     }
     /**
+     * Generates an iterator that iterates through the lexicographically sorted powerset of a dataset.
+     *
+     * @typeParam T The item type of the iterator.
+     * @param data The data to get the powerset of.
+     * @return The generated iterator.
+     */
+    static powerset(data) {
+        /* o:async */ function* ret() {
+            for (let i = 0; i <= data.length; i++) {
+                yield* /* o:Async- */ IterPlus.combinations(data, i);
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+    /**
      * Generates an iterator that generates a lexicographically sorted cartesian product.
      *
+     * @typeParam T The item type of the iterator.
      * @param data The iterators to take the product of.
      * @returns The generated iterator.
      */
