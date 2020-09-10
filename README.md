@@ -2,7 +2,7 @@
 The best of Rust/Haskell/Python iterators in Javascript.
 
 # Why Iterplus?
-Javascript iterators are weak. Really weak. Like, the only method they have is to get the next value levels of weak. To make matters worse, non-Array containers in Javascript have little to no utility methods, making using them incredibly clunky. By adding powerful functionality to iterators, every single data container gains additional functionality. Also, iterators are lazy, which means they save memory and avoid unncessary calculations.
+Javascript iterators are weak. Really weak. Like, the only method they have is to get the next value levels of weak. To make matters worse, non-Array containers in Javascript have little to no utility methods, making using them incredibly clunky. By adding powerful functionality to iterators, every single data container gains additional functionality. Also, iterators are lazy, which means they save memory and avoid unnecessary calculations.
 
 # Installation
 Iterplus is available on npm! Just install it with:
