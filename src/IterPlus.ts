@@ -60,7 +60,7 @@ type /* o:Async- */ IterableMap<T extends unknown[]> = {
  *
  * Defaults to `null`.
  */
-/* o:// */ export const nullVal = "this is for testing purposes";
+/* o:// */ export const nullVal = null;
 /* o:import {nullVal} from "./IterPlus"; */
 /**
  * The type of null to use.
