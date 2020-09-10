@@ -34,6 +34,54 @@ export function iterplus<T>(
     }
 }
 
+// @ts-ignore
+export declare function range(
+    start: bigint,
+    dest?: bigint,
+    step?: bigint
+): IterPlus<bigint>;
+// @ts-ignore
+export declare function range(
+    start: number,
+    dest?: number,
+    step?: number
+): IterPlus<number>;
+export function range<T>(start: T, dest?: T, step?: T): IterPlus<T> {
+    let actualStep: any = step;
+    let zero: any;
+    if (typeof start === "bigint") {
+        if (step === undefined) {
+            actualStep = BigInt(1);
+        }
+        zero = BigInt(0);
+    } else {
+        if (step === undefined) {
+            actualStep = 1;
+        }
+        zero = 0;
+    }
+    if (dest === undefined) {
+        dest = start;
+        start = zero;
+    }
+    function* ret() {
+        let cur = start;
+        while (true) {
+            if (dest !== undefined) {
+                if (actualStep < zero && cur <= dest) {
+                    break;
+                }
+                if (actualStep >= zero && cur >= dest) {
+                    break;
+                }
+            }
+            yield cur;
+            cur += actualStep;
+        }
+    }
+    return new IterPlus(ret());
+}
+
 /**
  * Lifts an iterable to an async iterable that immediately resolves promises.
  *

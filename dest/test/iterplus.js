@@ -13,6 +13,18 @@ function genYielder(bound = 5) {
 function expectIter(iter) {
     return expect(Array.from(iter));
 }
+describe("Utility functions", () => {
+    it("range works", () => {
+        expectIter(index_1.range(1, 5)).toEqual([1, 2, 3, 4]);
+        expectIter(index_1.range(1, 1)).toEqual([]);
+        expectIter(index_1.range(2, 1)).toEqual([]);
+        expectIter(index_1.range(5, 1, -1)).toEqual([5, 4, 3, 2]);
+        expectIter(index_1.range(1, 6, 2)).toEqual([1, 3, 5]);
+        expectIter(index_1.range(1, 3, 0.5)).toEqual([1, 1.5, 2, 2.5]);
+        expectIter(index_1.range(5)).toEqual([0, 1, 2, 3, 4]);
+        expectIter(index_1.range(BigInt(1), BigInt(5))).toEqual([1, 2, 3, 4].map((v) => BigInt(v)));
+    });
+});
 describe("Static functions", () => {
     it(".empty works", () => {
         expectIter(index_1.IterPlus.empty()).toEqual([]);
@@ -579,56 +591,86 @@ describe("Methods", () => {
     describe(".product", () => {
         it("works normally", () => {
             expect(index_1.iterplus([1, 2, 3, 4, 5]).product()).toBe(120);
-            expect(index_1.iterplus([1, 2, 3, 4, 5].map(v => BigInt(v))).product()).toBe(BigInt(120));
+            expect(index_1.iterplus([1, 2, 3, 4, 5].map((v) => BigInt(v))).product()).toBe(BigInt(120));
             expect(index_1.iterplus([]).product()).toBe(1);
         });
     });
     describe(".sum", () => {
         it("works normally", () => {
             expect(index_1.iterplus([1, 2, 3, 4, 5]).sum()).toBe(15);
-            expect(index_1.iterplus([1, 2, 3, 4, 5].map(v => BigInt(v))).sum()).toBe(BigInt(15));
+            expect(index_1.iterplus([1, 2, 3, 4, 5].map((v) => BigInt(v))).sum()).toBe(BigInt(15));
             expect(index_1.iterplus(["foo", "bar", "baz"]).sum()).toBe("foobarbaz");
             expect(index_1.iterplus([]).sum()).toBe(0);
         });
     });
     describe(".reverse", () => {
         it("works normally", () => {
-            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).reverse()).toEqual([5, 4, 3, 2, 1]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).reverse()).toEqual([
+                5,
+                4,
+                3,
+                2,
+                1,
+            ]);
             expectIter(index_1.iterplus([]).reverse()).toEqual([]);
         });
     });
     describe(".skip", () => {
         it("works normally", () => {
-            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).skip(-2)).toEqual([1, 2, 3, 4, 5]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).skip(-2)).toEqual([
+                1,
+                2,
+                3,
+                4,
+                5,
+            ]);
             expectIter(index_1.iterplus([1, 2, 3, 4, 5]).skip(2)).toEqual([3, 4, 5]);
             expectIter(index_1.iterplus([1, 2, 3, 4, 5]).skip(7)).toEqual([]);
         });
     });
     describe(".skipWhile", () => {
         it("works normally", () => {
-            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).skipWhile(x => x == 0)).toEqual([1, 2, 3, 4, 5]);
-            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).skipWhile(x => x != 3)).toEqual([3, 4, 5]);
-            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).skipWhile(x => x <= 5)).toEqual([]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).skipWhile((x) => x == 0)).toEqual([1, 2, 3, 4, 5]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).skipWhile((x) => x != 3)).toEqual([3, 4, 5]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).skipWhile((x) => x <= 5)).toEqual([]);
         });
     });
     describe(".take", () => {
         it("works normally", () => {
-            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).take(7)).toEqual([1, 2, 3, 4, 5]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).take(7)).toEqual([
+                1,
+                2,
+                3,
+                4,
+                5,
+            ]);
             expectIter(index_1.iterplus([1, 2, 3, 4, 5]).take(3)).toEqual([1, 2, 3]);
             expectIter(index_1.iterplus([1, 2, 3, 4, 5]).take(-2)).toEqual([]);
         });
     });
     describe(".takeWhile", () => {
         it("works normally", () => {
-            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).takeWhile(x => x < 7)).toEqual([1, 2, 3, 4, 5]);
-            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).takeWhile(x => x < 4)).toEqual([1, 2, 3]);
-            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).takeWhile(x => x == 2)).toEqual([]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).takeWhile((x) => x < 7)).toEqual([1, 2, 3, 4, 5]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).takeWhile((x) => x < 4)).toEqual([1, 2, 3]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).takeWhile((x) => x == 2)).toEqual([]);
         });
     });
     describe(".unzip", () => {
         it("works normally", () => {
-            expectIter(index_1.iterplus([[1, "a", 5], [2, "b", 6], [3, "c", 7]]).unzip()).toEqual([[1, 2, 3], ["a", "b", "c"], [5, 6, 7]]);
-            expectIter(index_1.iterplus([[1, "a"], [2, "b", 6], [3]]).unzip()).toEqual([[1, 2, 3], ["a", "b"], [6]]);
+            expectIter(index_1.iterplus([
+                [1, "a", 5],
+                [2, "b", 6],
+                [3, "c", 7],
+            ]).unzip()).toEqual([
+                [1, 2, 3],
+                ["a", "b", "c"],
+                [5, 6, 7],
+            ]);
+            expectIter(index_1.iterplus([[1, "a"], [2, "b", 6], [3]]).unzip()).toEqual([
+                [1, 2, 3],
+                ["a", "b"],
+                [6],
+            ]);
         });
     });
     describe(".zipWith", () => {
@@ -642,9 +684,13 @@ describe("Methods", () => {
     describe(".zip", () => {
         it("works normally", () => {
             const other = index_1.iterplus([4, 5, 6, 7, 8]);
-            expectIter(index_1.iterplus([1, 2, 3]).zip(other)).toEqual([[1, 4], [2, 5], [3, 6]]);
+            expectIter(index_1.iterplus([1, 2, 3]).zip(other)).toEqual([
+                [1, 4],
+                [2, 5],
+                [3, 6],
+            ]);
             expectIter(other).toEqual([7, 8]);
-            expectIter(index_1.iterplus("abc").zip("def", "ghi")).toEqual(["adg", "beh", "cfi"].map(v => v.split("")));
+            expectIter(index_1.iterplus("abc").zip("def", "ghi")).toEqual(["adg", "beh", "cfi"].map((v) => v.split("")));
         });
     });
 });
