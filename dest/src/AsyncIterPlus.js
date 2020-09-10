@@ -26,6 +26,7 @@ var __asyncDelegator = (this && this.__asyncDelegator) || function (o) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AsyncPeekable = exports.AsyncIterPlus = exports.canAsyncIter = exports.isAsyncIter = void 0;
 const IterPlus_1 = require("./IterPlus");
+const CircularBuffer_1 = require("./CircularBuffer");
 /**
  * Tests if an object is an iterator.
  * @param obj The object to test for.
@@ -53,7 +54,7 @@ exports.canAsyncIter = canAsyncIter;
  *
  * Defaults to `null`.
  */
-// export const nullVal = "this is for testing purposes";
+// export const nullVal = null;
 const IterPlus_2 = require("./IterPlus");
 /**
  * A wrapper around an iterator to add additional functionality. The types intentionally ignore return value.
@@ -79,6 +80,18 @@ class AsyncIterPlus {
      */
     async next() {
         return await this.internal.next();
+    }
+    /**
+     * Returns the next value, or null if the iterator ended.
+     *
+     * @returns The next value, or null if the iterator ended.
+     */
+    async nextVal() {
+        const elem = await this.internal.next();
+        if (elem.done) {
+            return IterPlus_2.nullVal;
+        }
+        return elem.value;
     }
     /**
      * Makes the iterator work as an iterable.
@@ -937,6 +950,37 @@ class AsyncIterPlus {
         return new AsyncIterPlus(ret());
     }
     /**
+     * Maps an iterator of iterables,
+     * and calls a function with the contents of the iterable as the argument.
+     *
+     * @typeParam K The iterable type.
+     * @typeParam R The resulting type.
+     * @param func The mapping function.
+     * @returns The generated iterator.
+     */
+    starmap(func) {
+        const that = this;
+        function ret() {
+            return __asyncGenerator(this, arguments, function* ret_20() {
+                var e_14, _a;
+                try {
+                    for (var that_6 = __asyncValues(that), that_6_1; that_6_1 = yield __await(that_6.next()), !that_6_1.done;) {
+                        const elem = that_6_1.value;
+                        yield yield __await(yield __await(func(...elem)));
+                    }
+                }
+                catch (e_14_1) { e_14 = { error: e_14_1 }; }
+                finally {
+                    try {
+                        if (that_6_1 && !that_6_1.done && (_a = that_6.return)) yield __await(_a.call(that_6));
+                    }
+                    finally { if (e_14) throw e_14.error; }
+                }
+            });
+        }
+        return new AsyncIterPlus(ret());
+    }
+    /**
      * Maps then flattens an iterator.
      *
      * @typeParam K The resulting type.
@@ -947,7 +991,7 @@ class AsyncIterPlus {
         return this.map(func).flatten();
     }
     async reduce(func, initializer) {
-        var e_14, _a;
+        var e_15, _a;
         let accum;
         if (initializer === undefined) {
             const next = await this.next();
@@ -965,12 +1009,12 @@ class AsyncIterPlus {
                 accum = await func(accum, elem);
             }
         }
-        catch (e_14_1) { e_14 = { error: e_14_1 }; }
+        catch (e_15_1) { e_15 = { error: e_15_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
             }
-            finally { if (e_14) throw e_14.error; }
+            finally { if (e_15) throw e_15.error; }
         }
         return accum;
     }
@@ -983,19 +1027,19 @@ class AsyncIterPlus {
      * @param func The function to run.
      */
     async forEach(func) {
-        var e_15, _a;
+        var e_16, _a;
         try {
             for (var _b = __asyncValues(this), _c; _c = await _b.next(), !_c.done;) {
                 const elem = _c.value;
                 await func(elem);
             }
         }
-        catch (e_15_1) { e_15 = { error: e_15_1 }; }
+        catch (e_16_1) { e_16 = { error: e_16_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
             }
-            finally { if (e_15) throw e_15.error; }
+            finally { if (e_16) throw e_16.error; }
         }
     }
     /**
@@ -1006,20 +1050,20 @@ class AsyncIterPlus {
     fuse() {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_20() {
-                var e_16, _a;
+            return __asyncGenerator(this, arguments, function* ret_21() {
+                var e_17, _a;
                 try {
-                    for (var that_6 = __asyncValues(that), that_6_1; that_6_1 = yield __await(that_6.next()), !that_6_1.done;) {
-                        const elem = that_6_1.value;
+                    for (var that_7 = __asyncValues(that), that_7_1; that_7_1 = yield __await(that_7.next()), !that_7_1.done;) {
+                        const elem = that_7_1.value;
                         yield yield __await(elem);
                     }
                 }
-                catch (e_16_1) { e_16 = { error: e_16_1 }; }
+                catch (e_17_1) { e_17 = { error: e_17_1 }; }
                 finally {
                     try {
-                        if (that_6_1 && !that_6_1.done && (_a = that_6.return)) yield __await(_a.call(that_6));
+                        if (that_7_1 && !that_7_1.done && (_a = that_7.return)) yield __await(_a.call(that_7));
                     }
-                    finally { if (e_16) throw e_16.error; }
+                    finally { if (e_17) throw e_17.error; }
                 }
             });
         }
@@ -1036,21 +1080,21 @@ class AsyncIterPlus {
     inspect(func) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_21() {
-                var e_17, _a;
+            return __asyncGenerator(this, arguments, function* ret_22() {
+                var e_18, _a;
                 try {
-                    for (var that_7 = __asyncValues(that), that_7_1; that_7_1 = yield __await(that_7.next()), !that_7_1.done;) {
-                        const elem = that_7_1.value;
+                    for (var that_8 = __asyncValues(that), that_8_1; that_8_1 = yield __await(that_8.next()), !that_8_1.done;) {
+                        const elem = that_8_1.value;
                         yield __await(func(elem));
                         yield yield __await(elem);
                     }
                 }
-                catch (e_17_1) { e_17 = { error: e_17_1 }; }
+                catch (e_18_1) { e_18 = { error: e_18_1 }; }
                 finally {
                     try {
-                        if (that_7_1 && !that_7_1.done && (_a = that_7.return)) yield __await(_a.call(that_7));
+                        if (that_8_1 && !that_8_1.done && (_a = that_8.return)) yield __await(_a.call(that_8));
                     }
-                    finally { if (e_17) throw e_17.error; }
+                    finally { if (e_18) throw e_18.error; }
                 }
             });
         }
@@ -1067,7 +1111,7 @@ class AsyncIterPlus {
      * @returns If the iterator is partitioned.
      */
     async isPartitioned(pred) {
-        var e_18, _a;
+        var e_19, _a;
         let seenFalse = false;
         try {
             for (var _b = __asyncValues(this), _c; _c = await _b.next(), !_c.done;) {
@@ -1082,12 +1126,12 @@ class AsyncIterPlus {
                 }
             }
         }
-        catch (e_18_1) { e_18 = { error: e_18_1 }; }
+        catch (e_19_1) { e_19 = { error: e_19_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
             }
-            finally { if (e_18) throw e_18.error; }
+            finally { if (e_19) throw e_19.error; }
         }
         return true;
     }
@@ -1102,7 +1146,7 @@ class AsyncIterPlus {
      * @returns If the iterator is sorted.
      */
     async isSortedBy(cmp) {
-        var e_19, _a;
+        var e_20, _a;
         const first = await this.next();
         if (first.done) {
             return true;
@@ -1117,12 +1161,12 @@ class AsyncIterPlus {
                 prev = elem;
             }
         }
-        catch (e_19_1) { e_19 = { error: e_19_1 }; }
+        catch (e_20_1) { e_20 = { error: e_20_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
             }
-            finally { if (e_19) throw e_19.error; }
+            finally { if (e_20) throw e_20.error; }
         }
         return true;
     }
@@ -1137,7 +1181,7 @@ class AsyncIterPlus {
      * @returns If the iterator is sorted.
      */
     async isSortedWith(key) {
-        var e_20, _a;
+        var e_21, _a;
         const first = await this.next();
         if (first.done) {
             return true;
@@ -1153,12 +1197,12 @@ class AsyncIterPlus {
                 prev = elKey;
             }
         }
-        catch (e_20_1) { e_20 = { error: e_20_1 }; }
+        catch (e_21_1) { e_21 = { error: e_21_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
             }
-            finally { if (e_20) throw e_20.error; }
+            finally { if (e_21) throw e_21.error; }
         }
         return true;
     }
@@ -1179,7 +1223,7 @@ class AsyncIterPlus {
      * @returns The last element of the iterator, or null if the iterator is empty.
      */
     async last() {
-        var e_21, _a;
+        var e_22, _a;
         let last = IterPlus_2.nullVal;
         try {
             for (var _b = __asyncValues(this), _c; _c = await _b.next(), !_c.done;) {
@@ -1187,12 +1231,12 @@ class AsyncIterPlus {
                 last = elem;
             }
         }
-        catch (e_21_1) { e_21 = { error: e_21_1 }; }
+        catch (e_22_1) { e_22 = { error: e_22_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
             }
-            finally { if (e_21) throw e_21.error; }
+            finally { if (e_22) throw e_22.error; }
         }
         return last;
     }
@@ -1206,11 +1250,11 @@ class AsyncIterPlus {
     mapWhile(func) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_22() {
-                var e_22, _a;
+            return __asyncGenerator(this, arguments, function* ret_23() {
+                var e_23, _a;
                 try {
-                    for (var that_8 = __asyncValues(that), that_8_1; that_8_1 = yield __await(that_8.next()), !that_8_1.done;) {
-                        const elem = that_8_1.value;
+                    for (var that_9 = __asyncValues(that), that_9_1; that_9_1 = yield __await(that_9.next()), !that_9_1.done;) {
+                        const elem = that_9_1.value;
                         const val = yield __await(func(elem));
                         if (val === null) {
                             break;
@@ -1218,12 +1262,12 @@ class AsyncIterPlus {
                         yield yield __await(val);
                     }
                 }
-                catch (e_22_1) { e_22 = { error: e_22_1 }; }
+                catch (e_23_1) { e_23 = { error: e_23_1 }; }
                 finally {
                     try {
-                        if (that_8_1 && !that_8_1.done && (_a = that_8.return)) yield __await(_a.call(that_8));
+                        if (that_9_1 && !that_9_1.done && (_a = that_9.return)) yield __await(_a.call(that_9));
                     }
-                    finally { if (e_22) throw e_22.error; }
+                    finally { if (e_23) throw e_23.error; }
                 }
             });
         }
@@ -1239,7 +1283,7 @@ class AsyncIterPlus {
      * @returns The maximum element, or null if the iterator is empty.
      */
     async maxBy(cmp, overwrite = false) {
-        var e_23, _a;
+        var e_24, _a;
         const next = await this.next();
         if (next.done) {
             return null;
@@ -1254,12 +1298,12 @@ class AsyncIterPlus {
                 }
             }
         }
-        catch (e_23_1) { e_23 = { error: e_23_1 }; }
+        catch (e_24_1) { e_24 = { error: e_24_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
             }
-            finally { if (e_23) throw e_23.error; }
+            finally { if (e_24) throw e_24.error; }
         }
         return curMax;
     }
@@ -1273,7 +1317,7 @@ class AsyncIterPlus {
      * @returns The maximum element, or null if the iterator is empty.
      */
     async maxWith(key, overwrite = false) {
-        var e_24, _a;
+        var e_25, _a;
         const next = await this.next();
         if (next.done) {
             return null;
@@ -1290,12 +1334,12 @@ class AsyncIterPlus {
                 }
             }
         }
-        catch (e_24_1) { e_24 = { error: e_24_1 }; }
+        catch (e_25_1) { e_25 = { error: e_25_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
             }
-            finally { if (e_24) throw e_24.error; }
+            finally { if (e_25) throw e_25.error; }
         }
         return curMax;
     }
@@ -1319,7 +1363,7 @@ class AsyncIterPlus {
      * @returns The minimum element, or null if the iterator is empty.
      */
     async minBy(cmp, overwrite = false) {
-        var e_25, _a;
+        var e_26, _a;
         const next = await this.next();
         if (next.done) {
             return null;
@@ -1334,12 +1378,12 @@ class AsyncIterPlus {
                 }
             }
         }
-        catch (e_25_1) { e_25 = { error: e_25_1 }; }
+        catch (e_26_1) { e_26 = { error: e_26_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
             }
-            finally { if (e_25) throw e_25.error; }
+            finally { if (e_26) throw e_26.error; }
         }
         return curMax;
     }
@@ -1353,7 +1397,7 @@ class AsyncIterPlus {
      * @returns The minimum element, or null if the iterator is empty.
      */
     async minWith(key, overwrite = false) {
-        var e_26, _a;
+        var e_27, _a;
         const next = await this.next();
         if (next.done) {
             return null;
@@ -1370,12 +1414,12 @@ class AsyncIterPlus {
                 }
             }
         }
-        catch (e_26_1) { e_26 = { error: e_26_1 }; }
+        catch (e_27_1) { e_27 = { error: e_27_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
             }
-            finally { if (e_26) throw e_26.error; }
+            finally { if (e_27) throw e_27.error; }
         }
         return curMax;
     }
@@ -1396,7 +1440,7 @@ class AsyncIterPlus {
      * @returns The nth element of the iterator, or null if the iterator is too short.
      */
     async nth(n) {
-        var e_27, _a;
+        var e_28, _a;
         if (n < 0) {
             return IterPlus_2.nullVal;
         }
@@ -1409,12 +1453,12 @@ class AsyncIterPlus {
                 n--;
             }
         }
-        catch (e_27_1) { e_27 = { error: e_27_1 }; }
+        catch (e_28_1) { e_28 = { error: e_28_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
             }
-            finally { if (e_27) throw e_27.error; }
+            finally { if (e_28) throw e_28.error; }
         }
         return IterPlus_2.nullVal;
     }
@@ -1427,7 +1471,7 @@ class AsyncIterPlus {
      *  - The elements where the predicate returned false.
      */
     async partition(pred) {
-        var e_28, _a;
+        var e_29, _a;
         const truePart = [];
         const falsePart = [];
         try {
@@ -1441,12 +1485,12 @@ class AsyncIterPlus {
                 }
             }
         }
-        catch (e_28_1) { e_28 = { error: e_28_1 }; }
+        catch (e_29_1) { e_29 = { error: e_29_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
             }
-            finally { if (e_28) throw e_28.error; }
+            finally { if (e_29) throw e_29.error; }
         }
         return [truePart, falsePart];
     }
@@ -1471,7 +1515,7 @@ class AsyncIterPlus {
      * @returns The index, or -1 if none was found.
      */
     async findIndex(pred) {
-        var e_29, _a;
+        var e_30, _a;
         let count = 0;
         try {
             for (var _b = __asyncValues(this), _c; _c = await _b.next(), !_c.done;) {
@@ -1482,12 +1526,12 @@ class AsyncIterPlus {
                 count++;
             }
         }
-        catch (e_29_1) { e_29 = { error: e_29_1 }; }
+        catch (e_30_1) { e_30 = { error: e_30_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
             }
-            finally { if (e_29) throw e_29.error; }
+            finally { if (e_30) throw e_30.error; }
         }
         return -1;
     }
@@ -1497,7 +1541,7 @@ class AsyncIterPlus {
      * @returns The product, or 1 if the iterator is empty.
      */
     async product() {
-        var e_30, _a;
+        var e_31, _a;
         let accum = 1;
         let typechecked = false;
         try {
@@ -1512,12 +1556,12 @@ class AsyncIterPlus {
                 accum = accum * elem;
             }
         }
-        catch (e_30_1) { e_30 = { error: e_30_1 }; }
+        catch (e_31_1) { e_31 = { error: e_31_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
             }
-            finally { if (e_30) throw e_30.error; }
+            finally { if (e_31) throw e_31.error; }
         }
         return accum;
     }
@@ -1527,7 +1571,7 @@ class AsyncIterPlus {
      * @returns The sum, or 0 if the iterator is empty.
      */
     async sum() {
-        var e_31, _a;
+        var e_32, _a;
         let accum;
         let typechecked = false;
         try {
@@ -1548,12 +1592,12 @@ class AsyncIterPlus {
                 accum += elem;
             }
         }
-        catch (e_31_1) { e_31 = { error: e_31_1 }; }
+        catch (e_32_1) { e_32 = { error: e_32_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
             }
-            finally { if (e_31) throw e_31.error; }
+            finally { if (e_32) throw e_32.error; }
         }
         if (accum === undefined) {
             accum = 0;
@@ -1582,7 +1626,7 @@ class AsyncIterPlus {
     skip(n) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_23() {
+            return __asyncGenerator(this, arguments, function* ret_24() {
                 for (let i = 0; i < n; i++) {
                     const val = yield __await(that.next());
                     if (val.done) {
@@ -1603,7 +1647,7 @@ class AsyncIterPlus {
     skipWhile(pred) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_24() {
+            return __asyncGenerator(this, arguments, function* ret_25() {
                 while (true) {
                     const val = yield __await(that.next());
                     if (val.done) {
@@ -1628,7 +1672,7 @@ class AsyncIterPlus {
     take(n) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_25() {
+            return __asyncGenerator(this, arguments, function* ret_26() {
                 for (let i = 0; i < n; i++) {
                     const val = yield __await(that.next());
                     if (val.done) {
@@ -1649,7 +1693,7 @@ class AsyncIterPlus {
     takeWhile(pred) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_26() {
+            return __asyncGenerator(this, arguments, function* ret_27() {
                 while (true) {
                     const val = yield __await(that.next());
                     if (val.done) {
@@ -1671,7 +1715,7 @@ class AsyncIterPlus {
      * @returns A tuple with the individual elements.
      */
     async unzip() {
-        var e_32, _a;
+        var e_33, _a;
         const ret = [];
         try {
             for (var _b = __asyncValues(this), _c; _c = await _b.next(), !_c.done;) {
@@ -1684,12 +1728,12 @@ class AsyncIterPlus {
                 }
             }
         }
-        catch (e_32_1) { e_32 = { error: e_32_1 }; }
+        catch (e_33_1) { e_33 = { error: e_33_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
             }
-            finally { if (e_32) throw e_32.error; }
+            finally { if (e_33) throw e_33.error; }
         }
         return ret;
     }
@@ -1707,7 +1751,7 @@ class AsyncIterPlus {
     zipWith(func, ...iters) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_27() {
+            return __asyncGenerator(this, arguments, function* ret_28() {
                 const zippers = [
                     that,
                     ...iters.map((v) => v[Symbol.asyncIterator]()),
@@ -1736,6 +1780,63 @@ class AsyncIterPlus {
      */
     zip(...iters) {
         return this.zipWith(Array.of, ...iters);
+    }
+    /**
+     * Splits an iterator into multiple, where advancing one iterator does not advance the others.
+     *
+     * Functions by storing old values and removing when no longer needed,
+     * so only tee as many iterators as you need in order for memory to be cleaned properly.
+     *
+     * The original iterator will still be advanced,
+     * so only used the iterators returned by `tee`.
+     *
+     * @param count The number of iterators to split into.
+     * @returns An array of length `count` with separate iterators.
+     */
+    tee(count = 2) {
+        if (count <= 0) {
+            return [];
+        }
+        const stored = new CircularBuffer_1.CircularBuffer();
+        let init = 0;
+        let finished = false;
+        const that = this;
+        const tot = [];
+        const indices = [];
+        function ret(index) {
+            return __asyncGenerator(this, arguments, function* ret_29() {
+                let n = 0;
+                while (true) {
+                    if (n >= init + stored.size()) {
+                        if (finished) {
+                            return yield __await(void 0);
+                        }
+                        const elem = yield __await(that.next());
+                        if (elem.done) {
+                            finished = true;
+                            return yield __await(void 0);
+                        }
+                        stored.pushEnd(elem.value);
+                        yield yield __await(elem.value);
+                    }
+                    else {
+                        yield yield __await(stored.get(n - init));
+                        const minind = Math.min(...indices);
+                        while (minind > init) {
+                            init++;
+                            stored.popStart();
+                        }
+                    }
+                    n++;
+                    indices[index] = n;
+                }
+            });
+        }
+        for (let i = 0; i < count; i++) {
+            indices.push(0);
+            tot.push(new AsyncIterPlus(ret(i)));
+        }
+        return tot;
     }
 }
 exports.AsyncIterPlus = AsyncIterPlus;

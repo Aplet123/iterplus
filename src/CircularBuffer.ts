@@ -63,7 +63,7 @@ export class CircularBuffer<T> {
     }
 
     private possiblyShrink() {
-        if (this.size() <= this.data.length / 3) {
+        if (this.size() * 4 <= this.data.length) {
             const newData = new Array(Math.floor(this.data.length / 2));
             let i = 0;
             for (const elem of this) {
@@ -96,7 +96,7 @@ export class CircularBuffer<T> {
         }
         this.end = (this.end - 1 + this.data.length) % this.data.length;
         const ret = this.data[this.end];
-        // this.possiblyShrink();
+        this.possiblyShrink();
         this.len--;
         return ret;
     }
@@ -107,7 +107,7 @@ export class CircularBuffer<T> {
         }
         const ret = this.data[this.start];
         this.start = (this.start + 1) % this.data.length;
-        // this.possiblyShrink();
+        this.possiblyShrink();
         this.len--;
         return ret;
     }

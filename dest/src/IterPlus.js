@@ -1,7 +1,8 @@
 "use strict";
-/* o:import {IterPlus as SyncIterPlus} from "./IterPlus"; */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Peekable = exports.IterPlus = exports.nullVal = exports.canIter = exports.isIter = void 0;
+/* o:import {IterPlus as SyncIterPlus} from "./IterPlus"; */
+const CircularBuffer_1 = require("./CircularBuffer");
 /**
  * Tests if an object is an iterator.
  * @param obj The object to test for.
@@ -31,7 +32,7 @@ exports.canIter = canIter;
  *
  * Defaults to `null`.
  */
-/* o:// */ exports.nullVal = "this is for testing purposes";
+/* o:// */ exports.nullVal = null;
 /* o:import {Null} from "./IterPlus"; */
 /**
  * A wrapper around an iterator to add additional functionality. The types intentionally ignore return value.
@@ -57,6 +58,18 @@ class IterPlus {
      */
     /* o:async */ next() {
         return /* o:await */ this.internal.next();
+    }
+    /**
+     * Returns the next value, or null if the iterator ended.
+     *
+     * @returns The next value, or null if the iterator ended.
+     */
+    /* o:async */ nextVal() {
+        const elem = /* o:await */ this.internal.next();
+        if (elem.done) {
+            return exports.nullVal;
+        }
+        return elem.value;
     }
     /**
      * Makes the iterator work as an iterable.
@@ -740,6 +753,24 @@ class IterPlus {
         return new /* o:Async- */ IterPlus(ret());
     }
     /**
+     * Maps an iterator of iterables,
+     * and calls a function with the contents of the iterable as the argument.
+     *
+     * @typeParam K The iterable type.
+     * @typeParam R The resulting type.
+     * @param func The mapping function.
+     * @returns The generated iterator.
+     */
+    starmap(func /* o:-> */) {
+        const that = this;
+        /* o:async */ function* ret() {
+            /* r:for await */ for (const elem of that) {
+                yield /* o:await */ func(...elem);
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+    /**
      * Maps then flattens an iterator.
      *
      * @typeParam K The resulting type.
@@ -1314,6 +1345,61 @@ class IterPlus {
      */
     zip(...iters) {
         return this.zipWith(Array.of, ...iters);
+    }
+    /**
+     * Splits an iterator into multiple, where advancing one iterator does not advance the others.
+     *
+     * Functions by storing old values and removing when no longer needed,
+     * so only tee as many iterators as you need in order for memory to be cleaned properly.
+     *
+     * The original iterator will still be advanced,
+     * so only used the iterators returned by `tee`.
+     *
+     * @param count The number of iterators to split into.
+     * @returns An array of length `count` with separate iterators.
+     */
+    tee(count = 2) {
+        if (count <= 0) {
+            return [];
+        }
+        const stored = new CircularBuffer_1.CircularBuffer();
+        let init = 0;
+        let finished = false;
+        const that = this;
+        const tot = /* o:Async- */ [];
+        const indices = [];
+        /* o:async */ function* ret(index) {
+            let n = 0;
+            while (true) {
+                if (n >= init + stored.size()) {
+                    if (finished) {
+                        return;
+                    }
+                    const elem = /* o:await */ that.next();
+                    if (elem.done) {
+                        finished = true;
+                        return;
+                    }
+                    stored.pushEnd(elem.value);
+                    yield elem.value;
+                }
+                else {
+                    yield stored.get(n - init);
+                    const minind = Math.min(...indices);
+                    while (minind > init) {
+                        init++;
+                        stored.popStart();
+                    }
+                }
+                n++;
+                indices[index] = n;
+            }
+        }
+        for (let i = 0; i < count; i++) {
+            indices.push(0);
+            tot.push(new /* o:Async- */ IterPlus(ret(i)));
+        }
+        return tot;
     }
 }
 exports.IterPlus = IterPlus;

@@ -179,6 +179,15 @@ describe("Static functions", () => {
     });
 });
 describe("Methods", () => {
+    describe(".nextVal", () => {
+        it("works normally", () => {
+            const iter = index_1.iterplus([1, 2, 3]);
+            expect(iter.nextVal()).toBe(1);
+            expect(iter.nextVal()).toBe(2);
+            expect(iter.nextVal()).toBe(3);
+            expect(iter.nextVal()).toBe(null);
+        });
+    });
     describe(".every", () => {
         it("works normally", () => {
             expect(index_1.iterplus([1, 2, 3, 4, 5]).every((x) => x < 10)).toBe(true);
@@ -369,6 +378,22 @@ describe("Methods", () => {
             expect(iter.next().value).toBe(2);
             expect(mock).toBeCalledTimes(1);
             expectIter(iter).toEqual([3, 4]);
+            expect(mock).toBeCalledTimes(3);
+        });
+    });
+    describe(".starmap", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([[3, 2], [4, 3], [1, 1]]).starmap(Math.pow)).toEqual([
+                9, 64, 1
+            ]);
+        });
+        it("is lazy", () => {
+            const mock = jest.fn(Math.pow);
+            const iter = index_1.iterplus([[3, 2], [4, 3], [1, 1]]).starmap(mock);
+            expect(mock).toBeCalledTimes(0);
+            expect(iter.next().value).toBe(9);
+            expect(mock).toBeCalledTimes(1);
+            expectIter(iter).toEqual([64, 1]);
             expect(mock).toBeCalledTimes(3);
         });
     });
@@ -691,6 +716,17 @@ describe("Methods", () => {
             ]);
             expectIter(other).toEqual([7, 8]);
             expectIter(index_1.iterplus("abc").zip("def", "ghi")).toEqual(["adg", "beh", "cfi"].map((v) => v.split("")));
+        });
+    });
+    describe(".tee", () => {
+        it("works normally", () => {
+            const iter = index_1.iterplus([1, 2, 3]);
+            const [a, b, c] = iter.tee(3);
+            expect(a.next().value).toBe(1);
+            expect(b.next().value).toBe(1);
+            expectIter(a).toEqual([2, 3]);
+            expectIter(b).toEqual([2, 3]);
+            expectIter(c).toEqual([1, 2, 3]);
         });
     });
 });

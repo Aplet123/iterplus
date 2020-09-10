@@ -1,6 +1,6 @@
 {
   "name": "iterplus",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "The best of Rust/Haskell/Python iterators in Javascript.",
   "main": "dest/src/index.js",
   "types": "dest/src/index.d.ts",
@@ -11,7 +11,9 @@
     "doc": "typedoc --options typedoc.json && cp docconfig.yml docs/config.yml && touch docs/.nojekyll",
     "format": "prettier --write src",
     "check": "eslint src",
-    "magic": "npm run gen && npm run format && npm run check && npm run build && npm run doc && npm test"
+    "magic": "npm run gen && npm run format && npm run build && npm test",
+    "bundle": "webpack",
+    "full": "npm run gen && npm run format && npm run check && npm run build && npm run doc && npm run bundle && npm test"
   },
   "repository": {
     "type": "git",
@@ -37,6 +39,7 @@
     "ts-jest": "^26.3.0",
     "typedoc": "^0.19.1",
     "typescript": "^4.0.2",
-    "webpack": "^4.44.1"
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   }
 }

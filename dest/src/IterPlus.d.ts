@@ -35,7 +35,7 @@ declare type IterableMap<T extends unknown[]> = {
  *
  * Defaults to `null`.
  */
-export declare const nullVal = "this is for testing purposes";
+export declare const nullVal: null;
 /**
  * The type of null to use.
  */
@@ -65,6 +65,12 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * @returns The next element.
      */
     next(): IteratorResult<T>;
+    /**
+     * Returns the next value, or null if the iterator ended.
+     *
+     * @returns The next value, or null if the iterator ended.
+     */
+    nextVal(): /* o:Promise<- */ T | Null;
     /**
      * Makes the iterator work as an iterable.
      *
@@ -345,6 +351,16 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      */
     map<K>(func: (elem: T) => K): IterPlus<K>;
     /**
+     * Maps an iterator of iterables,
+     * and calls a function with the contents of the iterable as the argument.
+     *
+     * @typeParam K The iterable type.
+     * @typeParam R The resulting type.
+     * @param func The mapping function.
+     * @returns The generated iterator.
+     */
+    starmap<K, R>(this: IterPlus<Iterable<K>>, func: (...args: K[]) => R): IterPlus<R>;
+    /**
      * Maps then flattens an iterator.
      *
      * @typeParam K The resulting type.
@@ -621,6 +637,19 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * @returns The generated iterator.
      */
     zip<K extends unknown[]>(...iters: IterableMap<K>): IterPlus<[T, ...K]>;
+    /**
+     * Splits an iterator into multiple, where advancing one iterator does not advance the others.
+     *
+     * Functions by storing old values and removing when no longer needed,
+     * so only tee as many iterators as you need in order for memory to be cleaned properly.
+     *
+     * The original iterator will still be advanced,
+     * so only used the iterators returned by `tee`.
+     *
+     * @param count The number of iterators to split into.
+     * @returns An array of length `count` with separate iterators.
+     */
+    tee(count?: number): IterPlus<T>[];
 }
 /**
  * An iterator with a `peek`. method that can look one element in advance.

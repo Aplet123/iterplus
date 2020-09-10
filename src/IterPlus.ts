@@ -1,4 +1,5 @@
 /* o:import {IterPlus as SyncIterPlus} from "./IterPlus"; */
+import {CircularBuffer} from "./CircularBuffer";
 
 /**
  * Tests if an object is an iterator.
@@ -99,6 +100,19 @@ export class /* o:Async- */ IterPlus<T>
      */
     /* o:async */ next(): /* o:Promise<- */ IteratorResult<T> /* o:-> */ {
         return /* o:await */ this.internal.next();
+    }
+
+    /**
+     * Returns the next value, or null if the iterator ended.
+     *
+     * @returns The next value, or null if the iterator ended.
+     */
+    /* o:async */ nextVal(): /* o:Promise<- */ T | Null /* o:-> */ {
+        const elem = /* o:await */ this.internal.next();
+        if (elem.done) {
+            return nullVal;
+        }
+        return elem.value;
     }
 
     /**
@@ -879,6 +893,28 @@ export class /* o:Async- */ IterPlus<T>
     }
 
     /**
+     * Maps an iterator of iterables,
+     * and calls a function with the contents of the iterable as the argument.
+     *
+     * @typeParam K The iterable type.
+     * @typeParam R The resulting type.
+     * @param func The mapping function.
+     * @returns The generated iterator.
+     */
+    starmap<K, R>(
+        this: /* o:Async- */ IterPlus<Iterable<K>>,
+        func: (...args: K[]) => /* o:Promise<- */ R /* o:-> */
+    ): /* o:Async- */ IterPlus<R> {
+        const that = this;
+        /* o:async */ function* ret() {
+            /* r:for await */ for (const elem of that) {
+                yield /* o:await */ func(...elem);
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
      * Maps then flattens an iterator.
      *
      * @typeParam K The resulting type.
@@ -1563,6 +1599,61 @@ export class /* o:Async- */ IterPlus<T>
         return this.zipWith(Array.of, ...iters) as /* o:Async- */ IterPlus<
             [T, ...K]
         >;
+    }
+
+    /**
+     * Splits an iterator into multiple, where advancing one iterator does not advance the others.
+     *
+     * Functions by storing old values and removing when no longer needed,
+     * so only tee as many iterators as you need in order for memory to be cleaned properly.
+     *
+     * The original iterator will still be advanced,
+     * so only used the iterators returned by `tee`.
+     *
+     * @param count The number of iterators to split into.
+     * @returns An array of length `count` with separate iterators.
+     */
+    tee(count: number = 2): /* o:Async- */ IterPlus<T>[] {
+        if (count <= 0) {
+            return [];
+        }
+        const stored: CircularBuffer<T> = new CircularBuffer();
+        let init = 0;
+        let finished = false;
+        const that = this;
+        const tot: /* o:Async- */ IterPlus<T>[] = [];
+        const indices: number[] = [];
+        /* o:async */ function* ret(index: number) {
+            let n = 0;
+            while (true) {
+                if (n >= init + stored.size()) {
+                    if (finished) {
+                        return;
+                    }
+                    const elem = /* o:await */ that.next();
+                    if (elem.done) {
+                        finished = true;
+                        return;
+                    }
+                    stored.pushEnd(elem.value);
+                    yield elem.value;
+                } else {
+                    yield stored.get(n - init);
+                    const minind = Math.min(...indices);
+                    while (minind > init) {
+                        init++;
+                        stored.popStart();
+                    }
+                }
+                n++;
+                indices[index] = n;
+            }
+        }
+        for (let i = 0; i < count; i++) {
+            indices.push(0);
+            tot.push(new /* o:Async- */ IterPlus(ret(i)));
+        }
+        return tot;
     }
 }
 

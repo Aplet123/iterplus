@@ -3,7 +3,7 @@ const path = require("path");
 
 function genNewSrc(src) {
     const newSrc = src.replace(
-        /(\s*)\/\*\s*([or]):(.+?)\s*\*\/(\s*)(\w*)(\s*)/g,
+        /(\s*)\/\*\s*([or]):([^]+?)\s*\*\/(\s*)(\w*)(\s*)/g,
         function (_, bws, type, replacement, ews, ident, iws) {
             let ret = "";
             if (replacement.startsWith("-")) {
