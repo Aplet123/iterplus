@@ -3,8 +3,8 @@ const path = require("path");
 
 function genNewSrc(src) {
     const newSrc = src.replace(
-        /(\s*)\/\*\s*([or]):(.+?)\s*\*\/(\s*)(\w*)/g,
-        function (_, bws, type, replacement, ews, ident) {
+        /(\s*)\/\*\s*([or]):(.+?)\s*\*\/(\s*)(\w*)(\s*)/g,
+        function (_, bws, type, replacement, ews, ident, iws) {
             let ret = "";
             if (replacement.startsWith("-")) {
                 replacement = replacement.substring(1);
@@ -12,11 +12,15 @@ function genNewSrc(src) {
                 ret += bws;
             }
             if (type == "r") {
-                ret += replacement;
+                if (replacement.endsWith("-")) {
+                    replacement = replacement.substring(0, replacement.length - 1);
+                    iws = "";
+                }
+                ret += replacement + iws;
             } else if (replacement.endsWith("-")) {
-                ret += replacement.substring(0, replacement.length - 1) + ident;
+                ret += replacement.substring(0, replacement.length - 1) + ident + iws;
             } else {
-                ret += replacement + ews + ident;
+                ret += replacement + ews + ident + iws;
             }
             return ret;
         }

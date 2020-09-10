@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IterPlus | iterplus - v1.0.0</title>
+	<title>Peekable | iterplus - v1.0.0</title>
 	<meta name="description" content="Documentation for iterplus - v1.0.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,10 +57,10 @@
 					<a href="../modules/_iterplus_.html">&quot;IterPlus&quot;</a>
 				</li>
 				<li>
-					<a href="_iterplus_.iterplus.html">IterPlus</a>
+					<a href="_iterplus_.peekable.html">Peekable</a>
 				</li>
 			</ul>
-			<h1>Class IterPlus&lt;T&gt;</h1>
+			<h1>Class Peekable&lt;T&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -70,10 +70,9 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>A wrapper around an iterator to add additional functionality. The types intentionally ignore return value.</p>
+						<p>An iterator with a <code>peek</code>. method that can look one element in advance.</p>
 					</div>
-					<p>Many of the methods consume elements of the iterator,
-					so use <code>tee</code> the iterator into two first if you want to preserve elements.</p>
+					<p>Do not instantiate this directly, instead use the <code>peekable</code> method in <code>IterPlus</code> or <code>AsyncIterPlus</code>.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-type-parameters">
@@ -93,10 +92,10 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">IterPlus</span>
+						<a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
-								<a href="_iterplus_.peekable.html" class="tsd-signature-type">Peekable</a>
+								<span class="target">Peekable</span>
 							</li>
 						</ul>
 					</li>
@@ -116,82 +115,84 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="_iterplus_.peekable.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="_iterplus_.iterplus.html#internal" class="tsd-kind-icon">internal</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_iterplus_.peekable.html#internal" class="tsd-kind-icon">internal</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_iterplus_.peekable.html#storedval" class="tsd-kind-icon">stored<wbr>Val</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#_symbol_iterator_" class="tsd-kind-icon">[<wbr>Symbol.iterator]</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#collect" class="tsd-kind-icon">collect</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#compare" class="tsd-kind-icon">compare</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_iterplus_.iterplus.html#compareby" class="tsd-kind-icon">compare<wbr>By</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_iterplus_.iterplus.html#comparewith" class="tsd-kind-icon">compare<wbr>With</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#concat" class="tsd-kind-icon">concat</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#count" class="tsd-kind-icon">count</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#enumerate" class="tsd-kind-icon">enumerate</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#equals" class="tsd-kind-icon">equals</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_iterplus_.iterplus.html#equalsby" class="tsd-kind-icon">equals<wbr>By</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_iterplus_.iterplus.html#equalswith" class="tsd-kind-icon">equals<wbr>With</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#every" class="tsd-kind-icon">every</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#filter" class="tsd-kind-icon">filter</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_iterplus_.iterplus.html#filtermap" class="tsd-kind-icon">filter<wbr>Map</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#find" class="tsd-kind-icon">find</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#findindex" class="tsd-kind-icon">find<wbr>Index</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_iterplus_.iterplus.html#findmap" class="tsd-kind-icon">find<wbr>Map</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_iterplus_.iterplus.html#flatmap" class="tsd-kind-icon">flat<wbr>Map</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_iterplus_.iterplus.html#flatten" class="tsd-kind-icon">flatten</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#foreach" class="tsd-kind-icon">for<wbr>Each</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#fuse" class="tsd-kind-icon">fuse</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#inspect" class="tsd-kind-icon">inspect</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#ispartitioned" class="tsd-kind-icon">is<wbr>Partitioned</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#issorted" class="tsd-kind-icon">is<wbr>Sorted</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#issortedby" class="tsd-kind-icon">is<wbr>Sorted<wbr>By</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_iterplus_.iterplus.html#issortedwith" class="tsd-kind-icon">is<wbr>Sorted<wbr>With</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#last" class="tsd-kind-icon">last</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_iterplus_.iterplus.html#map" class="tsd-kind-icon">map</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_iterplus_.iterplus.html#mapwhile" class="tsd-kind-icon">map<wbr>While</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#max" class="tsd-kind-icon">max</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#maxby" class="tsd-kind-icon">max<wbr>By</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_iterplus_.iterplus.html#maxwith" class="tsd-kind-icon">max<wbr>With</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#min" class="tsd-kind-icon">min</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#minby" class="tsd-kind-icon">min<wbr>By</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_iterplus_.iterplus.html#minwith" class="tsd-kind-icon">min<wbr>With</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#next" class="tsd-kind-icon">next</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#nth" class="tsd-kind-icon">nth</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#partition" class="tsd-kind-icon">partition</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#peekable" class="tsd-kind-icon">peekable</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#product" class="tsd-kind-icon">product</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_iterplus_.iterplus.html#reduce" class="tsd-kind-icon">reduce</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#reverse" class="tsd-kind-icon">reverse</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#skip" class="tsd-kind-icon">skip</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#skipwhile" class="tsd-kind-icon">skip<wbr>While</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#some" class="tsd-kind-icon">some</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#sum" class="tsd-kind-icon">sum</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#take" class="tsd-kind-icon">take</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.iterplus.html#takewhile" class="tsd-kind-icon">take<wbr>While</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_iterplus_.iterplus.html#unzip" class="tsd-kind-icon">unzip</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_iterplus_.iterplus.html#zip" class="tsd-kind-icon">zip</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_iterplus_.iterplus.html#zipwith" class="tsd-kind-icon">zip<wbr>With</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_iterplus_.iterplus.html#combinations" class="tsd-kind-icon">combinations</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_iterplus_.iterplus.html#combinationswithrepetition" class="tsd-kind-icon">combinations<wbr>With<wbr>Repetition</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_iterplus_.iterplus.html#cycle" class="tsd-kind-icon">cycle</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_iterplus_.iterplus.html#empty" class="tsd-kind-icon">empty</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_iterplus_.iterplus.html#fromfunction" class="tsd-kind-icon">from<wbr>Function</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_iterplus_.iterplus.html#once" class="tsd-kind-icon">once</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_iterplus_.iterplus.html#oncewith" class="tsd-kind-icon">once<wbr>With</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_iterplus_.iterplus.html#permutations" class="tsd-kind-icon">permutations</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_iterplus_.iterplus.html#permutationswithrepetition" class="tsd-kind-icon">permutations<wbr>With<wbr>Repetition</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_iterplus_.iterplus.html#product-1" class="tsd-kind-icon">product</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_iterplus_.iterplus.html#repeat" class="tsd-kind-icon">repeat</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_iterplus_.iterplus.html#repeatwith" class="tsd-kind-icon">repeat<wbr>With</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_iterplus_.iterplus.html#successors" class="tsd-kind-icon">successors</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#_symbol_iterator_" class="tsd-kind-icon">[<wbr>Symbol.iterator]</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#collect" class="tsd-kind-icon">collect</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#compare" class="tsd-kind-icon">compare</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#compareby" class="tsd-kind-icon">compare<wbr>By</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#comparewith" class="tsd-kind-icon">compare<wbr>With</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#concat" class="tsd-kind-icon">concat</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#count" class="tsd-kind-icon">count</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#enumerate" class="tsd-kind-icon">enumerate</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#equals" class="tsd-kind-icon">equals</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#equalsby" class="tsd-kind-icon">equals<wbr>By</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#equalswith" class="tsd-kind-icon">equals<wbr>With</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#every" class="tsd-kind-icon">every</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#filter" class="tsd-kind-icon">filter</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#filtermap" class="tsd-kind-icon">filter<wbr>Map</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#find" class="tsd-kind-icon">find</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#findindex" class="tsd-kind-icon">find<wbr>Index</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#findmap" class="tsd-kind-icon">find<wbr>Map</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#flatmap" class="tsd-kind-icon">flat<wbr>Map</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#flatten" class="tsd-kind-icon">flatten</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#foreach" class="tsd-kind-icon">for<wbr>Each</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#fuse" class="tsd-kind-icon">fuse</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#inspect" class="tsd-kind-icon">inspect</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#ispartitioned" class="tsd-kind-icon">is<wbr>Partitioned</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#issorted" class="tsd-kind-icon">is<wbr>Sorted</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#issortedby" class="tsd-kind-icon">is<wbr>Sorted<wbr>By</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#issortedwith" class="tsd-kind-icon">is<wbr>Sorted<wbr>With</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#last" class="tsd-kind-icon">last</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#map" class="tsd-kind-icon">map</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#mapwhile" class="tsd-kind-icon">map<wbr>While</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#max" class="tsd-kind-icon">max</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#maxby" class="tsd-kind-icon">max<wbr>By</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#maxwith" class="tsd-kind-icon">max<wbr>With</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#min" class="tsd-kind-icon">min</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#minby" class="tsd-kind-icon">min<wbr>By</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#minwith" class="tsd-kind-icon">min<wbr>With</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_iterplus_.peekable.html#next" class="tsd-kind-icon">next</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#nth" class="tsd-kind-icon">nth</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#partition" class="tsd-kind-icon">partition</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_iterplus_.peekable.html#peek" class="tsd-kind-icon">peek</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#peekable" class="tsd-kind-icon">peekable</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#product" class="tsd-kind-icon">product</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#reduce" class="tsd-kind-icon">reduce</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#reverse" class="tsd-kind-icon">reverse</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#skip" class="tsd-kind-icon">skip</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#skipwhile" class="tsd-kind-icon">skip<wbr>While</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#some" class="tsd-kind-icon">some</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#sum" class="tsd-kind-icon">sum</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#take" class="tsd-kind-icon">take</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#takewhile" class="tsd-kind-icon">take<wbr>While</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#unzip" class="tsd-kind-icon">unzip</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#zip" class="tsd-kind-icon">zip</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#zipwith" class="tsd-kind-icon">zip<wbr>With</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static"><a href="_iterplus_.peekable.html#combinations" class="tsd-kind-icon">combinations</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static"><a href="_iterplus_.peekable.html#combinationswithrepetition" class="tsd-kind-icon">combinations<wbr>With<wbr>Repetition</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static"><a href="_iterplus_.peekable.html#cycle" class="tsd-kind-icon">cycle</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static"><a href="_iterplus_.peekable.html#empty" class="tsd-kind-icon">empty</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static"><a href="_iterplus_.peekable.html#fromfunction" class="tsd-kind-icon">from<wbr>Function</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static"><a href="_iterplus_.peekable.html#once" class="tsd-kind-icon">once</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static"><a href="_iterplus_.peekable.html#oncewith" class="tsd-kind-icon">once<wbr>With</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static"><a href="_iterplus_.peekable.html#permutations" class="tsd-kind-icon">permutations</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static"><a href="_iterplus_.peekable.html#permutationswithrepetition" class="tsd-kind-icon">permutations<wbr>With<wbr>Repetition</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static"><a href="_iterplus_.peekable.html#product-1" class="tsd-kind-icon">product</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static"><a href="_iterplus_.peekable.html#repeat" class="tsd-kind-icon">repeat</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static"><a href="_iterplus_.peekable.html#repeatwith" class="tsd-kind-icon">repeat<wbr>With</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static"><a href="_iterplus_.peekable.html#successors" class="tsd-kind-icon">successors</a></li>
 							</ul>
 						</section>
 					</div>
@@ -199,47 +200,39 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Iter<wbr>Plus<span class="tsd-signature-symbol">(</span>iter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Iterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a></li>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Peekable<span class="tsd-signature-symbol">(</span>iter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Iterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.peekable.html" class="tsd-signature-type">Peekable</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Overrides <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L84">IterPlus.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1581">IterPlus.ts:1581</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Instantiates an <code>IterPlus</code> from any iterator.</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>iter: <span class="tsd-signature-type">Iterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>The iterator to wrap around.</p>
-										</div>
-									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_iterplus_.peekable.html" class="tsd-signature-type">Peekable</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="internal" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> internal</h3>
 					<div class="tsd-signature tsd-kind-icon">internal<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Iterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#internal">internal</a></p>
 						<ul>
 							<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L84">IterPlus.ts:84</a></li>
 						</ul>
@@ -250,18 +243,29 @@
 						</div>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="storedval" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> stored<wbr>Val</h3>
+					<div class="tsd-signature tsd-kind-icon">stored<wbr>Val<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>has<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IteratorResult</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>has<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol">; </span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol"> }</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1579">IterPlus.ts:1579</a></li>
+						</ul>
+					</aside>
+				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="_symbol_iterator_" class="tsd-anchor"></a>
 					<h3>[<wbr>Symbol.iterator]</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">[<wbr>Symbol.iterator]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Iterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#_symbol_iterator_">[Symbol.iterator]</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L109">IterPlus.ts:109</a></li>
 								</ul>
@@ -276,15 +280,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="collect" class="tsd-anchor"></a>
 					<h3>collect</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">collect<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#collect">collect</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L640">IterPlus.ts:640</a></li>
 								</ul>
@@ -299,15 +304,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="compare" class="tsd-anchor"></a>
 					<h3>compare</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">compare<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#compare">compare</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L618">IterPlus.ts:618</a></li>
 								</ul>
@@ -333,15 +339,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="compareby" class="tsd-anchor"></a>
 					<h3>compare<wbr>By</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">compare<wbr>By&lt;O&gt;<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O</span><span class="tsd-signature-symbol">&gt;</span>, cmp<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>first<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, second<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">O</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#compareby">compareBy</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L553">IterPlus.ts:553</a></li>
 								</ul>
@@ -404,15 +411,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="comparewith" class="tsd-anchor"></a>
 					<h3>compare<wbr>With</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">compare<wbr>With&lt;K&gt;<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#comparewith">compareWith</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L589">IterPlus.ts:589</a></li>
 								</ul>
@@ -471,15 +479,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="concat" class="tsd-anchor"></a>
 					<h3>concat</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">concat<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>iters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#concat">concat</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L529">IterPlus.ts:529</a></li>
 								</ul>
@@ -504,15 +513,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="count" class="tsd-anchor"></a>
 					<h3>count</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">count<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#count">count</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L653">IterPlus.ts:653</a></li>
 								</ul>
@@ -527,15 +537,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="enumerate" class="tsd-anchor"></a>
 					<h3>enumerate</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">enumerate<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#enumerate">enumerate</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L666">IterPlus.ts:666</a></li>
 								</ul>
@@ -550,15 +561,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="equals" class="tsd-anchor"></a>
 					<h3>equals</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">equals<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#equals">equals</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L744">IterPlus.ts:744</a></li>
 								</ul>
@@ -584,15 +596,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="equalsby" class="tsd-anchor"></a>
 					<h3>equals<wbr>By</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">equals<wbr>By&lt;O&gt;<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O</span><span class="tsd-signature-symbol">&gt;</span>, cmp<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>first<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, second<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">O</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#equalsby">equalsBy</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L689">IterPlus.ts:689</a></li>
 								</ul>
@@ -654,15 +667,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="equalswith" class="tsd-anchor"></a>
 					<h3>equals<wbr>With</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">equals<wbr>With&lt;K&gt;<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#equalswith">equalsWith</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L721">IterPlus.ts:721</a></li>
 								</ul>
@@ -721,15 +735,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="every" class="tsd-anchor"></a>
 					<h3>every</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">every<span class="tsd-signature-symbol">(</span>pred<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#every">every</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L490">IterPlus.ts:490</a></li>
 								</ul>
@@ -774,15 +789,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="filter" class="tsd-anchor"></a>
 					<h3>filter</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">filter<span class="tsd-signature-symbol">(</span>pred<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#filter">filter</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L761">IterPlus.ts:761</a></li>
 								</ul>
@@ -824,15 +840,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="filtermap" class="tsd-anchor"></a>
 					<h3>filter<wbr>Map</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">filter<wbr>Map&lt;K&gt;<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol"> | </span><a href="../modules/_iterplus_.html#null" class="tsd-signature-type">Null</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#filtermap">filterMap</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L783">IterPlus.ts:783</a></li>
 								</ul>
@@ -888,15 +905,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="find" class="tsd-anchor"></a>
 					<h3>find</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">find<span class="tsd-signature-symbol">(</span>pred<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><a href="../modules/_iterplus_.html#null" class="tsd-signature-type">Null</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#find">find</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L807">IterPlus.ts:807</a></li>
 								</ul>
@@ -940,15 +958,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="findindex" class="tsd-anchor"></a>
 					<h3>find<wbr>Index</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">find<wbr>Index<span class="tsd-signature-symbol">(</span>pred<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#findindex">findIndex</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1321">IterPlus.ts:1321</a></li>
 								</ul>
@@ -994,15 +1013,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="findmap" class="tsd-anchor"></a>
 					<h3>find<wbr>Map</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">find<wbr>Map&lt;K&gt;<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol"> | </span><a href="../modules/_iterplus_.html#null" class="tsd-signature-type">Null</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol"> | </span><a href="../modules/_iterplus_.html#null" class="tsd-signature-type">Null</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#findmap">findMap</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L829">IterPlus.ts:829</a></li>
 								</ul>
@@ -1060,15 +1080,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="flatmap" class="tsd-anchor"></a>
 					<h3>flat<wbr>Map</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">flat<wbr>Map&lt;K&gt;<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#flatmap">flatMap</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L888">IterPlus.ts:888</a></li>
 								</ul>
@@ -1119,15 +1140,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="flatten" class="tsd-anchor"></a>
 					<h3>flatten</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">flatten&lt;K&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#flatten">flatten</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L848">IterPlus.ts:848</a></li>
 								</ul>
@@ -1158,15 +1180,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="foreach" class="tsd-anchor"></a>
 					<h3>for<wbr>Each</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">for<wbr>Each<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#foreach">forEach</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L951">IterPlus.ts:951</a></li>
 								</ul>
@@ -1209,15 +1232,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="fuse" class="tsd-anchor"></a>
 					<h3>fuse</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">fuse<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#fuse">fuse</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L964">IterPlus.ts:964</a></li>
 								</ul>
@@ -1232,15 +1256,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="inspect" class="tsd-anchor"></a>
 					<h3>inspect</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">inspect<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#inspect">inspect</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L982">IterPlus.ts:982</a></li>
 								</ul>
@@ -1283,15 +1308,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="ispartitioned" class="tsd-anchor"></a>
 					<h3>is<wbr>Partitioned</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">is<wbr>Partitioned<span class="tsd-signature-symbol">(</span>pred<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#ispartitioned">isPartitioned</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1005">IterPlus.ts:1005</a></li>
 								</ul>
@@ -1336,15 +1362,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="issorted" class="tsd-anchor"></a>
 					<h3>is<wbr>Sorted</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">is<wbr>Sorted<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#issorted">isSorted</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1084">IterPlus.ts:1084</a></li>
 								</ul>
@@ -1361,15 +1388,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="issortedby" class="tsd-anchor"></a>
 					<h3>is<wbr>Sorted<wbr>By</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">is<wbr>Sorted<wbr>By<span class="tsd-signature-symbol">(</span>cmp<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>first<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, second<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#issortedby">isSortedBy</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1031">IterPlus.ts:1031</a></li>
 								</ul>
@@ -1417,15 +1445,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="issortedwith" class="tsd-anchor"></a>
 					<h3>is<wbr>Sorted<wbr>With</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">is<wbr>Sorted<wbr>With&lt;K&gt;<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#issortedwith">isSortedWith</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1058">IterPlus.ts:1058</a></li>
 								</ul>
@@ -1478,15 +1507,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="last" class="tsd-anchor"></a>
 					<h3>last</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">last<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><a href="../modules/_iterplus_.html#null" class="tsd-signature-type">Null</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#last">last</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1093">IterPlus.ts:1093</a></li>
 								</ul>
@@ -1501,15 +1531,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="map" class="tsd-anchor"></a>
 					<h3>map</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">map&lt;K&gt;<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#map">map</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L869">IterPlus.ts:869</a></li>
 								</ul>
@@ -1561,15 +1592,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="mapwhile" class="tsd-anchor"></a>
 					<h3>map<wbr>While</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">map<wbr>While&lt;K&gt;<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol"> | </span><a href="../modules/_iterplus_.html#null" class="tsd-signature-type">Null</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#mapwhile">mapWhile</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1108">IterPlus.ts:1108</a></li>
 								</ul>
@@ -1620,15 +1652,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="max" class="tsd-anchor"></a>
 					<h3>max</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">max<span class="tsd-signature-symbol">(</span>overwrite<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#max">max</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1187">IterPlus.ts:1187</a></li>
 								</ul>
@@ -1653,15 +1686,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="maxby" class="tsd-anchor"></a>
 					<h3>max<wbr>By</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">max<wbr>By<span class="tsd-signature-symbol">(</span>cmp<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>first<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, second<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span>, overwrite<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#maxby">maxBy</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1133">IterPlus.ts:1133</a></li>
 								</ul>
@@ -1714,15 +1748,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="maxwith" class="tsd-anchor"></a>
 					<h3>max<wbr>With</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">max<wbr>With&lt;K&gt;<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">K</span>, overwrite<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#maxwith">maxWith</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1160">IterPlus.ts:1160</a></li>
 								</ul>
@@ -1780,15 +1815,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="min" class="tsd-anchor"></a>
 					<h3>min</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">min<span class="tsd-signature-symbol">(</span>overwrite<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#min">min</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1254">IterPlus.ts:1254</a></li>
 								</ul>
@@ -1813,15 +1849,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="minby" class="tsd-anchor"></a>
 					<h3>min<wbr>By</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">min<wbr>By<span class="tsd-signature-symbol">(</span>cmp<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>first<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, second<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span>, overwrite<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#minby">minBy</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1200">IterPlus.ts:1200</a></li>
 								</ul>
@@ -1874,15 +1911,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="minwith" class="tsd-anchor"></a>
 					<h3>min<wbr>With</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">min<wbr>With&lt;K&gt;<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">K</span>, overwrite<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#minwith">minWith</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1227">IterPlus.ts:1227</a></li>
 								</ul>
@@ -1940,17 +1978,18 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 					<a name="next" class="tsd-anchor"></a>
 					<h3>next</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 						<li class="tsd-signature tsd-kind-icon">next<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IteratorResult</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Overrides <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#next">next</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L100">IterPlus.ts:100</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1596">IterPlus.ts:1596</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1963,15 +2002,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="nth" class="tsd-anchor"></a>
 					<h3>nth</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">nth<span class="tsd-signature-symbol">(</span>n<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><a href="../modules/_iterplus_.html#null" class="tsd-signature-type">Null</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#nth">nth</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1264">IterPlus.ts:1264</a></li>
 								</ul>
@@ -1995,15 +2035,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="partition" class="tsd-anchor"></a>
 					<h3>partition</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">partition<span class="tsd-signature-symbol">(</span>pred<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#partition">partition</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1285">IterPlus.ts:1285</a></li>
 								</ul>
@@ -2050,14 +2091,38 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="peek" class="tsd-anchor"></a>
+					<h3>peek</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">peek<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IteratorResult</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1613">IterPlus.ts:1613</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Peeks the next element in the iterator and does not consume it.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IteratorResult</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The next element.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="peekable" class="tsd-anchor"></a>
 					<h3>peekable</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">peekable<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.peekable.html" class="tsd-signature-type">Peekable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#peekable">peekable</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1305">IterPlus.ts:1305</a></li>
 								</ul>
@@ -2072,15 +2137,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="product" class="tsd-anchor"></a>
 					<h3>product</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">product<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">bigint</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#product-1">product</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1339">IterPlus.ts:1339</a></li>
 								</ul>
@@ -2101,16 +2167,17 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="reduce" class="tsd-anchor"></a>
 					<h3>reduce</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">reduce&lt;A&gt;<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>accum<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span>, elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">A</span>, initializer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span></li>
 						<li class="tsd-signature tsd-kind-icon">reduce<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>accum<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">T</span>, initializer<span class="tsd-signature-symbol">?: </span><a href="" class="tsd-signature-type">T</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#reduce">reduce</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L902">IterPlus.ts:902</a></li>
 								</ul>
@@ -2170,6 +2237,7 @@
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#reduce">reduce</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L917">IterPlus.ts:917</a></li>
 								</ul>
@@ -2224,15 +2292,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="reverse" class="tsd-anchor"></a>
 					<h3>reverse</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">reverse<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#reverse">reverse</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1400">IterPlus.ts:1400</a></li>
 								</ul>
@@ -2250,15 +2319,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="skip" class="tsd-anchor"></a>
 					<h3>skip</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">skip<span class="tsd-signature-symbol">(</span>n<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#skip">skip</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1411">IterPlus.ts:1411</a></li>
 								</ul>
@@ -2282,15 +2352,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="skipwhile" class="tsd-anchor"></a>
 					<h3>skip<wbr>While</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">skip<wbr>While<span class="tsd-signature-symbol">(</span>pred<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#skipwhile">skipWhile</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1431">IterPlus.ts:1431</a></li>
 								</ul>
@@ -2332,15 +2403,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="some" class="tsd-anchor"></a>
 					<h3>some</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">some<span class="tsd-signature-symbol">(</span>pred<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#some">some</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L511">IterPlus.ts:511</a></li>
 								</ul>
@@ -2385,15 +2457,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="sum" class="tsd-anchor"></a>
 					<h3>sum</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">sum<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> extends </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> ? </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> : </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> extends </span><span class="tsd-signature-type">bigint</span><span class="tsd-signature-symbol"> ? </span><span class="tsd-signature-type">bigint</span><span class="tsd-signature-symbol"> : </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#sum">sum</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1361">IterPlus.ts:1361</a></li>
 								</ul>
@@ -2408,15 +2481,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="take" class="tsd-anchor"></a>
 					<h3>take</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">take<span class="tsd-signature-symbol">(</span>n<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#take">take</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1457">IterPlus.ts:1457</a></li>
 								</ul>
@@ -2440,15 +2514,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="takewhile" class="tsd-anchor"></a>
 					<h3>take<wbr>While</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">take<wbr>While<span class="tsd-signature-symbol">(</span>pred<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#takewhile">takeWhile</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1477">IterPlus.ts:1477</a></li>
 								</ul>
@@ -2490,15 +2565,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="unzip" class="tsd-anchor"></a>
 					<h3>unzip</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">unzip&lt;K&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayMap</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#unzip">unzip</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1502">IterPlus.ts:1502</a></li>
 								</ul>
@@ -2528,15 +2604,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="zip" class="tsd-anchor"></a>
 					<h3>zip</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">zip&lt;K&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>iters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IterableMap</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#zip">zip</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1560">IterPlus.ts:1560</a></li>
 								</ul>
@@ -2569,15 +2646,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="zipwith" class="tsd-anchor"></a>
 					<h3>zip<wbr>With</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">zip<wbr>With&lt;K, R&gt;<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">R</span>, <span class="tsd-signature-symbol">...</span>iters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IterableMap</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#zipwith">zipWith</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L1528">IterPlus.ts:1528</a></li>
 								</ul>
@@ -2641,15 +2719,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 					<a name="combinations" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> combinations</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 						<li class="tsd-signature tsd-kind-icon">combinations&lt;T&gt;<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span>, count<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#combinations">combinations</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L266">IterPlus.ts:266</a></li>
 								</ul>
@@ -2685,15 +2764,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 					<a name="combinationswithrepetition" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> combinations<wbr>With<wbr>Repetition</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 						<li class="tsd-signature tsd-kind-icon">combinations<wbr>With<wbr>Repetition&lt;T&gt;<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span>, count<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#combinationswithrepetition">combinationsWithRepetition</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L308">IterPlus.ts:308</a></li>
 								</ul>
@@ -2729,15 +2809,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 					<a name="cycle" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> cycle</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 						<li class="tsd-signature tsd-kind-icon">cycle&lt;T&gt;<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#cycle">cycle</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L243">IterPlus.ts:243</a></li>
 								</ul>
@@ -2770,15 +2851,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 					<a name="empty" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> empty</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 						<li class="tsd-signature tsd-kind-icon">empty&lt;T&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#empty">empty</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L120">IterPlus.ts:120</a></li>
 								</ul>
@@ -2802,15 +2884,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 					<a name="fromfunction" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> from<wbr>Function</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 						<li class="tsd-signature tsd-kind-icon">from<wbr>Function&lt;T&gt;<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><a href="../modules/_iterplus_.html#null" class="tsd-signature-type">Null</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#fromfunction">fromFunction</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L131">IterPlus.ts:131</a></li>
 								</ul>
@@ -2852,15 +2935,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 					<a name="once" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> once</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 						<li class="tsd-signature tsd-kind-icon">once&lt;T&gt;<span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#once">once</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L167">IterPlus.ts:167</a></li>
 								</ul>
@@ -2890,15 +2974,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 					<a name="oncewith" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> once<wbr>With</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 						<li class="tsd-signature tsd-kind-icon">once<wbr>With&lt;T&gt;<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#oncewith">onceWith</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L152">IterPlus.ts:152</a></li>
 								</ul>
@@ -2940,15 +3025,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 					<a name="permutations" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> permutations</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 						<li class="tsd-signature tsd-kind-icon">permutations&lt;T&gt;<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span>, count<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#permutations">permutations</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L350">IterPlus.ts:350</a></li>
 								</ul>
@@ -2984,15 +3070,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 					<a name="permutationswithrepetition" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> permutations<wbr>With<wbr>Repetition</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 						<li class="tsd-signature tsd-kind-icon">permutations<wbr>With<wbr>Repetition&lt;T&gt;<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span>, count<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#permutationswithrepetition">permutationsWithRepetition</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L401">IterPlus.ts:401</a></li>
 								</ul>
@@ -3028,15 +3115,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 					<a name="product-1" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> product</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 						<li class="tsd-signature tsd-kind-icon">product&lt;T&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayMap</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#product-1">product</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L441">IterPlus.ts:441</a></li>
 								</ul>
@@ -3066,15 +3154,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 					<a name="repeat" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> repeat</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 						<li class="tsd-signature tsd-kind-icon">repeat&lt;T&gt;<span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#repeat">repeat</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L199">IterPlus.ts:199</a></li>
 								</ul>
@@ -3104,15 +3193,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 					<a name="repeatwith" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> repeat<wbr>With</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 						<li class="tsd-signature tsd-kind-icon">repeat<wbr>With&lt;T&gt;<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#repeatwith">repeatWith</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L182">IterPlus.ts:182</a></li>
 								</ul>
@@ -3154,15 +3244,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 					<a name="successors" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> successors</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
 						<li class="tsd-signature tsd-kind-icon">successors&lt;T&gt;<span class="tsd-signature-symbol">(</span>first<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><a href="../modules/_iterplus_.html#null" class="tsd-signature-type">Null</a>, func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>prev<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><a href="../modules/_iterplus_.html#null" class="tsd-signature-type">Null</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#successors">successors</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/e9d93c9/src/IterPlus.ts#L217">IterPlus.ts:217</a></li>
 								</ul>
@@ -3243,216 +3334,222 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_iterplus_.iterplus.html" class="tsd-kind-icon">Iter<wbr>Plus</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="_iterplus_.iterplus.html" class="tsd-kind-icon">Iter<wbr>Plus</a>
+						<a href="_iterplus_.peekable.html" class="tsd-kind-icon">Peekable</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#constructor" class="tsd-kind-icon">constructor</a>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_iterplus_.peekable.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-								<a href="_iterplus_.iterplus.html#internal" class="tsd-kind-icon">internal</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_iterplus_.peekable.html#internal" class="tsd-kind-icon">internal</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#_symbol_iterator_" class="tsd-kind-icon">[<wbr>Symbol.iterator]</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_iterplus_.peekable.html#storedval" class="tsd-kind-icon">stored<wbr>Val</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#collect" class="tsd-kind-icon">collect</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#_symbol_iterator_" class="tsd-kind-icon">[<wbr>Symbol.iterator]</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#compare" class="tsd-kind-icon">compare</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#collect" class="tsd-kind-icon">collect</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_iterplus_.iterplus.html#compareby" class="tsd-kind-icon">compare<wbr>By</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#compare" class="tsd-kind-icon">compare</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_iterplus_.iterplus.html#comparewith" class="tsd-kind-icon">compare<wbr>With</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#compareby" class="tsd-kind-icon">compare<wbr>By</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#concat" class="tsd-kind-icon">concat</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#comparewith" class="tsd-kind-icon">compare<wbr>With</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#count" class="tsd-kind-icon">count</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#concat" class="tsd-kind-icon">concat</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#enumerate" class="tsd-kind-icon">enumerate</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#count" class="tsd-kind-icon">count</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#equals" class="tsd-kind-icon">equals</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#enumerate" class="tsd-kind-icon">enumerate</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_iterplus_.iterplus.html#equalsby" class="tsd-kind-icon">equals<wbr>By</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#equals" class="tsd-kind-icon">equals</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_iterplus_.iterplus.html#equalswith" class="tsd-kind-icon">equals<wbr>With</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#equalsby" class="tsd-kind-icon">equals<wbr>By</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#every" class="tsd-kind-icon">every</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#equalswith" class="tsd-kind-icon">equals<wbr>With</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#filter" class="tsd-kind-icon">filter</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#every" class="tsd-kind-icon">every</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_iterplus_.iterplus.html#filtermap" class="tsd-kind-icon">filter<wbr>Map</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#filter" class="tsd-kind-icon">filter</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#find" class="tsd-kind-icon">find</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#filtermap" class="tsd-kind-icon">filter<wbr>Map</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#findindex" class="tsd-kind-icon">find<wbr>Index</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#find" class="tsd-kind-icon">find</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_iterplus_.iterplus.html#findmap" class="tsd-kind-icon">find<wbr>Map</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#findindex" class="tsd-kind-icon">find<wbr>Index</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_iterplus_.iterplus.html#flatmap" class="tsd-kind-icon">flat<wbr>Map</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#findmap" class="tsd-kind-icon">find<wbr>Map</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_iterplus_.iterplus.html#flatten" class="tsd-kind-icon">flatten</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#flatmap" class="tsd-kind-icon">flat<wbr>Map</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#foreach" class="tsd-kind-icon">for<wbr>Each</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#flatten" class="tsd-kind-icon">flatten</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#fuse" class="tsd-kind-icon">fuse</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#foreach" class="tsd-kind-icon">for<wbr>Each</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#inspect" class="tsd-kind-icon">inspect</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#fuse" class="tsd-kind-icon">fuse</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#ispartitioned" class="tsd-kind-icon">is<wbr>Partitioned</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#inspect" class="tsd-kind-icon">inspect</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#issorted" class="tsd-kind-icon">is<wbr>Sorted</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#ispartitioned" class="tsd-kind-icon">is<wbr>Partitioned</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#issortedby" class="tsd-kind-icon">is<wbr>Sorted<wbr>By</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#issorted" class="tsd-kind-icon">is<wbr>Sorted</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_iterplus_.iterplus.html#issortedwith" class="tsd-kind-icon">is<wbr>Sorted<wbr>With</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#issortedby" class="tsd-kind-icon">is<wbr>Sorted<wbr>By</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#last" class="tsd-kind-icon">last</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#issortedwith" class="tsd-kind-icon">is<wbr>Sorted<wbr>With</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_iterplus_.iterplus.html#map" class="tsd-kind-icon">map</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#last" class="tsd-kind-icon">last</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_iterplus_.iterplus.html#mapwhile" class="tsd-kind-icon">map<wbr>While</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#map" class="tsd-kind-icon">map</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#max" class="tsd-kind-icon">max</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#mapwhile" class="tsd-kind-icon">map<wbr>While</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#maxby" class="tsd-kind-icon">max<wbr>By</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#max" class="tsd-kind-icon">max</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_iterplus_.iterplus.html#maxwith" class="tsd-kind-icon">max<wbr>With</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#maxby" class="tsd-kind-icon">max<wbr>By</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#min" class="tsd-kind-icon">min</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#maxwith" class="tsd-kind-icon">max<wbr>With</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#minby" class="tsd-kind-icon">min<wbr>By</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#min" class="tsd-kind-icon">min</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_iterplus_.iterplus.html#minwith" class="tsd-kind-icon">min<wbr>With</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#minby" class="tsd-kind-icon">min<wbr>By</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#next" class="tsd-kind-icon">next</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#minwith" class="tsd-kind-icon">min<wbr>With</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#nth" class="tsd-kind-icon">nth</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_iterplus_.peekable.html#next" class="tsd-kind-icon">next</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#partition" class="tsd-kind-icon">partition</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#nth" class="tsd-kind-icon">nth</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#peekable" class="tsd-kind-icon">peekable</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#product" class="tsd-kind-icon">product</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_iterplus_.iterplus.html#reduce" class="tsd-kind-icon">reduce</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#partition" class="tsd-kind-icon">partition</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#reverse" class="tsd-kind-icon">reverse</a>
+								<a href="_iterplus_.peekable.html#peek" class="tsd-kind-icon">peek</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#skip" class="tsd-kind-icon">skip</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#peekable" class="tsd-kind-icon">peekable</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#skipwhile" class="tsd-kind-icon">skip<wbr>While</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#product" class="tsd-kind-icon">product</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#some" class="tsd-kind-icon">some</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#reduce" class="tsd-kind-icon">reduce</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#sum" class="tsd-kind-icon">sum</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#reverse" class="tsd-kind-icon">reverse</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#take" class="tsd-kind-icon">take</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#skip" class="tsd-kind-icon">skip</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_iterplus_.iterplus.html#takewhile" class="tsd-kind-icon">take<wbr>While</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#skipwhile" class="tsd-kind-icon">skip<wbr>While</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_iterplus_.iterplus.html#unzip" class="tsd-kind-icon">unzip</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#some" class="tsd-kind-icon">some</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_iterplus_.iterplus.html#zip" class="tsd-kind-icon">zip</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#sum" class="tsd-kind-icon">sum</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_iterplus_.iterplus.html#zipwith" class="tsd-kind-icon">zip<wbr>With</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#take" class="tsd-kind-icon">take</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-								<a href="_iterplus_.iterplus.html#combinations" class="tsd-kind-icon">combinations</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#takewhile" class="tsd-kind-icon">take<wbr>While</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-								<a href="_iterplus_.iterplus.html#combinationswithrepetition" class="tsd-kind-icon">combinations<wbr>With<wbr>Repetition</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#unzip" class="tsd-kind-icon">unzip</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-								<a href="_iterplus_.iterplus.html#cycle" class="tsd-kind-icon">cycle</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#zip" class="tsd-kind-icon">zip</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-								<a href="_iterplus_.iterplus.html#empty" class="tsd-kind-icon">empty</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#zipwith" class="tsd-kind-icon">zip<wbr>With</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-								<a href="_iterplus_.iterplus.html#fromfunction" class="tsd-kind-icon">from<wbr>Function</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
+								<a href="_iterplus_.peekable.html#combinations" class="tsd-kind-icon">combinations</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-								<a href="_iterplus_.iterplus.html#once" class="tsd-kind-icon">once</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
+								<a href="_iterplus_.peekable.html#combinationswithrepetition" class="tsd-kind-icon">combinations<wbr>With<wbr>Repetition</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-								<a href="_iterplus_.iterplus.html#oncewith" class="tsd-kind-icon">once<wbr>With</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
+								<a href="_iterplus_.peekable.html#cycle" class="tsd-kind-icon">cycle</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-								<a href="_iterplus_.iterplus.html#permutations" class="tsd-kind-icon">permutations</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
+								<a href="_iterplus_.peekable.html#empty" class="tsd-kind-icon">empty</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-								<a href="_iterplus_.iterplus.html#permutationswithrepetition" class="tsd-kind-icon">permutations<wbr>With<wbr>Repetition</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
+								<a href="_iterplus_.peekable.html#fromfunction" class="tsd-kind-icon">from<wbr>Function</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-								<a href="_iterplus_.iterplus.html#product-1" class="tsd-kind-icon">product</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
+								<a href="_iterplus_.peekable.html#once" class="tsd-kind-icon">once</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-								<a href="_iterplus_.iterplus.html#repeat" class="tsd-kind-icon">repeat</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
+								<a href="_iterplus_.peekable.html#oncewith" class="tsd-kind-icon">once<wbr>With</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-								<a href="_iterplus_.iterplus.html#repeatwith" class="tsd-kind-icon">repeat<wbr>With</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
+								<a href="_iterplus_.peekable.html#permutations" class="tsd-kind-icon">permutations</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-								<a href="_iterplus_.iterplus.html#successors" class="tsd-kind-icon">successors</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
+								<a href="_iterplus_.peekable.html#permutationswithrepetition" class="tsd-kind-icon">permutations<wbr>With<wbr>Repetition</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
+								<a href="_iterplus_.peekable.html#product-1" class="tsd-kind-icon">product</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
+								<a href="_iterplus_.peekable.html#repeat" class="tsd-kind-icon">repeat</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
+								<a href="_iterplus_.peekable.html#repeatwith" class="tsd-kind-icon">repeat<wbr>With</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-static">
+								<a href="_iterplus_.peekable.html#successors" class="tsd-kind-icon">successors</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="_iterplus_.peekable.html" class="tsd-kind-icon">Peekable</a>
-					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_iterplus_.html#null" class="tsd-kind-icon">Null</a>
 					</li>
@@ -3486,7 +3583,10 @@
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
 			</ul>
 		</div>
 	</div>
