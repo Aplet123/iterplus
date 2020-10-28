@@ -1,4 +1,5 @@
 import {IterPlus as SyncIterPlus} from "./IterPlus";
+import {PromiseOrValue} from "./util";
 import {CircularBuffer} from "./CircularBuffer";
 
 /**
@@ -136,7 +137,9 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param func The function to yield values, or null to end the iterator.
      * @returns The generated iterator.
      */
-    static fromFunction<T>(func: () => Promise<T | Null>): AsyncIterPlus<T> {
+    static fromFunction<T>(
+        func: () => PromiseOrValue<T | Null>
+    ): AsyncIterPlus<T> {
         async function* ret() {
             while (true) {
                 const val = await func();
@@ -156,7 +159,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param func The function to generate a single value.
      * @returns The generated iterator.
      */
-    static onceWith<T>(func: () => Promise<T>): AsyncIterPlus<T> {
+    static onceWith<T>(func: () => PromiseOrValue<T>): AsyncIterPlus<T> {
         async function* ret() {
             yield await func();
         }
@@ -170,7 +173,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param val The value to yield.
      * @returns The generated iterator.
      */
-    static once<T>(val: Promise<T>): AsyncIterPlus<T> {
+    static once<T>(val: PromiseOrValue<T>): AsyncIterPlus<T> {
         async function* ret() {
             yield await val;
         }
@@ -184,7 +187,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param func The function to generate values.
      * @returns The generated iterator.
      */
-    static repeatWith<T>(func: () => Promise<T>): AsyncIterPlus<T> {
+    static repeatWith<T>(func: () => PromiseOrValue<T>): AsyncIterPlus<T> {
         async function* ret() {
             while (true) {
                 yield await func();
@@ -200,7 +203,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param val The value to yield.
      * @returns The generated iterator.
      */
-    static repeat<T>(val: Promise<T>): AsyncIterPlus<T> {
+    static repeat<T>(val: PromiseOrValue<T>): AsyncIterPlus<T> {
         async function* ret() {
             while (true) {
                 yield await val;
@@ -287,7 +290,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                         break;
                     }
                 }
-                if (i == indices.length) {
+                if (i === indices.length) {
                     break;
                 }
                 i--;
@@ -330,7 +333,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                         break;
                     }
                 }
-                if (i == indices.length) {
+                if (i === indices.length) {
                     break;
                 }
                 i--;
@@ -360,7 +363,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
             if (count > data.length || count < 0) {
                 return;
             }
-            if (count == 0) {
+            if (count === 0) {
                 yield [];
                 return;
             }
@@ -377,7 +380,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 let i;
                 for (i = count - 1; i >= 0; i--) {
                     cycles[i]--;
-                    if (cycles[i] == 0) {
+                    if (cycles[i] === 0) {
                         const first = indices[i];
                         for (let j = i; j < indices.length - 1; j++) {
                             indices[j] = indices[j + 1];
@@ -416,7 +419,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
             if (data.length <= 0 || count < 0) {
                 return;
             }
-            if (count == 0) {
+            if (count === 0) {
                 yield [];
                 return;
             }
@@ -433,7 +436,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                         break;
                     }
                 }
-                if (i == indices.length) {
+                if (i === indices.length) {
                     break;
                 }
                 i--;
@@ -478,7 +481,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
             }
             const indices: number[] = [];
             for (let i = 0; i < data.length; i++) {
-                if (data[i].length == 0) {
+                if (data[i].length === 0) {
                     return;
                 }
                 indices.push(0);
@@ -495,7 +498,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                         break;
                     }
                 }
-                if (i == indices.length) {
+                if (i === indices.length) {
                     break;
                 }
                 i--;
@@ -518,7 +521,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param pred The predicate function.
      * @returns If every element satisfies the predicate.
      */
-    async every(pred: (elem: T) => Promise<boolean>): Promise<boolean> {
+    async every(pred: (elem: T) => PromiseOrValue<boolean>): Promise<boolean> {
         for await (const elem of this) {
             if (!(await pred(elem))) {
                 return false;
@@ -537,7 +540,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param pred The predicate function.
      * @returns If some element satisfies the predicate.
      */
-    async some(pred: (elem: T) => boolean): Promise<boolean> {
+    async some(pred: (elem: T) => PromiseOrValue<boolean>): Promise<boolean> {
         for await (const elem of this) {
             if (await pred(elem)) {
                 return true;
@@ -579,7 +582,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      */
     async compareBy<O>(
         other: AsyncIterable<O>,
-        cmp: (first: T, second: O) => Promise<number>
+        cmp: (first: T, second: O) => PromiseOrValue<number>
     ): Promise<number> {
         const iter = other[Symbol.asyncIterator]();
         while (true) {
@@ -615,7 +618,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      */
     async compareWith<K>(
         other: AsyncIterable<T>,
-        key: (elem: T) => Promise<K>
+        key: (elem: T) => PromiseOrValue<K>
     ): Promise<number> {
         return this.compareBy(other, async function (a, b) {
             const ak = await key(a);
@@ -707,7 +710,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      */
     async equalsBy<O>(
         other: AsyncIterable<O>,
-        cmp: (first: T, second: O) => Promise<boolean>
+        cmp: (first: T, second: O) => PromiseOrValue<boolean>
     ): Promise<boolean> {
         const iter = other[Symbol.asyncIterator]();
         while (true) {
@@ -739,12 +742,12 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      */
     async equalsWith<K>(
         other: AsyncIterable<T>,
-        key: (elem: T) => Promise<K>
+        key: (elem: T) => PromiseOrValue<K>
     ): Promise<boolean> {
         return this.equalsBy(other, async function (a, b) {
             const ak = await key(a);
             const bk = await key(b);
-            return ak == bk;
+            return ak === bk;
         });
     }
 
@@ -759,7 +762,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      */
     async equals(other: AsyncIterable<T>): Promise<boolean> {
         return this.equalsBy(other, async function (a, b) {
-            return a == b;
+            return a === b;
         });
     }
 
@@ -769,7 +772,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param pred The predicate function.
      * @returns The generated iterator.
      */
-    filter(pred: (elem: T) => Promise<boolean>): AsyncIterPlus<T> {
+    filter(pred: (elem: T) => PromiseOrValue<boolean>): AsyncIterPlus<T> {
         const that = this;
         async function* ret() {
             for await (const elem of that) {
@@ -789,7 +792,9 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param func The mapping function.
      * @returns The generated iterator.
      */
-    filterMap<K>(func: (elem: T) => Promise<K | Null>): AsyncIterPlus<K> {
+    filterMap<K>(
+        func: (elem: T) => PromiseOrValue<K | Null>
+    ): AsyncIterPlus<K> {
         const that = this;
         async function* ret() {
             for await (const elem of that) {
@@ -811,7 +816,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param pred The predicate function.
      * @returns The element, or null if none was found.
      */
-    async find(pred: (elem: T) => Promise<boolean>): Promise<T | Null> {
+    async find(pred: (elem: T) => PromiseOrValue<boolean>): Promise<T | Null> {
         for await (const elem of this) {
             if (await pred(elem)) {
                 return elem;
@@ -831,7 +836,9 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param func The mapping function.
      * @returns The element, or null if none was found.
      */
-    async findMap<K>(func: (elem: T) => Promise<K | Null>): Promise<K | Null> {
+    async findMap<K>(
+        func: (elem: T) => PromiseOrValue<K | Null>
+    ): Promise<K | Null> {
         for await (const elem of this) {
             const val = await func(elem);
             if (val !== nullVal) {
@@ -848,7 +855,9 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @typeParam K The internal type.
      * @returns The generated iterator.
      */
-    flatten<K>(this: AsyncIterPlus<AsyncIterable<K>>): AsyncIterPlus<K> {
+    flatten<K>(
+        this: AsyncIterPlus<Iterable<K> | AsyncIterable<K>>
+    ): AsyncIterPlus<K> {
         const that = this;
         async function* ret() {
             for await (const iterable of that) {
@@ -867,7 +876,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param func The mapping function.
      * @returns The generated iterator.
      */
-    map<K>(func: (elem: T) => Promise<K>): AsyncIterPlus<K> {
+    map<K>(func: (elem: T) => PromiseOrValue<K>): AsyncIterPlus<K> {
         const that = this;
         async function* ret() {
             for await (const elem of that) {
@@ -888,7 +897,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      */
     starmap<K, R>(
         this: AsyncIterPlus<Iterable<K>>,
-        func: (...args: K[]) => Promise<R>
+        func: (...args: K[]) => PromiseOrValue<R>
     ): AsyncIterPlus<R> {
         const that = this;
         async function* ret() {
@@ -906,8 +915,21 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param func The mapping function.
      * @returns The generated iterator.
      */
-    flatMap<K>(func: (elem: T) => Promise<AsyncIterable<K>>): AsyncIterPlus<K> {
-        return this.map(func).flatten();
+    flatMap<K>(
+        func: (
+            elem: T
+        ) =>
+            | Iterable<K>
+            | AsyncIterable<K>
+            | Promise<Iterable<K> | AsyncIterable<K>>
+    ): AsyncIterPlus<K> {
+        const that = this;
+        async function* ret() {
+            for await (const elem of that) {
+                yield* await func(elem);
+            }
+        }
+        return new AsyncIterPlus(ret());
     }
 
     /**
@@ -919,7 +941,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The final accumulator.
      */
     async reduce<A>(
-        func: (accum: A, elem: T) => Promise<A>,
+        func: (accum: A, elem: T) => PromiseOrValue<A>,
         initializer: A
     ): Promise<A>;
     /**
@@ -929,16 +951,18 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param initializer The initial accumulator.
      * If not provided, the first element of the iterator will be used instead,
      * and the first element will be skipped over in the reduction.
-     * If an initializer is not provided and the iterator is empty,
+     *
+     * @throws If an initializer is not provided and the iterator is empty,
      * then an error will be thrown.
+     *
      * @returns The final accumulator.
      */
     reduce(
-        func: (accum: T, elem: T) => Promise<T>,
+        func: (accum: T, elem: T) => PromiseOrValue<T>,
         initializer?: T
     ): Promise<T>;
     async reduce<A>(
-        func: (accum: A, elem: T) => Promise<A>,
+        func: (accum: A, elem: T) => PromiseOrValue<A>,
         initializer: A
     ): Promise<A> {
         let accum: A;
@@ -967,7 +991,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @param func The function to run.
      */
-    async forEach(func: (elem: T) => Promise<unknown>): Promise<void> {
+    async forEach(func: (elem: T) => PromiseOrValue<unknown>): Promise<void> {
         for await (const elem of this) {
             await func(elem);
         }
@@ -996,7 +1020,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param func The function to call.
      * @returns The generated iterator.
      */
-    inspect(func: (elem: T) => Promise<unknown>): AsyncIterPlus<T> {
+    inspect(func: (elem: T) => PromiseOrValue<unknown>): AsyncIterPlus<T> {
         const that = this;
         async function* ret() {
             for await (const elem of that) {
@@ -1017,7 +1041,9 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param pred The predicate function.
      * @returns If the iterator is partitioned.
      */
-    async isPartitioned(pred: (elem: T) => Promise<boolean>): Promise<boolean> {
+    async isPartitioned(
+        pred: (elem: T) => PromiseOrValue<boolean>
+    ): Promise<boolean> {
         let seenFalse = false;
         for await (const elem of this) {
             if (await pred(elem)) {
@@ -1042,7 +1068,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns If the iterator is sorted.
      */
     async isSortedBy(
-        cmp: (first: T, second: T) => Promise<number>
+        cmp: (first: T, second: T) => PromiseOrValue<number>
     ): Promise<boolean> {
         const first = await this.next();
         if (first.done) {
@@ -1068,7 +1094,9 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param key The key function.
      * @returns If the iterator is sorted.
      */
-    async isSortedWith<K>(key: (elem: T) => Promise<K>): Promise<boolean> {
+    async isSortedWith<K>(
+        key: (elem: T) => PromiseOrValue<K>
+    ): Promise<boolean> {
         const first = await this.next();
         if (first.done) {
             return true;
@@ -1116,7 +1144,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param func The mapping function.
      * @returns The generated iterator.
      */
-    mapWhile<K>(func: (elem: T) => Promise<K | Null>): AsyncIterPlus<K> {
+    mapWhile<K>(func: (elem: T) => PromiseOrValue<K | Null>): AsyncIterPlus<K> {
         const that = this;
         async function* ret() {
             for await (const elem of that) {
@@ -1140,7 +1168,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The maximum element, or null if the iterator is empty.
      */
     async maxBy(
-        cmp: (first: T, second: T) => Promise<number>,
+        cmp: (first: T, second: T) => PromiseOrValue<number>,
         overwrite: boolean = false
     ): Promise<T | null> {
         const next = await this.next();
@@ -1150,7 +1178,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
         let curMax = next.value;
         for await (const elem of this) {
             const diff = await cmp(elem, curMax);
-            if (diff > 0 || (overwrite && diff == 0)) {
+            if (diff > 0 || (overwrite && diff === 0)) {
                 curMax = elem;
             }
         }
@@ -1167,7 +1195,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The maximum element, or null if the iterator is empty.
      */
     async maxWith<K>(
-        key: (elem: T) => Promise<K>,
+        key: (elem: T) => PromiseOrValue<K>,
         overwrite: boolean = false
     ): Promise<T | null> {
         const next = await this.next();
@@ -1178,7 +1206,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
         let curMaxKey: K = await key(curMax);
         for await (const elem of this) {
             const elemKey = await key(elem);
-            if (elemKey > curMaxKey || (overwrite && elemKey == curMaxKey)) {
+            if (elemKey > curMaxKey || (overwrite && elemKey === curMaxKey)) {
                 curMax = elem;
                 curMaxKey = elemKey;
             }
@@ -1193,7 +1221,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Defaults to `false`.
      * @returns The maximum element, or null if the iterator is empty.
      */
-    max(overwrite: boolean = false): Promise<T | null> {
+    max(overwrite: boolean = false): Promise<T | Null> {
         return this.maxWith(async (x) => x, overwrite);
     }
 
@@ -1207,7 +1235,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The minimum element, or null if the iterator is empty.
      */
     async minBy(
-        cmp: (first: T, second: T) => Promise<number>,
+        cmp: (first: T, second: T) => PromiseOrValue<number>,
         overwrite: boolean = false
     ): Promise<T | null> {
         const next = await this.next();
@@ -1217,7 +1245,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
         let curMax = next.value;
         for await (const elem of this) {
             const diff = await cmp(elem, curMax);
-            if (diff < 0 || (overwrite && diff == 0)) {
+            if (diff < 0 || (overwrite && diff === 0)) {
                 curMax = elem;
             }
         }
@@ -1234,7 +1262,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The minimum element, or null if the iterator is empty.
      */
     async minWith<K>(
-        key: (elem: T) => Promise<K>,
+        key: (elem: T) => PromiseOrValue<K>,
         overwrite: boolean = false
     ): Promise<T | null> {
         const next = await this.next();
@@ -1245,7 +1273,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
         let curMaxKey: K = await key(curMax);
         for await (const elem of this) {
             const elemKey = await key(elem);
-            if (elemKey < curMaxKey || (overwrite && elemKey == curMaxKey)) {
+            if (elemKey < curMaxKey || (overwrite && elemKey === curMaxKey)) {
                 curMax = elem;
                 curMaxKey = elemKey;
             }
@@ -1260,7 +1288,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Defaults to `false`.
      * @returns The minimum element, or null if the iterator is empty.
      */
-    min(overwrite: boolean = false): Promise<T | null> {
+    min(overwrite: boolean = false): Promise<T | Null> {
         return this.minWith(async (x) => x, overwrite);
     }
 
@@ -1291,7 +1319,9 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *  - The elements where the predicate returned true.
      *  - The elements where the predicate returned false.
      */
-    async partition(pred: (elem: T) => Promise<boolean>): Promise<[T[], T[]]> {
+    async partition(
+        pred: (elem: T) => PromiseOrValue<boolean>
+    ): Promise<[T[], T[]]> {
         const truePart: T[] = [];
         const falsePart: T[] = [];
         for await (const elem of this) {
@@ -1325,7 +1355,9 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param pred The predicate function.
      * @returns The index, or -1 if none was found.
      */
-    async findIndex(pred: (elem: T) => Promise<boolean>): Promise<number> {
+    async findIndex(
+        pred: (elem: T) => PromiseOrValue<boolean>
+    ): Promise<number> {
         let count = 0;
         for await (const elem of this) {
             if (await pred(elem)) {
@@ -1401,7 +1433,10 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The reversed iterator.
      */
     async reverse(): Promise<SyncIterPlus<T>> {
-        const collected = await this.collect();
+        const collected: T[] = [];
+        for await (const item of this) {
+            collected.push(item);
+        }
         return new SyncIterPlus(collected.reverse().values());
     }
 
@@ -1431,7 +1466,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param pred The predicate function.
      * @returns The generated iterator.
      */
-    skipWhile(pred: (elem: T) => Promise<boolean>): AsyncIterPlus<T> {
+    skipWhile(pred: (elem: T) => PromiseOrValue<boolean>): AsyncIterPlus<T> {
         const that = this;
         async function* ret() {
             while (true) {
@@ -1475,7 +1510,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param pred The predicate function.
      * @returns The generated iterator.
      */
-    takeWhile(pred: (elem: T) => Promise<boolean>): AsyncIterPlus<T> {
+    takeWhile(pred: (elem: T) => PromiseOrValue<boolean>): AsyncIterPlus<T> {
         const that = this;
         async function* ret() {
             while (true) {
@@ -1525,7 +1560,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The generated iterator.
      */
     zipWith<K extends unknown[], R>(
-        func: (...args: [T, ...K]) => R,
+        func: (...args: [T, ...K]) => PromiseOrValue<R>,
         ...iters: AsyncIterableMap<K>
     ): AsyncIterPlus<R> {
         const that = this;
@@ -1543,7 +1578,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                     }
                     tot.push(val.value);
                 }
-                yield func(...(tot as [T, ...K]));
+                yield await func(...(tot as [T, ...K]));
             }
         }
         return new AsyncIterPlus(ret());
@@ -1615,6 +1650,596 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
             tot.push(new AsyncIterPlus(ret(i)));
         }
         return tot;
+    }
+
+    /**
+     * Returns the average of all elements in the iterator.
+     *
+     * @throws A RangeError on an empty iterator.
+     *
+     * @returns The average.
+     */
+    async average(
+        this: AsyncIterPlus<number> | AsyncIterPlus<bigint>
+    ): Promise<T> {
+        let accum: any = 0;
+        let typechecked = false;
+        let bigint = false;
+        let count = 0;
+        for await (const elem of this) {
+            if (!typechecked) {
+                if (typeof elem === "bigint") {
+                    bigint = true;
+                    accum = BigInt(accum);
+                }
+                typechecked = true;
+            }
+            accum = accum + (elem as number);
+            count++;
+        }
+        if (bigint) {
+            count = (BigInt(count) as unknown) as number;
+        }
+        if (count === 0) {
+            throw new RangeError("Cannot average an empty iterator.");
+        }
+        return ((accum / count) as unknown) as T;
+    }
+
+    /**
+     * Returns an iterator yielding non-overlapping chunks of the iterator.
+     *
+     * If there aren't enough elements to fill a chunk,
+     * the last chunk will be smaller than the chunk size.
+     *
+     * If you want gaps between the chunks,
+     * consider using `windows` with the appropriate interval instead.
+     *
+     * @param chunkSize The chunk size.
+     *
+     * @returns An iterator that yields the chunks.
+     */
+    chunks(chunkSize: number): AsyncIterPlus<T[]> {
+        const that = this;
+        async function* ret() {
+            while (true) {
+                const eles: T[] = [];
+                for (let i = 0; i < chunkSize; i++) {
+                    const val = await that.next();
+                    if (val.done) {
+                        if (eles.length > 0) {
+                            yield eles;
+                        }
+                        return;
+                    }
+                    eles.push(val.value);
+                }
+                yield eles;
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Returns an iterator yielding non-overlapping chunks of the iterator.
+     *
+     * If there aren't enough elements to fill a chunk,
+     * the extra elements will be omitted.
+     *
+     * If you want gaps between the chunks,
+     * consider using `windows` with the appropriate interval instead.
+     *
+     * @param chunkSize The chunk size.
+     *
+     * @returns An iterator that yields the chunks.
+     */
+    chunksExact(chunkSize: number): AsyncIterPlus<T[]> {
+        const that = this;
+        async function* ret() {
+            while (true) {
+                const eles: T[] = [];
+                for (let i = 0; i < chunkSize; i++) {
+                    const val = await that.next();
+                    if (val.done) {
+                        if (eles.length === chunkSize) {
+                            yield eles;
+                        }
+                        return;
+                    }
+                    eles.push(val.value);
+                }
+                yield eles;
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Creates an iterator that repeats the contents of the current iterator a certain number of times.
+     *
+     * @param n The number of times to repeat.
+     *
+     * @returns An iterator that repeats itself n times.
+     */
+    repeat(n: number): AsyncIterPlus<T> {
+        const that = this;
+        async function* ret() {
+            const eles: T[] = [];
+            for await (const item of that) {
+                eles.push(item);
+            }
+            if (eles.length === 0) {
+                return;
+            }
+            for (let i = 0; i < n; i++) {
+                yield* eles;
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Creates an iterator that's rotated left a certain amount,
+     * so elements at the start end up at the end.
+     *
+     * This **does not** handle negative numbers due to right rotation being significantly slower.
+     * If you want negatives, please do the checks yourself and use rotateRight when appropriate.
+     *
+     * @throws A RangeError when the amount is negative.
+     *
+     * @param amount Amount to rotate by.
+     *
+     * @returns The rotated iterator.
+     */
+    rotateLeft(amount: number): AsyncIterPlus<T> {
+        if (amount < 0) {
+            throw new RangeError("Cannot left rotate by a negative amount.");
+        }
+        const that = this;
+        async function* ret() {
+            const eles: T[] = [];
+            for (let i = 0; i < amount; i++) {
+                const val = await that.next();
+                if (val.done) {
+                    if (eles.length > 0) {
+                        amount %= eles.length;
+                        yield* [
+                            ...eles.slice(amount),
+                            ...eles.slice(0, amount),
+                        ];
+                    }
+                    return;
+                }
+                eles.push(val.value);
+            }
+            yield* that;
+            yield* eles;
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Creates an iterator that's rotated right a certain amount,
+     * so elements at the end end up at the start.
+     *
+     * **Due to the one-directional nature of iterators, this is not lazy and therefore much slower than `rotateLeft`.**
+     *
+     * This **does not** handle negative numbers to be consistent with `rotateLeft`.
+     * If you want negatives, please do the checks yourself and use rotateRight when appropriate.
+     *
+     * @throws A RangeError when the amount is negative.
+     *
+     * @param amount Amount to rotate by.
+     *
+     * @returns The rotated iterator.
+     */
+    rotateRight(amount: number): AsyncIterPlus<T> {
+        if (amount < 0) {
+            throw new RangeError("Cannot left rotate by a negative amount.");
+        }
+        const that = this;
+        async function* ret() {
+            const eles: T[] = [];
+            while (true) {
+                const val = await that.next();
+                if (val.done) {
+                    break;
+                }
+                eles.push(val.value);
+            }
+            if (eles.length > 0) {
+                amount %= eles.length;
+                yield* [...eles.slice(-amount), ...eles.slice(0, -amount)];
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Splits an iterator on an element.
+     *
+     * @param ele The element to split on.
+     * @param limit The maximum number of chunks to make.
+     *
+     * @returns The iterator with the split chunks.
+     */
+    split(
+        elem: PromiseOrValue<T>,
+        limit: number = Infinity
+    ): AsyncIterPlus<T[]> {
+        const that = this;
+        async function* ret() {
+            const awaited = await elem;
+            let foundEle = false;
+            let chunks = 1;
+            let eles: T[] = [];
+            while (true) {
+                const val = await that.next();
+                if (val.done) {
+                    if (foundEle) {
+                        yield eles;
+                    }
+                    break;
+                }
+                foundEle = true;
+                if (chunks < limit && val.value === awaited) {
+                    yield eles;
+                    eles = [];
+                    chunks++;
+                } else {
+                    eles.push(val.value);
+                }
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Splits an iterator on a predicate.
+     *
+     * @param pred The predicate to split with.
+     * @param limit The maximum number of chunks to make.
+     *
+     * @returns The iterator with the split chunks.
+     */
+    splitPred(
+        pred: (elem: T) => PromiseOrValue<boolean>,
+        limit: number = Infinity
+    ): AsyncIterPlus<T[]> {
+        const that = this;
+        async function* ret() {
+            let foundEle = false;
+            let chunks = 1;
+            let eles: T[] = [];
+            while (true) {
+                const val = await that.next();
+                if (val.done) {
+                    if (foundEle) {
+                        yield eles;
+                    }
+                    break;
+                }
+                foundEle = true;
+                if (chunks < limit && (await pred(val.value))) {
+                    yield eles;
+                    eles = [];
+                    chunks++;
+                } else {
+                    eles.push(val.value);
+                }
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Splits an iterator on an element,
+     * including the matched element as the last element of the chunk.
+     *
+     * Unlike the exclusive split,
+     * this does not create an empty chunk on the end when ending with the matched element.
+     *
+     * @param ele The element to split on.
+     * @param limit The maximum number of chunks to make.
+     *
+     * @returns The iterator with the split chunks.
+     */
+    splitInclusive(
+        elem: PromiseOrValue<T>,
+        limit: number = Infinity
+    ): AsyncIterPlus<T[]> {
+        const that = this;
+        async function* ret() {
+            const awaited = await elem;
+            let foundEle = false;
+            let chunks = 1;
+            let eles: T[] = [];
+            while (true) {
+                const val = await that.next();
+                if (val.done) {
+                    if (foundEle && eles.length > 0) {
+                        yield eles;
+                    }
+                    break;
+                }
+                foundEle = true;
+                eles.push(val.value);
+                if (chunks < limit && val.value === awaited) {
+                    yield eles;
+                    eles = [];
+                    chunks++;
+                }
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Splits an iterator on a predicate,
+     * including the matched element as the last element of the chunk.
+     *
+     * Unlike the exclusive split,
+     * this does not create an empty chunk on the end when ending with the matched element.
+     *
+     * @param pred The predicate to split with.
+     * @param limit The maximum number of chunks to make.
+     *
+     * @returns The iterator with the split chunks.
+     */
+    splitPredInclusive(
+        pred: (elem: T) => PromiseOrValue<boolean>,
+        limit: number = Infinity
+    ): AsyncIterPlus<T[]> {
+        const that = this;
+        async function* ret() {
+            let foundEle = false;
+            let chunks = 1;
+            let eles: T[] = [];
+            while (true) {
+                const val = await that.next();
+                if (val.done) {
+                    if (foundEle && eles.length > 0) {
+                        yield eles;
+                    }
+                    break;
+                }
+                foundEle = true;
+                eles.push(val.value);
+                if (chunks < limit && (await pred(val.value))) {
+                    yield eles;
+                    eles = [];
+                    chunks++;
+                }
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Returns an iterator yielding overlapping windows of the iterator.
+     *
+     * If there aren't enough elements to fill a window,
+     * no windows will be yielded.
+     *
+     * @param windowSize The window size.
+     * @param interval The increment between the starts of windows. Defaults to 1.
+     *
+     * @returns An iterator that yields the windows.
+     */
+    windows(windowSize: number, interval: number = 1): AsyncIterPlus<T[]> {
+        const that = this;
+        async function* ret() {
+            const eles: CircularBuffer<T> = new CircularBuffer();
+            for (let i = 0; i < windowSize; i++) {
+                const val = await that.next();
+                if (val.done) {
+                    return;
+                }
+                eles.pushEnd(val.value);
+            }
+            while (true) {
+                yield eles.toArray();
+                for (let i = 0; i < interval; i++) {
+                    const val = await that.next();
+                    if (val.done) {
+                        return;
+                    }
+                    eles.popStart();
+                    eles.pushEnd(val.value);
+                }
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Removes elements of an iterator that are equal to the previous one.
+     *
+     * @returns An iterator with no consecutive duplicates.
+     */
+    dedup(): AsyncIterPlus<T> {
+        const that = this;
+        async function* ret() {
+            const val = await that.next();
+            if (val.done) {
+                return;
+            }
+            yield val.value;
+            let prev = val.value;
+            for await (const item of that) {
+                if (item !== prev) {
+                    yield item;
+                }
+                prev = item;
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Removes elements of an iterator that are equal to the previous one with a key.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     *
+     * @returns An iterator with no consecutive duplicates.
+     */
+    dedupWith<K>(key: (elem: T) => PromiseOrValue<K>): AsyncIterPlus<T> {
+        const that = this;
+        async function* ret() {
+            const val = await that.next();
+            if (val.done) {
+                return;
+            }
+            yield val.value;
+            let prev = await key(val.value);
+            for await (const item of that) {
+                const keyItem = await key(item);
+                if (keyItem !== prev) {
+                    yield item;
+                }
+                prev = keyItem;
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Removes elements of an iterator that are equal to the previous one with a comparison function.
+     *
+     * @param cmp A function that checks if elements are equal.
+     *
+     * @returns An iterator with no consecutive duplicates.
+     */
+    dedupBy(
+        cmp: (first: T, second: T) => PromiseOrValue<boolean>
+    ): AsyncIterPlus<T> {
+        const that = this;
+        async function* ret() {
+            const val = await that.next();
+            if (val.done) {
+                return;
+            }
+            yield val.value;
+            let prev = val.value;
+            for await (const item of that) {
+                if (!cmp(prev, item)) {
+                    yield item;
+                }
+                prev = item;
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Intersperses an element between every element of the iterator.
+     *
+     * @param elem The element to intersperse.
+     *
+     * @returns The new iterator.
+     */
+    intersperse(elem: PromiseOrValue<T>): AsyncIterPlus<T> {
+        const that = this;
+        async function* ret() {
+            const awaited = await elem;
+            const val = await that.next();
+            if (val.done) {
+                return;
+            }
+            yield val.value;
+            for await (const item of that) {
+                yield awaited;
+                yield item;
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Intersperses multiple elements between every element of the iterator.
+     *
+     * @param elems The elements to intersperse.
+     *
+     * @returns The new iterator.
+     */
+    intersperseMultiple(elems: AsyncIterable<T>): AsyncIterPlus<T> {
+        const that = this;
+        async function* ret() {
+            const awaited: T[] = [];
+            for await (const item of elems) {
+                awaited.push(item);
+            }
+            const val = await that.next();
+            if (val.done) {
+                return;
+            }
+            yield val.value;
+            for await (const item of that) {
+                yield* awaited;
+                yield item;
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Joins an iterator of iterables with an element.
+     *
+     * @typeParam K The internal type.
+     * @param elem The element to join with.
+     *
+     * @returns The joined iterator.
+     */
+    join<K>(
+        this: AsyncIterPlus<Iterable<K> | AsyncIterable<K>>,
+        elem: PromiseOrValue<K>
+    ): AsyncIterPlus<K> {
+        const that = this;
+        async function* ret() {
+            const awaited = await elem;
+            const val = await that.next();
+            if (val.done) {
+                return;
+            }
+            yield* val.value;
+            for await (const item of that) {
+                yield awaited;
+                yield* item;
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Joins an iterator of iterables with multiple elements.
+     *
+     * @typeParam K The internal type.
+     * @param elems The elements to intersperse.
+     *
+     * @returns The joined iterator.
+     */
+    joinMultiple<K>(
+        this: AsyncIterPlus<Iterable<K> | AsyncIterable<K>>,
+        elems: AsyncIterable<K>
+    ): AsyncIterPlus<K> {
+        const that = this;
+        async function* ret() {
+            const awaited: K[] = [];
+            for await (const item of elems) {
+                awaited.push(item);
+            }
+            const val = await that.next();
+            if (val.done) {
+                return;
+            }
+            yield* val.value;
+            for await (const item of that) {
+                yield* awaited;
+                yield* item;
+            }
+        }
+        return new AsyncIterPlus(ret());
     }
 }
 

@@ -1,4 +1,5 @@
 /* o:import {IterPlus as SyncIterPlus} from "./IterPlus"; */
+/* o:import {PromiseOrValue} from "./util"; */
 import {CircularBuffer} from "./CircularBuffer";
 
 /**
@@ -144,7 +145,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The generated iterator.
      */
     static fromFunction<T>(
-        func: () => /* o:Promise<- */ T | Null /* o:-> */
+        func: () => /* o:PromiseOrValue<- */ T | Null /* o:-> */
     ): /* o:Async- */ IterPlus<T> {
         /* o:async */ function* ret() {
             while (true) {
@@ -166,7 +167,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The generated iterator.
      */
     static onceWith<T>(
-        func: () => /* o:Promise<- */ T /* o:-> */
+        func: () => /* o:PromiseOrValue<- */ T /* o:-> */
     ): /* o:Async- */ IterPlus<T> {
         /* o:async */ function* ret() {
             yield /* o:await */ func();
@@ -182,7 +183,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The generated iterator.
      */
     static once<T>(
-        val: /* o:Promise<- */ T /* o:-> */
+        val: /* o:PromiseOrValue<- */ T /* o:-> */
     ): /* o:Async- */ IterPlus<T> {
         /* o:async */ function* ret() {
             yield /* o:await */ val;
@@ -198,7 +199,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The generated iterator.
      */
     static repeatWith<T>(
-        func: () => /* o:Promise<- */ T /* o:-> */
+        func: () => /* o:PromiseOrValue<- */ T /* o:-> */
     ): /* o:Async- */ IterPlus<T> {
         /* o:async */ function* ret() {
             while (true) {
@@ -216,7 +217,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The generated iterator.
      */
     static repeat<T>(
-        val: /* o:Promise<- */ T /* o:-> */
+        val: /* o:PromiseOrValue<- */ T /* o:-> */
     ): /* o:Async- */ IterPlus<T> {
         /* o:async */ function* ret() {
             while (true) {
@@ -306,7 +307,7 @@ export class /* o:Async- */ IterPlus<T>
                         break;
                     }
                 }
-                if (i == indices.length) {
+                if (i === indices.length) {
                     break;
                 }
                 i--;
@@ -349,7 +350,7 @@ export class /* o:Async- */ IterPlus<T>
                         break;
                     }
                 }
-                if (i == indices.length) {
+                if (i === indices.length) {
                     break;
                 }
                 i--;
@@ -379,7 +380,7 @@ export class /* o:Async- */ IterPlus<T>
             if (count > data.length || count < 0) {
                 return;
             }
-            if (count == 0) {
+            if (count === 0) {
                 yield [];
                 return;
             }
@@ -396,7 +397,7 @@ export class /* o:Async- */ IterPlus<T>
                 let i;
                 for (i = count - 1; i >= 0; i--) {
                     cycles[i]--;
-                    if (cycles[i] == 0) {
+                    if (cycles[i] === 0) {
                         const first = indices[i];
                         for (let j = i; j < indices.length - 1; j++) {
                             indices[j] = indices[j + 1];
@@ -435,7 +436,7 @@ export class /* o:Async- */ IterPlus<T>
             if (data.length <= 0 || count < 0) {
                 return;
             }
-            if (count == 0) {
+            if (count === 0) {
                 yield [];
                 return;
             }
@@ -452,7 +453,7 @@ export class /* o:Async- */ IterPlus<T>
                         break;
                     }
                 }
-                if (i == indices.length) {
+                if (i === indices.length) {
                     break;
                 }
                 i--;
@@ -497,7 +498,7 @@ export class /* o:Async- */ IterPlus<T>
             }
             const indices: number[] = [];
             for (let i = 0; i < data.length; i++) {
-                if (data[i].length == 0) {
+                if (data[i].length === 0) {
                     return;
                 }
                 indices.push(0);
@@ -514,7 +515,7 @@ export class /* o:Async- */ IterPlus<T>
                         break;
                     }
                 }
-                if (i == indices.length) {
+                if (i === indices.length) {
                     break;
                 }
                 i--;
@@ -538,7 +539,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns If every element satisfies the predicate.
      */
     /* o:async */ every(
-        pred: (elem: T) => /* o:Promise<- */ boolean /* o:-> */
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
     ): /* o:Promise<- */ boolean /* o:-> */ {
         /* r:for await */ for (const elem of this) {
             if (!(/* o:await */ pred(elem))) {
@@ -559,7 +560,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns If some element satisfies the predicate.
      */
     /* o:async */ some(
-        pred: (elem: T) => boolean
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
     ): /* o:Promise<- */ boolean /* o:-> */ {
         /* r:for await */ for (const elem of this) {
             if (/* o:await */ pred(elem)) {
@@ -602,7 +603,7 @@ export class /* o:Async- */ IterPlus<T>
      */
     /* o:async */ compareBy<O>(
         other: /* o:Async- */ Iterable<O>,
-        cmp: (first: T, second: O) => /* o:Promise<- */ number /* o:-> */
+        cmp: (first: T, second: O) => /* o:PromiseOrValue<- */ number /* o:-> */
     ): /* o:Promise<- */ number /* o:-> */ {
         const iter = other[Symbol./* r:asyncIterator */ iterator]();
         while (true) {
@@ -638,7 +639,7 @@ export class /* o:Async- */ IterPlus<T>
      */
     /* o:async */ compareWith<K>(
         other: /* o:Async- */ Iterable<T>,
-        key: (elem: T) => /* o:Promise<- */ K /* o:-> */
+        key: (elem: T) => /* o:PromiseOrValue<- */ K /* o:-> */
     ): /* o:Promise<- */ number /* o:-> */ {
         return this.compareBy(
             other,
@@ -738,7 +739,10 @@ export class /* o:Async- */ IterPlus<T>
      */
     /* o:async */ equalsBy<O>(
         other: /* o:Async- */ Iterable<O>,
-        cmp: (first: T, second: O) => /* o:Promise<- */ boolean /* o:-> */
+        cmp: (
+            first: T,
+            second: O
+        ) => /* o:PromiseOrValue<- */ boolean /* o:-> */
     ): /* o:Promise<- */ boolean /* o:-> */ {
         const iter = other[Symbol./* r:asyncIterator */ iterator]();
         while (true) {
@@ -770,14 +774,14 @@ export class /* o:Async- */ IterPlus<T>
      */
     /* o:async */ equalsWith<K>(
         other: /* o:Async- */ Iterable<T>,
-        key: (elem: T) => /* o:Promise<- */ K /* o:-> */
+        key: (elem: T) => /* o:PromiseOrValue<- */ K /* o:-> */
     ): /* o:Promise<- */ boolean /* o:-> */ {
         return this.equalsBy(
             other,
             /* o:async */ function (a, b) {
                 const ak = /* o:await */ key(a);
                 const bk = /* o:await */ key(b);
-                return ak == bk;
+                return ak === bk;
             }
         );
     }
@@ -797,7 +801,7 @@ export class /* o:Async- */ IterPlus<T>
         return this.equalsBy(
             other,
             /* o:async */ function (a, b) {
-                return a == b;
+                return a === b;
             }
         );
     }
@@ -809,7 +813,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The generated iterator.
      */
     filter(
-        pred: (elem: T) => /* o:Promise<- */ boolean /* o:-> */
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
     ): /* o:Async- */ IterPlus<T> {
         const that = this;
         /* o:async */ function* ret() {
@@ -831,7 +835,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The generated iterator.
      */
     filterMap<K>(
-        func: (elem: T) => /* o:Promise<- */ K | Null /* o:-> */
+        func: (elem: T) => /* o:PromiseOrValue<- */ K | Null /* o:-> */
     ): /* o:Async- */ IterPlus<K> {
         const that = this;
         /* o:async */ function* ret() {
@@ -855,7 +859,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The element, or null if none was found.
      */
     /* o:async */ find(
-        pred: (elem: T) => /* o:Promise<- */ boolean /* o:-> */
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
     ): /* o:Promise<- */ T | Null /* o:-> */ {
         /* r:for await */ for (const elem of this) {
             if (/* o:await */ pred(elem)) {
@@ -877,7 +881,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The element, or null if none was found.
      */
     /* o:async */ findMap<K>(
-        func: (elem: T) => /* o:Promise<- */ K | Null /* o:-> */
+        func: (elem: T) => /* o:PromiseOrValue<- */ K | Null /* o:-> */
     ): /* o:Promise<- */ K | Null /* o:-> */ {
         /* r:for await */ for (const elem of this) {
             const val = /* o:await */ func(elem);
@@ -896,7 +900,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The generated iterator.
      */
     flatten<K>(
-        this: /* o:Async- */ IterPlus</* o:Async- */ Iterable<K>>
+        this: /* o:Async- */ IterPlus</* o:Iterable<K> | Async- */ Iterable<K>>
     ): /* o:Async- */ IterPlus<K> {
         const that = this;
         /* o:async */ function* ret() {
@@ -917,7 +921,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The generated iterator.
      */
     map<K>(
-        func: (elem: T) => /* o:Promise<- */ K /* o:-> */
+        func: (elem: T) => /* o:PromiseOrValue<- */ K /* o:-> */
     ): /* o:Async- */ IterPlus<K> {
         const that = this;
         /* o:async */ function* ret() {
@@ -939,7 +943,7 @@ export class /* o:Async- */ IterPlus<T>
      */
     starmap<K, R>(
         this: /* o:Async- */ IterPlus<Iterable<K>>,
-        func: (...args: K[]) => /* o:Promise<- */ R /* o:-> */
+        func: (...args: K[]) => /* o:PromiseOrValue<- */ R /* o:-> */
     ): /* o:Async- */ IterPlus<R> {
         const that = this;
         /* o:async */ function* ret() {
@@ -958,9 +962,19 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The generated iterator.
      */
     flatMap<K>(
-        func: (elem: T) => /* o:Promise<Async- */ Iterable<K> /* o:-> */
+        func: (
+            elem: T
+        ) => /* o:Iterable<K> | AsyncIterable<K> | Promise<Iterable<K> | Async- */ Iterable<
+            K
+        > /* o:-> */
     ): /* o:Async- */ IterPlus<K> {
-        return this.map(func).flatten();
+        const that = this;
+        /* o:async */ function* ret() {
+            /* r:for await */ for (const elem of that) {
+                yield* /* o:await */ func(elem);
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -972,7 +986,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The final accumulator.
      */
     /* o: async */ reduce<A>(
-        func: (accum: A, elem: T) => /* o:Promise<- */ A /* o:-> */,
+        func: (accum: A, elem: T) => /* o:PromiseOrValue<- */ A /* o:-> */,
         initializer: A
     ): /* o:Promise<- */ A /* o:-> */;
     /**
@@ -982,16 +996,18 @@ export class /* o:Async- */ IterPlus<T>
      * @param initializer The initial accumulator.
      * If not provided, the first element of the iterator will be used instead,
      * and the first element will be skipped over in the reduction.
-     * If an initializer is not provided and the iterator is empty,
+     *
+     * @throws If an initializer is not provided and the iterator is empty,
      * then an error will be thrown.
+     *
      * @returns The final accumulator.
      */
     reduce(
-        func: (accum: T, elem: T) => /* o:Promise<- */ T /* o:-> */,
+        func: (accum: T, elem: T) => /* o:PromiseOrValue<- */ T /* o:-> */,
         initializer?: T
     ): /* o:Promise<- */ T /* o:-> */;
     /* o: async */ reduce<A>(
-        func: (accum: A, elem: T) => /* o:Promise<- */ A /* o:-> */,
+        func: (accum: A, elem: T) => /* o:PromiseOrValue<- */ A /* o:-> */,
         initializer: A
     ): /* o:Promise<- */ A /* o:-> */ {
         let accum: A;
@@ -1021,7 +1037,7 @@ export class /* o:Async- */ IterPlus<T>
      * @param func The function to run.
      */
     /* o:async */ forEach(
-        func: (elem: T) => /* o:Promise<- */ unknown /* o:-> */
+        func: (elem: T) => /* o:PromiseOrValue<- */ unknown /* o:-> */
     ): /* o:Promise<- */ void /* o:-> */ {
         /* r:for await */ for (const elem of this) {
             /* o:await */ func(elem);
@@ -1052,7 +1068,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The generated iterator.
      */
     inspect(
-        func: (elem: T) => /* o:Promise<- */ unknown /* o:-> */
+        func: (elem: T) => /* o:PromiseOrValue<- */ unknown /* o:-> */
     ): /* o:Async- */ IterPlus<T> {
         const that = this;
         /* o:async */ function* ret() {
@@ -1075,7 +1091,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns If the iterator is partitioned.
      */
     /* o:async */ isPartitioned(
-        pred: (elem: T) => /* o:Promise<- */ boolean /* o:-> */
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
     ): /* o:Promise<- */ boolean /* o:-> */ {
         let seenFalse = false;
         /* r:for await */ for (const elem of this) {
@@ -1101,7 +1117,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns If the iterator is sorted.
      */
     /* o:async */ isSortedBy(
-        cmp: (first: T, second: T) => /* o:Promise<- */ number /* o:-> */
+        cmp: (first: T, second: T) => /* o:PromiseOrValue<- */ number /* o:-> */
     ): /* o:Promise<- */ boolean /* o:-> */ {
         const first = /* o:await */ this.next();
         if (first.done) {
@@ -1128,7 +1144,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns If the iterator is sorted.
      */
     /* o:async */ isSortedWith<K>(
-        key: (elem: T) => /* o:Promise<- */ K /* o:-> */
+        key: (elem: T) => /* o:PromiseOrValue<- */ K /* o:-> */
     ): /* o:Promise<- */ boolean /* o:-> */ {
         const first = /* o:await */ this.next();
         if (first.done) {
@@ -1178,7 +1194,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The generated iterator.
      */
     mapWhile<K>(
-        func: (elem: T) => /* o:Promise<- */ K | Null /* o:-> */
+        func: (elem: T) => /* o:PromiseOrValue<- */ K | Null /* o:-> */
     ): /* o:Async- */ IterPlus<K> {
         const that = this;
         /* o:async */ function* ret() {
@@ -1203,7 +1219,10 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The maximum element, or null if the iterator is empty.
      */
     /* o: async */ maxBy(
-        cmp: (first: T, second: T) => /* o:Promise<- */ number /* o:-> */,
+        cmp: (
+            first: T,
+            second: T
+        ) => /* o:PromiseOrValue<- */ number /* o:-> */,
         overwrite: boolean = false
     ): /* o:Promise<- */ T | null /* o:-> */ {
         const next = /* o: await */ this.next();
@@ -1213,7 +1232,7 @@ export class /* o:Async- */ IterPlus<T>
         let curMax = next.value;
         /* r:for await */ for (const elem of this) {
             const diff = /* o: await */ cmp(elem, curMax);
-            if (diff > 0 || (overwrite && diff == 0)) {
+            if (diff > 0 || (overwrite && diff === 0)) {
                 curMax = elem;
             }
         }
@@ -1230,7 +1249,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The maximum element, or null if the iterator is empty.
      */
     /* o: async */ maxWith<K>(
-        key: (elem: T) => /* o:Promise<- */ K /* o:-> */,
+        key: (elem: T) => /* o:PromiseOrValue<- */ K /* o:-> */,
         overwrite: boolean = false
     ): /* o:Promise<- */ T | null /* o:-> */ {
         const next = /* o: await */ this.next();
@@ -1241,7 +1260,7 @@ export class /* o:Async- */ IterPlus<T>
         let curMaxKey: K = /* o:await */ key(curMax);
         /* r:for await */ for (const elem of this) {
             const elemKey = /* o:await */ key(elem);
-            if (elemKey > curMaxKey || (overwrite && elemKey == curMaxKey)) {
+            if (elemKey > curMaxKey || (overwrite && elemKey === curMaxKey)) {
                 curMax = elem;
                 curMaxKey = elemKey;
             }
@@ -1256,7 +1275,7 @@ export class /* o:Async- */ IterPlus<T>
      * Defaults to `false`.
      * @returns The maximum element, or null if the iterator is empty.
      */
-    max(overwrite: boolean = false): /* o:Promise<- */ T | null /* o:-> */ {
+    max(overwrite: boolean = false): /* o:Promise<- */ T | Null /* o:-> */ {
         return this.maxWith(/* o:async */ (x) => x, overwrite);
     }
 
@@ -1270,7 +1289,10 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The minimum element, or null if the iterator is empty.
      */
     /* o: async */ minBy(
-        cmp: (first: T, second: T) => /* o:Promise<- */ number /* o:-> */,
+        cmp: (
+            first: T,
+            second: T
+        ) => /* o:PromiseOrValue<- */ number /* o:-> */,
         overwrite: boolean = false
     ): /* o:Promise<- */ T | null /* o:-> */ {
         const next = /* o: await */ this.next();
@@ -1280,7 +1302,7 @@ export class /* o:Async- */ IterPlus<T>
         let curMax = next.value;
         /* r:for await */ for (const elem of this) {
             const diff = /* o: await */ cmp(elem, curMax);
-            if (diff < 0 || (overwrite && diff == 0)) {
+            if (diff < 0 || (overwrite && diff === 0)) {
                 curMax = elem;
             }
         }
@@ -1297,7 +1319,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The minimum element, or null if the iterator is empty.
      */
     /* o: async */ minWith<K>(
-        key: (elem: T) => /* o:Promise<- */ K /* o:-> */,
+        key: (elem: T) => /* o:PromiseOrValue<- */ K /* o:-> */,
         overwrite: boolean = false
     ): /* o:Promise<- */ T | null /* o:-> */ {
         const next = /* o: await */ this.next();
@@ -1308,7 +1330,7 @@ export class /* o:Async- */ IterPlus<T>
         let curMaxKey: K = /* o:await */ key(curMax);
         /* r:for await */ for (const elem of this) {
             const elemKey = /* o:await */ key(elem);
-            if (elemKey < curMaxKey || (overwrite && elemKey == curMaxKey)) {
+            if (elemKey < curMaxKey || (overwrite && elemKey === curMaxKey)) {
                 curMax = elem;
                 curMaxKey = elemKey;
             }
@@ -1323,7 +1345,7 @@ export class /* o:Async- */ IterPlus<T>
      * Defaults to `false`.
      * @returns The minimum element, or null if the iterator is empty.
      */
-    min(overwrite: boolean = false): /* o:Promise<- */ T | null /* o:-> */ {
+    min(overwrite: boolean = false): /* o:Promise<- */ T | Null /* o:-> */ {
         return this.minWith(/* o:async */ (x) => x, overwrite);
     }
 
@@ -1355,7 +1377,7 @@ export class /* o:Async- */ IterPlus<T>
      *  - The elements where the predicate returned false.
      */
     /* o:async */ partition(
-        pred: (elem: T) => /* o:Promise<- */ boolean /* o:-> */
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
     ): /* o:Promise<- */ [T[], T[]] /* o:-> */ {
         const truePart: T[] = [];
         const falsePart: T[] = [];
@@ -1391,7 +1413,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The index, or -1 if none was found.
      */
     /* o:async */ findIndex(
-        pred: (elem: T) => /* o:Promise<- */ boolean /* o:-> */
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
     ): /* o:Promise<- */ number /* o:-> */ {
         let count = 0;
         /* r:for await */ for (const elem of this) {
@@ -1470,7 +1492,10 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The reversed iterator.
      */
     /* o: async */ reverse(): /* o:Promise<Sync- */ IterPlus<T> /* o:-> */ {
-        const collected = /* o: await */ this.collect();
+        const collected: T[] = [];
+        /* r:for await */ for (const item of this) {
+            collected.push(item);
+        }
         return new /* o:Sync- */ IterPlus(collected.reverse().values());
     }
 
@@ -1501,7 +1526,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The generated iterator.
      */
     skipWhile(
-        pred: (elem: T) => /* o:Promise<- */ boolean /* o:-> */
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
     ): /* o:Async- */ IterPlus<T> {
         const that = this;
         /* o:async */ function* ret() {
@@ -1547,7 +1572,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The generated iterator.
      */
     takeWhile(
-        pred: (elem: T) => /* o:Promise<- */ boolean /* o:-> */
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
     ): /* o:Async- */ IterPlus<T> {
         const that = this;
         /* o:async */ function* ret() {
@@ -1598,7 +1623,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The generated iterator.
      */
     zipWith<K extends unknown[], R>(
-        func: (...args: [T, ...K]) => R,
+        func: (...args: [T, ...K]) => /* o:PromiseOrValue<- */ R /* o:-> */,
         ...iters: /* o:Async- */ IterableMap<K>
     ): /* o:Async- */ IterPlus<R> {
         const that = this;
@@ -1616,7 +1641,7 @@ export class /* o:Async- */ IterPlus<T>
                     }
                     tot.push(val.value);
                 }
-                yield func(...(tot as [T, ...K]));
+                yield /* o:await */ func(...(tot as [T, ...K]));
             }
         }
         return new /* o:Async- */ IterPlus(ret());
@@ -1690,6 +1715,608 @@ export class /* o:Async- */ IterPlus<T>
             tot.push(new /* o:Async- */ IterPlus(ret(i)));
         }
         return tot;
+    }
+
+    /**
+     * Returns the average of all elements in the iterator.
+     *
+     * @throws A RangeError on an empty iterator.
+     *
+     * @returns The average.
+     */
+    /* o: async */ average(
+        this: /* o:Async- */ IterPlus<number> | /* o:Async- */ IterPlus<bigint>
+    ): /* o:Promise<- */ T /* o:-> */ {
+        let accum: any = 0;
+        let typechecked = false;
+        let bigint = false;
+        let count = 0;
+        /* r:for await */ for (const elem of this) {
+            if (!typechecked) {
+                if (typeof elem === "bigint") {
+                    bigint = true;
+                    accum = BigInt(accum);
+                }
+                typechecked = true;
+            }
+            accum = accum + (elem as number);
+            count++;
+        }
+        if (bigint) {
+            count = (BigInt(count) as unknown) as number;
+        }
+        if (count === 0) {
+            throw new RangeError("Cannot average an empty iterator.");
+        }
+        return ((accum / count) as unknown) as T;
+    }
+
+    /**
+     * Returns an iterator yielding non-overlapping chunks of the iterator.
+     *
+     * If there aren't enough elements to fill a chunk,
+     * the last chunk will be smaller than the chunk size.
+     *
+     * If you want gaps between the chunks,
+     * consider using `windows` with the appropriate interval instead.
+     *
+     * @param chunkSize The chunk size.
+     *
+     * @returns An iterator that yields the chunks.
+     */
+    chunks(chunkSize: number): /* o:Async- */ IterPlus<T[]> {
+        const that = this;
+        /* o:async */ function* ret() {
+            while (true) {
+                const eles: T[] = [];
+                for (let i = 0; i < chunkSize; i++) {
+                    const val = /* o:await */ that.next();
+                    if (val.done) {
+                        if (eles.length > 0) {
+                            yield eles;
+                        }
+                        return;
+                    }
+                    eles.push(val.value);
+                }
+                yield eles;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Returns an iterator yielding non-overlapping chunks of the iterator.
+     *
+     * If there aren't enough elements to fill a chunk,
+     * the extra elements will be omitted.
+     *
+     * If you want gaps between the chunks,
+     * consider using `windows` with the appropriate interval instead.
+     *
+     * @param chunkSize The chunk size.
+     *
+     * @returns An iterator that yields the chunks.
+     */
+    chunksExact(chunkSize: number): /* o:Async- */ IterPlus<T[]> {
+        const that = this;
+        /* o:async */ function* ret() {
+            while (true) {
+                const eles: T[] = [];
+                for (let i = 0; i < chunkSize; i++) {
+                    const val = /* o:await */ that.next();
+                    if (val.done) {
+                        if (eles.length === chunkSize) {
+                            yield eles;
+                        }
+                        return;
+                    }
+                    eles.push(val.value);
+                }
+                yield eles;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Creates an iterator that repeats the contents of the current iterator a certain number of times.
+     *
+     * @param n The number of times to repeat.
+     *
+     * @returns An iterator that repeats itself n times.
+     */
+    repeat(n: number): /* o:Async- */ IterPlus<T> {
+        const that = this;
+        /* o:async */ function* ret() {
+            const eles: T[] = [];
+            /* r:for await */ for (const item of that) {
+                eles.push(item);
+            }
+            if (eles.length === 0) {
+                return;
+            }
+            for (let i = 0; i < n; i++) {
+                yield* eles;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Creates an iterator that's rotated left a certain amount,
+     * so elements at the start end up at the end.
+     *
+     * This **does not** handle negative numbers due to right rotation being significantly slower.
+     * If you want negatives, please do the checks yourself and use rotateRight when appropriate.
+     *
+     * @throws A RangeError when the amount is negative.
+     *
+     * @param amount Amount to rotate by.
+     *
+     * @returns The rotated iterator.
+     */
+    rotateLeft(amount: number): /* o:Async- */ IterPlus<T> {
+        if (amount < 0) {
+            throw new RangeError("Cannot left rotate by a negative amount.");
+        }
+        const that = this;
+        /* o:async */ function* ret() {
+            const eles: T[] = [];
+            for (let i = 0; i < amount; i++) {
+                const val = /* o:await */ that.next();
+                if (val.done) {
+                    if (eles.length > 0) {
+                        amount %= eles.length;
+                        yield* [
+                            ...eles.slice(amount),
+                            ...eles.slice(0, amount),
+                        ];
+                    }
+                    return;
+                }
+                eles.push(val.value);
+            }
+            yield* that;
+            yield* eles;
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Creates an iterator that's rotated right a certain amount,
+     * so elements at the end end up at the start.
+     *
+     * **Due to the one-directional nature of iterators, this is not lazy and therefore much slower than `rotateLeft`.**
+     *
+     * This **does not** handle negative numbers to be consistent with `rotateLeft`.
+     * If you want negatives, please do the checks yourself and use rotateRight when appropriate.
+     *
+     * @throws A RangeError when the amount is negative.
+     *
+     * @param amount Amount to rotate by.
+     *
+     * @returns The rotated iterator.
+     */
+    rotateRight(amount: number): /* o:Async- */ IterPlus<T> {
+        if (amount < 0) {
+            throw new RangeError("Cannot left rotate by a negative amount.");
+        }
+        const that = this;
+        /* o:async */ function* ret() {
+            const eles: T[] = [];
+            while (true) {
+                const val = /* o:await */ that.next();
+                if (val.done) {
+                    break;
+                }
+                eles.push(val.value);
+            }
+            if (eles.length > 0) {
+                amount %= eles.length;
+                yield* [...eles.slice(-amount), ...eles.slice(0, -amount)];
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Splits an iterator on an element.
+     *
+     * @param ele The element to split on.
+     * @param limit The maximum number of chunks to make.
+     *
+     * @returns The iterator with the split chunks.
+     */
+    split(
+        elem: /* o:PromiseOrValue<- */ T /* o:-> */,
+        limit: number = Infinity
+    ): /* o:Async- */ IterPlus<T[]> {
+        const that = this;
+        /* o:async */ function* ret() {
+            const awaited = /* o:await */ elem;
+            let foundEle = false;
+            let chunks = 1;
+            let eles: T[] = [];
+            while (true) {
+                const val = /* o:await */ that.next();
+                if (val.done) {
+                    if (foundEle) {
+                        yield eles;
+                    }
+                    break;
+                }
+                foundEle = true;
+                if (chunks < limit && val.value === awaited) {
+                    yield eles;
+                    eles = [];
+                    chunks++;
+                } else {
+                    eles.push(val.value);
+                }
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Splits an iterator on a predicate.
+     *
+     * @param pred The predicate to split with.
+     * @param limit The maximum number of chunks to make.
+     *
+     * @returns The iterator with the split chunks.
+     */
+    splitPred(
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */,
+        limit: number = Infinity
+    ): /* o:Async- */ IterPlus<T[]> {
+        const that = this;
+        /* o:async */ function* ret() {
+            let foundEle = false;
+            let chunks = 1;
+            let eles: T[] = [];
+            while (true) {
+                const val = /* o:await */ that.next();
+                if (val.done) {
+                    if (foundEle) {
+                        yield eles;
+                    }
+                    break;
+                }
+                foundEle = true;
+                if (chunks < limit && /* o:await */ pred(val.value)) {
+                    yield eles;
+                    eles = [];
+                    chunks++;
+                } else {
+                    eles.push(val.value);
+                }
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Splits an iterator on an element,
+     * including the matched element as the last element of the chunk.
+     *
+     * Unlike the exclusive split,
+     * this does not create an empty chunk on the end when ending with the matched element.
+     *
+     * @param ele The element to split on.
+     * @param limit The maximum number of chunks to make.
+     *
+     * @returns The iterator with the split chunks.
+     */
+    splitInclusive(
+        elem: /* o:PromiseOrValue<- */ T /* o:-> */,
+        limit: number = Infinity
+    ): /* o:Async- */ IterPlus<T[]> {
+        const that = this;
+        /* o:async */ function* ret() {
+            const awaited = /* o:await */ elem;
+            let foundEle = false;
+            let chunks = 1;
+            let eles: T[] = [];
+            while (true) {
+                const val = /* o:await */ that.next();
+                if (val.done) {
+                    if (foundEle && eles.length > 0) {
+                        yield eles;
+                    }
+                    break;
+                }
+                foundEle = true;
+                eles.push(val.value);
+                if (chunks < limit && val.value === awaited) {
+                    yield eles;
+                    eles = [];
+                    chunks++;
+                }
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Splits an iterator on a predicate,
+     * including the matched element as the last element of the chunk.
+     *
+     * Unlike the exclusive split,
+     * this does not create an empty chunk on the end when ending with the matched element.
+     *
+     * @param pred The predicate to split with.
+     * @param limit The maximum number of chunks to make.
+     *
+     * @returns The iterator with the split chunks.
+     */
+    splitPredInclusive(
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */,
+        limit: number = Infinity
+    ): /* o:Async- */ IterPlus<T[]> {
+        const that = this;
+        /* o:async */ function* ret() {
+            let foundEle = false;
+            let chunks = 1;
+            let eles: T[] = [];
+            while (true) {
+                const val = /* o:await */ that.next();
+                if (val.done) {
+                    if (foundEle && eles.length > 0) {
+                        yield eles;
+                    }
+                    break;
+                }
+                foundEle = true;
+                eles.push(val.value);
+                if (chunks < limit && /* o:await */ pred(val.value)) {
+                    yield eles;
+                    eles = [];
+                    chunks++;
+                }
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Returns an iterator yielding overlapping windows of the iterator.
+     *
+     * If there aren't enough elements to fill a window,
+     * no windows will be yielded.
+     *
+     * @param windowSize The window size.
+     * @param interval The increment between the starts of windows. Defaults to 1.
+     *
+     * @returns An iterator that yields the windows.
+     */
+    windows(
+        windowSize: number,
+        interval: number = 1
+    ): /* o:Async- */ IterPlus<T[]> {
+        const that = this;
+        /* o:async */ function* ret() {
+            const eles: CircularBuffer<T> = new CircularBuffer();
+            for (let i = 0; i < windowSize; i++) {
+                const val = /* o:await */ that.next();
+                if (val.done) {
+                    return;
+                }
+                eles.pushEnd(val.value);
+            }
+            while (true) {
+                yield eles.toArray();
+                for (let i = 0; i < interval; i++) {
+                    const val = /* o:await */ that.next();
+                    if (val.done) {
+                        return;
+                    }
+                    eles.popStart();
+                    eles.pushEnd(val.value);
+                }
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Removes elements of an iterator that are equal to the previous one.
+     *
+     * @returns An iterator with no consecutive duplicates.
+     */
+    dedup(): /* o:Async- */ IterPlus<T> {
+        const that = this;
+        /* o:async */ function* ret() {
+            const val = /* o:await */ that.next();
+            if (val.done) {
+                return;
+            }
+            yield val.value;
+            let prev = val.value;
+            /* r:for await */ for (const item of that) {
+                if (item !== prev) {
+                    yield item;
+                }
+                prev = item;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Removes elements of an iterator that are equal to the previous one with a key.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     *
+     * @returns An iterator with no consecutive duplicates.
+     */
+    dedupWith<K>(
+        key: (elem: T) => /* o:PromiseOrValue<- */ K /* o:-> */
+    ): /* o:Async- */ IterPlus<T> {
+        const that = this;
+        /* o:async */ function* ret() {
+            const val = /* o:await */ that.next();
+            if (val.done) {
+                return;
+            }
+            yield val.value;
+            let prev = /* o:await */ key(val.value);
+            /* r:for await */ for (const item of that) {
+                const keyItem = /* o:await */ key(item);
+                if (keyItem !== prev) {
+                    yield item;
+                }
+                prev = keyItem;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Removes elements of an iterator that are equal to the previous one with a comparison function.
+     *
+     * @param cmp A function that checks if elements are equal.
+     *
+     * @returns An iterator with no consecutive duplicates.
+     */
+    dedupBy(
+        cmp: (
+            first: T,
+            second: T
+        ) => /* o:PromiseOrValue<- */ boolean /* o:-> */
+    ): /* o:Async- */ IterPlus<T> {
+        const that = this;
+        /* o:async */ function* ret() {
+            const val = /* o:await */ that.next();
+            if (val.done) {
+                return;
+            }
+            yield val.value;
+            let prev = val.value;
+            /* r:for await */ for (const item of that) {
+                if (!cmp(prev, item)) {
+                    yield item;
+                }
+                prev = item;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Intersperses an element between every element of the iterator.
+     *
+     * @param elem The element to intersperse.
+     *
+     * @returns The new iterator.
+     */
+    intersperse(
+        elem: /* o:PromiseOrValue<- */ T /* o:-> */
+    ): /* o:Async- */ IterPlus<T> {
+        const that = this;
+        /* o:async */ function* ret() {
+            const awaited = /* o:await */ elem;
+            const val = /* o:await */ that.next();
+            if (val.done) {
+                return;
+            }
+            yield val.value;
+            /* r:for await */ for (const item of that) {
+                yield awaited;
+                yield item;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Intersperses multiple elements between every element of the iterator.
+     *
+     * @param elems The elements to intersperse.
+     *
+     * @returns The new iterator.
+     */
+    intersperseMultiple(
+        elems: /* o:Async- */ Iterable<T>
+    ): /* o:Async- */ IterPlus<T> {
+        const that = this;
+        /* o:async */ function* ret() {
+            const awaited: T[] = [];
+            /* r:for await */ for (const item of elems) {
+                awaited.push(item);
+            }
+            const val = /* o:await */ that.next();
+            if (val.done) {
+                return;
+            }
+            yield val.value;
+            /* r:for await */ for (const item of that) {
+                yield* awaited;
+                yield item;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Joins an iterator of iterables with an element.
+     *
+     * @typeParam K The internal type.
+     * @param elem The element to join with.
+     *
+     * @returns The joined iterator.
+     */
+    join<K>(
+        this: /* o:Async- */ IterPlus</* o:Iterable<K> | Async- */ Iterable<K>>,
+        elem: /* o:PromiseOrValue<- */ K /* o:-> */
+    ): /* o:Async- */ IterPlus<K> {
+        const that = this;
+        /* o:async */ function* ret() {
+            const awaited = /* o:await */ elem;
+            const val = /* o:await */ that.next();
+            if (val.done) {
+                return;
+            }
+            yield* val.value;
+            /* r:for await */ for (const item of that) {
+                yield awaited;
+                yield* item;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+
+    /**
+     * Joins an iterator of iterables with multiple elements.
+     *
+     * @typeParam K The internal type.
+     * @param elems The elements to intersperse.
+     *
+     * @returns The joined iterator.
+     */
+    joinMultiple<K>(
+        this: /* o:Async- */ IterPlus</* o:Iterable<K> | Async- */ Iterable<K>>,
+        elems: /* o:Async- */ Iterable<K>
+    ): /* o:Async- */ IterPlus<K> {
+        const that = this;
+        /* o:async */ function* ret() {
+            const awaited: K[] = [];
+            /* r:for await */ for (const item of elems) {
+                awaited.push(item);
+            }
+            const val = /* o:await */ that.next();
+            if (val.done) {
+                return;
+            }
+            yield* val.value;
+            /* r:for await */ for (const item of that) {
+                yield* awaited;
+                yield* item;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
     }
 }
 

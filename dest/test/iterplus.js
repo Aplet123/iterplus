@@ -4,7 +4,7 @@ const index_1 = require("../src/index");
 function genYielder(bound = 5) {
     let count = 0;
     return function () {
-        if (count == bound) {
+        if (count === bound) {
             return index_1.nullVal;
         }
         return ++count;
@@ -219,7 +219,7 @@ describe("Methods", () => {
     });
     describe(".some", () => {
         it("works normally", () => {
-            expect(index_1.iterplus([1, 2, 3, 4, 5]).some((x) => x == 7)).toBe(false);
+            expect(index_1.iterplus([1, 2, 3, 4, 5]).some((x) => x === 7)).toBe(false);
         });
         it("short circuits", () => {
             const iter = index_1.iterplus([1, 2, 3, 4, 5]);
@@ -302,14 +302,14 @@ describe("Methods", () => {
     });
     describe(".equalsBy", () => {
         it("works normally", () => {
-            expect(index_1.iterplus(["a_foo", "b_foo", "c_foo"]).equalsBy(["a", "b", "c"], (a, b) => a == b + "_foo")).toBe(true);
-            expect(index_1.iterplus(["a_foo", "b_bar", "c_foo"]).equalsBy(["a", "b", "c"], (a, b) => a == b + "_foo")).toBe(false);
-            expect(index_1.iterplus(["a_foo", "b_foo", "c_foo", "d_foo"]).equalsBy(["a", "b", "c"], (a, b) => a == b + "_foo")).toBe(false);
-            expect(index_1.iterplus(["a_foo", "b_foo", "c_foo"]).equalsBy(["a", "b", "c", "d"], (a, b) => a == b + "_foo")).toBe(false);
+            expect(index_1.iterplus(["a_foo", "b_foo", "c_foo"]).equalsBy(["a", "b", "c"], (a, b) => a === b + "_foo")).toBe(true);
+            expect(index_1.iterplus(["a_foo", "b_bar", "c_foo"]).equalsBy(["a", "b", "c"], (a, b) => a === b + "_foo")).toBe(false);
+            expect(index_1.iterplus(["a_foo", "b_foo", "c_foo", "d_foo"]).equalsBy(["a", "b", "c"], (a, b) => a === b + "_foo")).toBe(false);
+            expect(index_1.iterplus(["a_foo", "b_foo", "c_foo"]).equalsBy(["a", "b", "c", "d"], (a, b) => a === b + "_foo")).toBe(false);
         });
         it("short circuits", () => {
             const iter = index_1.iterplus([1, 2, 3, 4, 5]);
-            expect(iter.equalsBy([0, 1, 3, 9, 10], (a, b) => a == b + 1)).toBe(false);
+            expect(iter.equalsBy([0, 1, 3, 9, 10], (a, b) => a === b + 1)).toBe(false);
             expectIter(iter).toEqual([4, 5]);
         });
     });
@@ -341,7 +341,7 @@ describe("Methods", () => {
     });
     describe(".filter", () => {
         it("works normally", () => {
-            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).filter((x) => x % 2 == 0)).toEqual([2, 4]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).filter((x) => x % 2 === 0)).toEqual([2, 4]);
         });
     });
     describe(".filterMap", () => {
@@ -352,28 +352,28 @@ describe("Methods", () => {
                 [8, 3],
                 [1, 4],
                 [9, 5],
-            ]).filterMap((x) => { var _a; return (_a = x.find((v) => v % 2 == 0)) !== null && _a !== void 0 ? _a : index_1.nullVal; })).toEqual([2, 8, 4]);
+            ]).filterMap((x) => { var _a; return (_a = x.find((v) => v % 2 === 0)) !== null && _a !== void 0 ? _a : index_1.nullVal; })).toEqual([2, 8, 4]);
         });
     });
     describe(".find", () => {
         it("works normally", () => {
-            expect(index_1.iterplus([1, 2, 3, 4, 5]).find((x) => x == 3)).toBe(3);
-            expect(index_1.iterplus([1, 2, 3, 4, 5]).find((x) => x == 6)).toBe(index_1.nullVal);
+            expect(index_1.iterplus([1, 2, 3, 4, 5]).find((x) => x === 3)).toBe(3);
+            expect(index_1.iterplus([1, 2, 3, 4, 5]).find((x) => x === 6)).toBe(index_1.nullVal);
         });
         it("short circuits", () => {
             const iter = index_1.iterplus([1, 2, 3, 4, 5]);
-            expect(iter.find((x) => x == 3)).toBe(3);
+            expect(iter.find((x) => x === 3)).toBe(3);
             expectIter(iter).toEqual([4, 5]);
         });
     });
     describe(".findMap", () => {
         it("works normally", () => {
-            expect(index_1.iterplus([1, 2, 3, 4, 5]).findMap((x) => x == 3 ? "foo" : index_1.nullVal)).toBe("foo");
-            expect(index_1.iterplus([1, 2, 3, 4, 5]).findMap((x) => x == 6 ? "foo" : index_1.nullVal)).toBe(index_1.nullVal);
+            expect(index_1.iterplus([1, 2, 3, 4, 5]).findMap((x) => x === 3 ? "foo" : index_1.nullVal)).toBe("foo");
+            expect(index_1.iterplus([1, 2, 3, 4, 5]).findMap((x) => x === 6 ? "foo" : index_1.nullVal)).toBe(index_1.nullVal);
         });
         it("short circuits", () => {
             const iter = index_1.iterplus([1, 2, 3, 4, 5]);
-            expect(iter.findMap((x) => (x == 3 ? "foo" : index_1.nullVal))).toBe("foo");
+            expect(iter.findMap((x) => (x === 3 ? "foo" : index_1.nullVal))).toBe("foo");
             expectIter(iter).toEqual([4, 5]);
         });
     });
@@ -449,7 +449,7 @@ describe("Methods", () => {
             let count = 0;
             const fused = new index_1.IterPlus({
                 next() {
-                    if (count == 1) {
+                    if (count === 1) {
                         count++;
                         return {
                             done: true,
@@ -489,7 +489,7 @@ describe("Methods", () => {
         });
         it("short circuits", () => {
             const iter = index_1.iterplus([1, 2, 3, 4, 5]);
-            expect(iter.isPartitioned((x) => x != 2)).toBe(false);
+            expect(iter.isPartitioned((x) => x !== 2)).toBe(false);
             expectIter(iter).toEqual([4, 5]);
         });
     });
@@ -604,11 +604,14 @@ describe("Methods", () => {
     });
     describe(".partition", () => {
         it("works normally", () => {
-            expect(index_1.iterplus([1, 2, 3, 4, 5]).partition((x) => x % 2 == 0)).toEqual([
+            expect(index_1.iterplus([1, 2, 3, 4, 5]).partition((x) => x % 2 === 0)).toEqual([
                 [2, 4],
                 [1, 3, 5],
             ]);
-            expect(index_1.iterplus([]).partition((x) => x % 2 == 0)).toEqual([[], []]);
+            expect(index_1.iterplus([]).partition((x) => x % 2 === 0)).toEqual([
+                [],
+                [],
+            ]);
         });
     });
     describe(".peekable", () => {
@@ -629,12 +632,12 @@ describe("Methods", () => {
     });
     describe(".findIndex", () => {
         it("works normally", () => {
-            expect(index_1.iterplus([1, 2, 3, 4, 5]).findIndex((x) => x == 3)).toBe(2);
-            expect(index_1.iterplus([1, 2, 3, 4, 5]).findIndex((x) => x == 6)).toBe(-1);
+            expect(index_1.iterplus([1, 2, 3, 4, 5]).findIndex((x) => x === 3)).toBe(2);
+            expect(index_1.iterplus([1, 2, 3, 4, 5]).findIndex((x) => x === 6)).toBe(-1);
         });
         it("short circuits", () => {
             const iter = index_1.iterplus([1, 2, 3, 4, 5]);
-            expect(iter.findIndex((x) => x == 3)).toBe(2);
+            expect(iter.findIndex((x) => x === 3)).toBe(2);
             expectIter(iter).toEqual([4, 5]);
         });
     });
@@ -680,8 +683,8 @@ describe("Methods", () => {
     });
     describe(".skipWhile", () => {
         it("works normally", () => {
-            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).skipWhile((x) => x == 0)).toEqual([1, 2, 3, 4, 5]);
-            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).skipWhile((x) => x != 3)).toEqual([3, 4, 5]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).skipWhile((x) => x === 0)).toEqual([1, 2, 3, 4, 5]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).skipWhile((x) => x !== 3)).toEqual([3, 4, 5]);
             expectIter(index_1.iterplus([1, 2, 3, 4, 5]).skipWhile((x) => x <= 5)).toEqual([]);
         });
     });
@@ -702,7 +705,7 @@ describe("Methods", () => {
         it("works normally", () => {
             expectIter(index_1.iterplus([1, 2, 3, 4, 5]).takeWhile((x) => x < 7)).toEqual([1, 2, 3, 4, 5]);
             expectIter(index_1.iterplus([1, 2, 3, 4, 5]).takeWhile((x) => x < 4)).toEqual([1, 2, 3]);
-            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).takeWhile((x) => x == 2)).toEqual([]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).takeWhile((x) => x === 2)).toEqual([]);
         });
     });
     describe(".unzip", () => {
@@ -752,6 +755,270 @@ describe("Methods", () => {
             expectIter(a).toEqual([2, 3]);
             expectIter(b).toEqual([2, 3]);
             expectIter(c).toEqual([1, 2, 3]);
+        });
+    });
+    describe(".average", () => {
+        it("works normally", () => {
+            expect(index_1.iterplus([1, 2, 3, 4, 5]).average()).toBe(3);
+            expect(index_1.iterplus([1, 2, 3, 4, 5].map((v) => BigInt(v))).average()).toBe(BigInt(3));
+            expect(() => index_1.iterplus([]).average()).toThrowError();
+            expect(index_1.iterplus([0, 4]).average()).toBe(2);
+        });
+    });
+    describe(".chunks", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5, 6, 7]).chunks(3)).toEqual([
+                [1, 2, 3],
+                [4, 5, 6],
+                [7],
+            ]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5, 6]).chunks(3)).toEqual([
+                [1, 2, 3],
+                [4, 5, 6],
+            ]);
+            expectIter(index_1.iterplus([1, 2, 3]).chunks(4)).toEqual([[1, 2, 3]]);
+            expectIter(index_1.iterplus([1, 2, 3]).chunks(1)).toEqual([[1], [2], [3]]);
+            expectIter(index_1.iterplus([]).chunks(5)).toEqual([]);
+        });
+    });
+    describe(".chunksExact", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5, 6, 7]).chunksExact(3)).toEqual([
+                [1, 2, 3],
+                [4, 5, 6],
+            ]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5, 6]).chunksExact(3)).toEqual([
+                [1, 2, 3],
+                [4, 5, 6],
+            ]);
+            expectIter(index_1.iterplus([1, 2, 3]).chunksExact(4)).toEqual([]);
+            expectIter(index_1.iterplus([1, 2, 3]).chunksExact(1)).toEqual([
+                [1],
+                [2],
+                [3],
+            ]);
+            expectIter(index_1.iterplus([]).chunksExact(5)).toEqual([]);
+        });
+    });
+    describe(".repeat", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([1, 2, 3]).repeat(3)).toEqual([
+                1,
+                2,
+                3,
+                1,
+                2,
+                3,
+                1,
+                2,
+                3,
+            ]);
+            expectIter(index_1.iterplus([1, 2]).repeat(1)).toEqual([1, 2]);
+            expectIter(index_1.iterplus([1, 2]).repeat(-1)).toEqual([]);
+        });
+        it("handles empty iterator repeated infinitely", () => {
+            expectIter(index_1.iterplus([]).repeat(Infinity)).toEqual([]);
+        });
+    });
+    describe(".rotateRight", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).rotateRight(2)).toEqual([
+                4,
+                5,
+                1,
+                2,
+                3,
+            ]);
+            expectIter(index_1.iterplus([]).rotateRight(2)).toEqual([]);
+            expectIter(index_1.iterplus([1, 2, 3]).rotateRight(4)).toEqual([3, 1, 2]);
+        });
+    });
+    describe(".split", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([1, 2, 3, 0, 4, 5, 0]).split(0)).toEqual([
+                [1, 2, 3],
+                [4, 5],
+                [],
+            ]);
+            expectIter(index_1.iterplus([1, 2, 3, 0, 4, 5]).split(0)).toEqual([
+                [1, 2, 3],
+                [4, 5],
+            ]);
+            expectIter(index_1.iterplus([1, 2, 3]).split(0)).toEqual([[1, 2, 3]]);
+            expectIter(index_1.iterplus([3, 3]).split(3)).toEqual([[], [], []]);
+            expectIter(index_1.iterplus([]).split(3)).toEqual([]);
+            expectIter(index_1.iterplus([1, 2, 0, 3, 4, 0, 5, 6]).split(0, 2)).toEqual([
+                [1, 2],
+                [3, 4, 0, 5, 6],
+            ]);
+        });
+    });
+    describe(".splitPred", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([1, 2, 3, 11, 4, 5, 12]).splitPred((x) => x > 10)).toEqual([[1, 2, 3], [4, 5], []]);
+            expectIter(index_1.iterplus([1, 2, 3, 13, 4, 5]).splitPred((x) => x > 10)).toEqual([
+                [1, 2, 3],
+                [4, 5],
+            ]);
+            expectIter(index_1.iterplus([1, 2, 3]).splitPred((_) => false)).toEqual([
+                [1, 2, 3],
+            ]);
+            expectIter(index_1.iterplus([1, 10]).splitPred((_) => true)).toEqual([
+                [],
+                [],
+                [],
+            ]);
+            expectIter(index_1.iterplus([]).splitPred((_) => true)).toEqual([]);
+            expectIter(index_1.iterplus([1, 2, 11, 3, 4, 12, 5, 6]).splitPred((x) => x > 10, 2)).toEqual([
+                [1, 2],
+                [3, 4, 12, 5, 6],
+            ]);
+        });
+        it("short circuits", () => {
+            const mock = jest.fn((x) => x > 10);
+            expectIter(index_1.iterplus([1, 2, 11, 3, 4, 12, 5, 6]).splitPred(mock, 2)).toEqual([
+                [1, 2],
+                [3, 4, 12, 5, 6],
+            ]);
+            expect(mock).toBeCalledTimes(3);
+        });
+    });
+    describe(".splitInclusive", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([1, 2, 3, 0, 4, 5, 0]).splitInclusive(0)).toEqual([
+                [1, 2, 3, 0],
+                [4, 5, 0],
+            ]);
+            expectIter(index_1.iterplus([1, 2, 3, 0, 4, 5]).splitInclusive(0)).toEqual([
+                [1, 2, 3, 0],
+                [4, 5],
+            ]);
+            expectIter(index_1.iterplus([1, 2, 3]).splitInclusive(0)).toEqual([
+                [1, 2, 3],
+            ]);
+            expectIter(index_1.iterplus([3, 3]).splitInclusive(3)).toEqual([[3], [3]]);
+            expectIter(index_1.iterplus([]).splitInclusive(3)).toEqual([]);
+            expectIter(index_1.iterplus([1, 2, 0, 3, 4, 0, 5, 6]).splitInclusive(0, 2)).toEqual([
+                [1, 2, 0],
+                [3, 4, 0, 5, 6],
+            ]);
+        });
+    });
+    describe(".splitPredInclusive", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([1, 2, 3, 11, 4, 5, 12]).splitPredInclusive((x) => x > 10)).toEqual([
+                [1, 2, 3, 11],
+                [4, 5, 12],
+            ]);
+            expectIter(index_1.iterplus([1, 2, 3, 13, 4, 5]).splitPredInclusive((x) => x > 10)).toEqual([
+                [1, 2, 3, 13],
+                [4, 5],
+            ]);
+            expectIter(index_1.iterplus([1, 2, 3]).splitPredInclusive((_) => false)).toEqual([[1, 2, 3]]);
+            expectIter(index_1.iterplus([1, 10]).splitPredInclusive((_) => true)).toEqual([[1], [10]]);
+            expectIter(index_1.iterplus([]).splitPredInclusive((_) => true)).toEqual([]);
+            expectIter(index_1.iterplus([1, 2, 11, 3, 4, 12, 5, 6]).splitPredInclusive((x) => x > 10, 2)).toEqual([
+                [1, 2, 11],
+                [3, 4, 12, 5, 6],
+            ]);
+        });
+        it("short circuits", () => {
+            const mock = jest.fn((x) => x > 10);
+            expectIter(index_1.iterplus([1, 2, 11, 3, 4, 12, 5, 6]).splitPredInclusive(mock, 2)).toEqual([
+                [1, 2, 11],
+                [3, 4, 12, 5, 6],
+            ]);
+            expect(mock).toBeCalledTimes(3);
+        });
+    });
+    describe(".windows", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).windows(3)).toEqual([
+                [1, 2, 3],
+                [2, 3, 4],
+                [3, 4, 5],
+            ]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).windows(3, 1)).toEqual([
+                [1, 2, 3],
+                [2, 3, 4],
+                [3, 4, 5],
+            ]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5, 6, 7]).windows(3, 2)).toEqual([
+                [1, 2, 3],
+                [3, 4, 5],
+                [5, 6, 7],
+            ]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5, 6]).windows(3, 2)).toEqual([
+                [1, 2, 3],
+                [3, 4, 5],
+            ]);
+            expectIter(index_1.iterplus([1, 2, 3]).windows(3)).toEqual([[1, 2, 3]]);
+            expectIter(index_1.iterplus([1, 2, 3]).windows(4)).toEqual([]);
+        });
+    });
+    describe(".dedup", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([1, 2, 2, 3, 2]).dedup()).toEqual([1, 2, 3, 2]);
+            expectIter(index_1.iterplus([1, 2, 2, 2, 2, 3, 2, 2]).dedup()).toEqual([
+                1,
+                2,
+                3,
+                2,
+            ]);
+            expectIter(index_1.iterplus([1, 2, 3, 4]).dedup()).toEqual([1, 2, 3, 4]);
+            expectIter(index_1.iterplus([1, 1, 1, 1, 1]).dedup()).toEqual([1]);
+            expectIter(index_1.iterplus([]).dedup()).toEqual([]);
+        });
+    });
+    describe(".dedupWith", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([1, 2, 4, 3, 6]).dedupWith((x) => x % 2)).toEqual([1, 2, 3, 6]);
+            expectIter(index_1.iterplus([1, 4, 2, 6, 2, 3, 2, 8]).dedupWith((x) => x % 2)).toEqual([1, 4, 3, 2]);
+            expectIter(index_1.iterplus([1, 2, 3, 4]).dedupWith((x) => x % 2)).toEqual([
+                1,
+                2,
+                3,
+                4,
+            ]);
+            expectIter(index_1.iterplus([1, 1, 1, 1, 1]).dedupWith((x) => x % 2)).toEqual([1]);
+            expectIter(index_1.iterplus([]).dedupWith((x) => x % 2)).toEqual([]);
+        });
+    });
+    describe(".dedupBy", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([1, 2, 4, 3, 6]).dedupBy((a, b) => a % 2 === b % 2)).toEqual([1, 2, 3, 6]);
+            expectIter(index_1.iterplus([1, 4, 2, 6, 2, 3, 2, 8]).dedupBy((a, b) => a % 2 === b % 2)).toEqual([1, 4, 3, 2]);
+            expectIter(index_1.iterplus([1, 2, 3, 4]).dedupBy((a, b) => a % 2 === b % 2)).toEqual([1, 2, 3, 4]);
+            expectIter(index_1.iterplus([1, 1, 1, 1, 1]).dedupBy((a, b) => a % 2 === b % 2)).toEqual([1]);
+            expectIter(index_1.iterplus([]).dedupBy((a, b) => a % 2 === b % 2)).toEqual([]);
+        });
+    });
+    describe(".intersperse", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([1, 2, 3]).intersperse(0)).toEqual([1, 0, 2, 0, 3]);
+            expectIter(index_1.iterplus([1]).intersperse(0)).toEqual([1]);
+            expectIter(index_1.iterplus([]).intersperse(0)).toEqual([]);
+        });
+    });
+    describe(".intersperseMultiple", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([1, 2, 3]).intersperseMultiple([10, 11, 12])).toEqual([1, 10, 11, 12, 2, 10, 11, 12, 3]);
+            expectIter(index_1.iterplus([1]).intersperseMultiple([10, 11, 12])).toEqual([1]);
+            expectIter(index_1.iterplus([]).intersperseMultiple([10, 11, 12])).toEqual([]);
+        });
+    });
+    describe(".join", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([[1, 2], [3, 4], [5, 6]]).join(0)).toEqual([1, 2, 0, 3, 4, 0, 5, 6]);
+            expectIter(index_1.iterplus([[1]]).join(0)).toEqual([1]);
+            expectIter(index_1.iterplus([]).join(0)).toEqual([]);
+        });
+    });
+    describe(".joinMultiple", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([[1, 2], [3, 4], [5, 6]]).joinMultiple([10, 11, 12])).toEqual([1, 2, 10, 11, 12, 3, 4, 10, 11, 12, 5, 6]);
+            expectIter(index_1.iterplus([[1]]).joinMultiple([10, 11, 12])).toEqual([1]);
+            expectIter(index_1.iterplus([]).joinMultiple([10, 11, 12])).toEqual([]);
         });
     });
 });

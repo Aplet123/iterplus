@@ -91,7 +91,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * @param func The function to yield values, or null to end the iterator.
      * @returns The generated iterator.
      */
-    static fromFunction<T>(func: () => /* o:Promise<- */ T | Null): IterPlus<T>;
+    static fromFunction<T>(func: () => /* o:PromiseOrValue<- */ T | Null): IterPlus<T>;
     /**
      * Generates an iterator that lazily yields a single value.
      *
@@ -329,7 +329,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * @param func The mapping function.
      * @returns The generated iterator.
      */
-    filterMap<K>(func: (elem: T) => /* o:Promise<- */ K | Null): IterPlus<K>;
+    filterMap<K>(func: (elem: T) => /* o:PromiseOrValue<- */ K | Null): IterPlus<K>;
     /**
      * Finds an element that satisfies a predicate.
      *
@@ -351,7 +351,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * @param func The mapping function.
      * @returns The element, or null if none was found.
      */
-    findMap<K>(func: (elem: T) => /* o:Promise<- */ K | Null): /* o:Promise<- */ K | Null;
+    findMap<K>(func: (elem: T) => /* o:PromiseOrValue<- */ K | Null): /* o:Promise<- */ K | Null;
     /**
      * Flattens an iterator of iterables,
      * yielding an iterator that sequentially produces their elements.
@@ -359,7 +359,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * @typeParam K The internal type.
      * @returns The generated iterator.
      */
-    flatten<K>(this: IterPlus</* o:Async- */ Iterable<K>>): IterPlus<K>;
+    flatten<K>(this: IterPlus</* o:Iterable<K> | Async- */ Iterable<K>>): IterPlus<K>;
     /**
      * Lazily maps an iterator, creating a new iterator where each element has been modified by a function.
      *
@@ -404,8 +404,10 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * @param initializer The initial accumulator.
      * If not provided, the first element of the iterator will be used instead,
      * and the first element will be skipped over in the reduction.
-     * If an initializer is not provided and the iterator is empty,
+     *
+     * @throws If an initializer is not provided and the iterator is empty,
      * then an error will be thrown.
+     *
      * @returns The final accumulator.
      */
     reduce(func: (accum: T, elem: T) => T, initializer?: T): T;
@@ -488,7 +490,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * @param func The mapping function.
      * @returns The generated iterator.
      */
-    mapWhile<K>(func: (elem: T) => /* o:Promise<- */ K | Null): IterPlus<K>;
+    mapWhile<K>(func: (elem: T) => /* o:PromiseOrValue<- */ K | Null): IterPlus<K>;
     /**
      * Finds the maximum value of an iterator with a comparison function.
      *
@@ -516,7 +518,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * Defaults to `false`.
      * @returns The maximum element, or null if the iterator is empty.
      */
-    max(overwrite?: boolean): /* o:Promise<- */ T | null;
+    max(overwrite?: boolean): /* o:Promise<- */ T | Null;
     /**
      * Finds the minimum value of an iterator with a comparison function.
      *
@@ -544,7 +546,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * Defaults to `false`.
      * @returns The minimum element, or null if the iterator is empty.
      */
-    min(overwrite?: boolean): /* o:Promise<- */ T | null;
+    min(overwrite?: boolean): /* o:Promise<- */ T | Null;
     /**
      * Finds the nth element in an iterator.
      *
@@ -670,6 +672,193 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * @returns An array of length `count` with separate iterators.
      */
     tee(count?: number): IterPlus<T>[];
+    /**
+     * Returns the average of all elements in the iterator.
+     *
+     * @throws A RangeError on an empty iterator.
+     *
+     * @returns The average.
+     */
+    average(this: /* o:Async- */ IterPlus<number> | /* o:Async- */ IterPlus<bigint>): T;
+    /**
+     * Returns an iterator yielding non-overlapping chunks of the iterator.
+     *
+     * If there aren't enough elements to fill a chunk,
+     * the last chunk will be smaller than the chunk size.
+     *
+     * If you want gaps between the chunks,
+     * consider using `windows` with the appropriate interval instead.
+     *
+     * @param chunkSize The chunk size.
+     *
+     * @returns An iterator that yields the chunks.
+     */
+    chunks(chunkSize: number): IterPlus<T[]>;
+    /**
+     * Returns an iterator yielding non-overlapping chunks of the iterator.
+     *
+     * If there aren't enough elements to fill a chunk,
+     * the extra elements will be omitted.
+     *
+     * If you want gaps between the chunks,
+     * consider using `windows` with the appropriate interval instead.
+     *
+     * @param chunkSize The chunk size.
+     *
+     * @returns An iterator that yields the chunks.
+     */
+    chunksExact(chunkSize: number): IterPlus<T[]>;
+    /**
+     * Creates an iterator that repeats the contents of the current iterator a certain number of times.
+     *
+     * @param n The number of times to repeat.
+     *
+     * @returns An iterator that repeats itself n times.
+     */
+    repeat(n: number): IterPlus<T>;
+    /**
+     * Creates an iterator that's rotated left a certain amount,
+     * so elements at the start end up at the end.
+     *
+     * This **does not** handle negative numbers due to right rotation being significantly slower.
+     * If you want negatives, please do the checks yourself and use rotateRight when appropriate.
+     *
+     * @throws A RangeError when the amount is negative.
+     *
+     * @param amount Amount to rotate by.
+     *
+     * @returns The rotated iterator.
+     */
+    rotateLeft(amount: number): IterPlus<T>;
+    /**
+     * Creates an iterator that's rotated right a certain amount,
+     * so elements at the end end up at the start.
+     *
+     * **Due to the one-directional nature of iterators, this is not lazy and therefore much slower than `rotateLeft`.**
+     *
+     * This **does not** handle negative numbers to be consistent with `rotateLeft`.
+     * If you want negatives, please do the checks yourself and use rotateRight when appropriate.
+     *
+     * @throws A RangeError when the amount is negative.
+     *
+     * @param amount Amount to rotate by.
+     *
+     * @returns The rotated iterator.
+     */
+    rotateRight(amount: number): IterPlus<T>;
+    /**
+     * Splits an iterator on an element.
+     *
+     * @param ele The element to split on.
+     * @param limit The maximum number of chunks to make.
+     *
+     * @returns The iterator with the split chunks.
+     */
+    split(elem: T, limit?: number): IterPlus<T[]>;
+    /**
+     * Splits an iterator on a predicate.
+     *
+     * @param pred The predicate to split with.
+     * @param limit The maximum number of chunks to make.
+     *
+     * @returns The iterator with the split chunks.
+     */
+    splitPred(pred: (elem: T) => boolean, limit?: number): IterPlus<T[]>;
+    /**
+     * Splits an iterator on an element,
+     * including the matched element as the last element of the chunk.
+     *
+     * Unlike the exclusive split,
+     * this does not create an empty chunk on the end when ending with the matched element.
+     *
+     * @param ele The element to split on.
+     * @param limit The maximum number of chunks to make.
+     *
+     * @returns The iterator with the split chunks.
+     */
+    splitInclusive(elem: T, limit?: number): IterPlus<T[]>;
+    /**
+     * Splits an iterator on a predicate,
+     * including the matched element as the last element of the chunk.
+     *
+     * Unlike the exclusive split,
+     * this does not create an empty chunk on the end when ending with the matched element.
+     *
+     * @param pred The predicate to split with.
+     * @param limit The maximum number of chunks to make.
+     *
+     * @returns The iterator with the split chunks.
+     */
+    splitPredInclusive(pred: (elem: T) => boolean, limit?: number): IterPlus<T[]>;
+    /**
+     * Returns an iterator yielding overlapping windows of the iterator.
+     *
+     * If there aren't enough elements to fill a window,
+     * no windows will be yielded.
+     *
+     * @param windowSize The window size.
+     * @param interval The increment between the starts of windows. Defaults to 1.
+     *
+     * @returns An iterator that yields the windows.
+     */
+    windows(windowSize: number, interval?: number): IterPlus<T[]>;
+    /**
+     * Removes elements of an iterator that are equal to the previous one.
+     *
+     * @returns An iterator with no consecutive duplicates.
+     */
+    dedup(): IterPlus<T>;
+    /**
+     * Removes elements of an iterator that are equal to the previous one with a key.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     *
+     * @returns An iterator with no consecutive duplicates.
+     */
+    dedupWith<K>(key: (elem: T) => K): IterPlus<T>;
+    /**
+     * Removes elements of an iterator that are equal to the previous one with a comparison function.
+     *
+     * @param cmp A function that checks if elements are equal.
+     *
+     * @returns An iterator with no consecutive duplicates.
+     */
+    dedupBy(cmp: (first: T, second: T) => boolean): IterPlus<T>;
+    /**
+     * Intersperses an element between every element of the iterator.
+     *
+     * @param elem The element to intersperse.
+     *
+     * @returns The new iterator.
+     */
+    intersperse(elem: T): IterPlus<T>;
+    /**
+     * Intersperses multiple elements between every element of the iterator.
+     *
+     * @param elems The elements to intersperse.
+     *
+     * @returns The new iterator.
+     */
+    intersperseMultiple(elems: Iterable<T>): IterPlus<T>;
+    /**
+     * Joins an iterator of iterables with an element.
+     *
+     * @typeParam K The internal type.
+     * @param elem The element to join with.
+     *
+     * @returns The joined iterator.
+     */
+    join<K>(this: IterPlus</* o:Iterable<K> | Async- */ Iterable<K>>, elem: K): IterPlus<K>;
+    /**
+     * Joins an iterator of iterables with multiple elements.
+     *
+     * @typeParam K The internal type.
+     * @param elems The elements to intersperse.
+     *
+     * @returns The joined iterator.
+     */
+    joinMultiple<K>(this: IterPlus</* o:Iterable<K> | Async- */ Iterable<K>>, elems: Iterable<K>): IterPlus<K>;
 }
 /**
  * An iterator with a `peek`. method that can look one element in advance.

@@ -93,6 +93,23 @@ export class CircularBuffer<T> {
     }
 
     /**
+     * Returns a shallow-copied array of the data.
+     *
+     * This is faster than collecting the iterator.
+     *
+     * @returns The array.
+     */
+    toArray(): T[] {
+        if (this.start < this.end) {
+            return this.data.slice(this.start, this.end);
+        }
+        return [
+            ...this.data.slice(this.start),
+            ...this.data.slice(0, this.end),
+        ];
+    }
+
+    /**
      * Expands the buffer if needed.
      */
     private possiblyExpand() {
