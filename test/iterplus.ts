@@ -337,7 +337,7 @@ describe("Methods", () => {
 
     describe(".collect", () => {
         it("works normally", () => {
-            expect(iterplus(new Set([2, 1, 3])).collect()).toEqual([2, 1, 3]);
+            expect(iterplus([2, 1, 3]).collect()).toEqual([2, 1, 3]);
         });
     });
 
@@ -1333,15 +1333,15 @@ describe("Methods", () => {
 
     describe(".intersperse", () => {
         it("works normally", () => {
-            expectIter(
-                iterplus([1, 2, 3]).intersperse(0)
-            ).toEqual([1, 0, 2, 0, 3]);
-            expectIter(
-                iterplus([1]).intersperse(0)
-            ).toEqual([1]);
-            expectIter(
-                iterplus([] as number[]).intersperse(0)
-            ).toEqual([]);
+            expectIter(iterplus([1, 2, 3]).intersperse(0)).toEqual([
+                1,
+                0,
+                2,
+                0,
+                3,
+            ]);
+            expectIter(iterplus([1]).intersperse(0)).toEqual([1]);
+            expectIter(iterplus([] as number[]).intersperse(0)).toEqual([]);
         });
     });
 
@@ -1362,28 +1362,331 @@ describe("Methods", () => {
     describe(".join", () => {
         it("works normally", () => {
             expectIter(
-                iterplus([[1, 2], [3, 4], [5, 6]]).join(0)
+                iterplus([
+                    [1, 2],
+                    [3, 4],
+                    [5, 6],
+                ]).join(0)
             ).toEqual([1, 2, 0, 3, 4, 0, 5, 6]);
-            expectIter(
-                iterplus([[1]]).join(0)
-            ).toEqual([1]);
-            expectIter(
-                iterplus([] as number[][]).join(0)
-            ).toEqual([]);
+            expectIter(iterplus([[1]]).join(0)).toEqual([1]);
+            expectIter(iterplus([] as number[][]).join(0)).toEqual([]);
         });
     });
 
     describe(".joinMultiple", () => {
         it("works normally", () => {
             expectIter(
-                iterplus([[1, 2], [3, 4], [5, 6]]).joinMultiple([10, 11, 12])
+                iterplus([
+                    [1, 2],
+                    [3, 4],
+                    [5, 6],
+                ]).joinMultiple([10, 11, 12])
             ).toEqual([1, 2, 10, 11, 12, 3, 4, 10, 11, 12, 5, 6]);
-            expectIter(
-                iterplus([[1]]).joinMultiple([10, 11, 12])
-            ).toEqual([1]);
+            expectIter(iterplus([[1]]).joinMultiple([10, 11, 12])).toEqual([1]);
             expectIter(
                 iterplus([] as number[][]).joinMultiple([10, 11, 12])
             ).toEqual([]);
+        });
+    });
+
+    describe(".toObject", () => {
+        it("works normally", () => {
+            expect(
+                iterplus([
+                    ["a", "b"],
+                    ["c", "d"],
+                    ["e", "f"],
+                ] as [string, string][]).toObject()
+            ).toEqual({a: "b", c: "d", e: "f"});
+            expect(
+                iterplus([
+                    ["a", "b"],
+                    ["c", "d"],
+                    ["e", "f"],
+                ] as [string, string][]).toObject("maintain")
+            ).toEqual({a: "b", c: "d", e: "f"});
+            expect(
+                iterplus([
+                    ["a", "b"],
+                    ["c", "d"],
+                    ["e", "f"],
+                ] as [string, string][]).toObject("error")
+            ).toEqual({a: "b", c: "d", e: "f"});
+            expect(
+                iterplus([
+                    ["a", "b"],
+                    ["c", "d"],
+                    ["e", "f"],
+                    ["a", "foo"],
+                ] as [string, string][]).toObject()
+            ).toEqual({a: "foo", c: "d", e: "f"});
+            expect(
+                iterplus([
+                    ["a", "b"],
+                    ["c", "d"],
+                    ["e", "f"],
+                    ["a", "foo"],
+                ] as [string, string][]).toObject("overwrite")
+            ).toEqual({a: "foo", c: "d", e: "f"});
+            expect(
+                iterplus([
+                    ["a", "b"],
+                    ["c", "d"],
+                    ["e", "f"],
+                    ["a", "foo"],
+                ] as [string, string][]).toObject("maintain")
+            ).toEqual({a: "b", c: "d", e: "f"});
+            expect(() =>
+                iterplus([
+                    ["a", "b"],
+                    ["c", "d"],
+                    ["e", "f"],
+                    ["a", "foo"],
+                ] as [string, string][]).toObject("error")
+            ).toThrowError();
+            expect(iterplus([]).toObject()).toEqual({});
+        });
+    });
+
+    describe(".toMap", () => {
+        it("works normally", () => {
+            expect(
+                iterplus([
+                    ["a", "b"],
+                    ["c", "d"],
+                    ["e", "f"],
+                ] as [string, string][]).toMap()
+            ).toEqual(new Map(Object.entries({a: "b", c: "d", e: "f"})));
+            expect(
+                iterplus([
+                    ["a", "b"],
+                    ["c", "d"],
+                    ["e", "f"],
+                ] as [string, string][]).toMap("maintain")
+            ).toEqual(new Map(Object.entries({a: "b", c: "d", e: "f"})));
+            expect(
+                iterplus([
+                    ["a", "b"],
+                    ["c", "d"],
+                    ["e", "f"],
+                ] as [string, string][]).toMap("error")
+            ).toEqual(new Map(Object.entries({a: "b", c: "d", e: "f"})));
+            expect(
+                iterplus([
+                    ["a", "b"],
+                    ["c", "d"],
+                    ["e", "f"],
+                    ["a", "foo"],
+                ] as [string, string][]).toMap()
+            ).toEqual(new Map(Object.entries({a: "foo", c: "d", e: "f"})));
+            expect(
+                iterplus([
+                    ["a", "b"],
+                    ["c", "d"],
+                    ["e", "f"],
+                    ["a", "foo"],
+                ] as [string, string][]).toMap("overwrite")
+            ).toEqual(new Map(Object.entries({a: "foo", c: "d", e: "f"})));
+            expect(
+                iterplus([
+                    ["a", "b"],
+                    ["c", "d"],
+                    ["e", "f"],
+                    ["a", "foo"],
+                ] as [string, string][]).toMap("maintain")
+            ).toEqual(new Map(Object.entries({a: "b", c: "d", e: "f"})));
+            expect(() =>
+                iterplus([
+                    ["a", "b"],
+                    ["c", "d"],
+                    ["e", "f"],
+                    ["a", "foo"],
+                ] as [string, string][]).toMap("error")
+            ).toThrowError();
+            expect(iterplus([]).toMap()).toEqual(new Map());
+        });
+    });
+
+    describe(".toSet", () => {
+        it("works normally", () => {
+            expect(iterplus([1, 2, 3, 4, 2]).toSet()).toEqual(
+                new Set([1, 2, 3, 4])
+            );
+            expect(iterplus([1, 2, 3]).toSet()).toEqual(new Set([1, 2, 3]));
+            expect(iterplus([]).toSet()).toEqual(new Set());
+        });
+    });
+
+    describe(".toArray", () => {
+        it("works normally", () => {
+            expect(iterplus([2, 1, 3]).collect()).toEqual([2, 1, 3]);
+        });
+    });
+
+    describe(".interleave", () => {
+        it("works normally", () => {
+            expectIter(
+                iterplus([1, 2, 3]).interleave([4, 5, 6, 7], [8, 9, 10, 11, 12])
+            ).toEqual([1, 4, 8, 2, 5, 9, 3, 6, 10, 7, 11, 12]);
+
+            expectIter(iterplus([1, 2, 3]).interleave([4, 5, 6])).toEqual([
+                1,
+                4,
+                2,
+                5,
+                3,
+                6,
+            ]);
+
+            expectIter(iterplus([] as number[]).interleave([1, 2, 3])).toEqual([
+                1,
+                2,
+                3,
+            ]);
+
+            expectIter(iterplus([1, 2, 3]).interleave([] as number[])).toEqual([
+                1,
+                2,
+                3,
+            ]);
+
+            expectIter(iterplus([]).interleave([])).toEqual([]);
+        });
+    });
+
+    describe(".mapAccum", () => {
+        it("works normally", () => {
+            expectIter(
+                iterplus(["A", "B", "C"]).mapAccum(
+                    (a, v) => [a + 1, v + a.toString()],
+                    0
+                )
+            ).toEqual(["A0", "B1", "C2"]);
+
+            expectIter(
+                iterplus([]).mapAccum((a, v) => [a + 1, v + a.toString()], 0)
+            ).toEqual([]);
+        });
+    });
+
+    describe(".countIf", () => {
+        it("works normally", () => {
+            expect(iterplus([1, 2, 3, 4, 5]).countIf((x) => x % 2 == 0)).toBe(
+                2
+            );
+
+            expect(iterplus([1, 2, 3, 4, 5]).countIf((x) => x == 10)).toBe(0);
+
+            expect(iterplus([]).countIf((x) => true)).toBe(0);
+        });
+    });
+
+    describe(".scan", () => {
+        it("works normally", () => {
+            expectIter(iterplus([1, 2, 3, 4]).scan((a, b) => a * 10 + b)).toEqual(
+                [1, 12, 123, 1234]
+            );
+            expectIter(iterplus([1, 2, 3, 4]).scan((a, b) => a * 10 + b, 9)).toEqual(
+                [9, 91, 912, 9123, 91234]
+            );
+            expectIter(iterplus([] as string[]).scan((a, _) => a, "foo")).toEqual(
+                ["foo"]
+            );
+        });
+
+        it("errors on empty array", () => {
+            expect(() => iterplus([]).scan((a, _) => a).next()).toThrow(TypeError);
+        });
+    });
+
+    describe(".headEqualsBy", () => {
+        it("works normally", () => {
+            expect(
+                iterplus(["a_foo", "b_foo", "c_foo"]).headEqualsBy(
+                    ["a", "b", "c"],
+                    (a, b) => a === b + "_foo"
+                )
+            ).toBe(true);
+            expect(
+                iterplus(["a_foo", "b_bar", "c_foo"]).headEqualsBy(
+                    ["a", "b", "c"],
+                    (a, b) => a === b + "_foo"
+                )
+            ).toBe(false);
+            expect(
+                iterplus(["a_foo", "b_foo", "c_foo", "d_foo"]).headEqualsBy(
+                    ["a", "b", "c"],
+                    (a, b) => a === b + "_foo"
+                )
+            ).toBe(true);
+            expect(
+                iterplus(["a_foo", "b_foo", "c_foo"]).headEqualsBy(
+                    ["a", "b", "c", "d"],
+                    (a, b) => a === b + "_foo"
+                )
+            ).toBe(true);
+        });
+
+        it("short circuits", () => {
+            const iter = iterplus([1, 2, 3, 4, 5]);
+            expect(iter.headEqualsBy([0, 1, 3, 9, 10], (a, b) => a === b + 1)).toBe(
+                false
+            );
+            expectIter(iter).toEqual([4, 5]);
+        });
+    });
+
+    describe(".headEqualsWith", () => {
+        it("works normally", () => {
+            expect(
+                iterplus(["a_foo", "b_foo", "c_foo"]).headEqualsWith(
+                    ["a", "b", "c"],
+                    (x) => (x.endsWith("_foo") ? x : x + "_foo")
+                )
+            ).toBe(true);
+            expect(
+                iterplus(["a_foo", "b_bar", "c_foo"]).headEqualsWith(
+                    ["a", "b", "c"],
+                    (x) => (x.endsWith("_foo") ? x : x + "_foo")
+                )
+            ).toBe(false);
+            expect(
+                iterplus(["a_foo", "b_foo", "c_foo", "d_foo"]).headEqualsWith(
+                    ["a", "b", "c"],
+                    (x) => (x.endsWith("_foo") ? x : x + "_foo")
+                )
+            ).toBe(true);
+            expect(
+                iterplus(["a_foo", "b_foo", "c_foo"]).headEqualsWith(
+                    ["a", "b", "c", "d"],
+                    (x) => (x.endsWith("_foo") ? x : x + "_foo")
+                )
+            ).toBe(true);
+        });
+
+        it("short circuits", () => {
+            const iter = iterplus([1, 2, 3, 4, 5]);
+            expect(
+                iter.headEqualsWith([101, 102, 104, 109, 110], (x) =>
+                    x > 100 ? x - 100 : x
+                )
+            ).toBe(false);
+            expectIter(iter).toEqual([4, 5]);
+        });
+    });
+
+    describe(".equals", () => {
+        it("works normally", () => {
+            expect(iterplus([1, 2, 3]).headEquals([1, 2, 3])).toBe(true);
+            expect(iterplus([1, 2, 3]).headEquals([1, 2, 4])).toBe(false);
+            expect(iterplus([1, 2, 3, 4]).headEquals([1, 2, 3])).toBe(true);
+            expect(iterplus([1, 2, 3]).headEquals([1, 2, 3, 4])).toBe(true);
+        });
+
+        it("short circuits", () => {
+            const iter = iterplus([1, 2, 3, 4, 5]);
+            expect(iter.headEquals([1, 2, 5, 6, 7])).toBe(false);
+            expectIter(iter).toEqual([4, 5]);
         });
     });
 });

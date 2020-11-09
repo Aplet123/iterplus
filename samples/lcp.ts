@@ -6,8 +6,7 @@ function longestCommonPrefix(strs: string[]): string {
         .zip(...strs.slice(1))
         .takeWhile(x => x.every(v => v === x[0]))
         .map(x => x[0])
-        .collect()
-        .join("");
+        .sum();
 }
 
 console.log(longestCommonPrefix(["flower","flow","flight"]) || "(nothing)"); // fl

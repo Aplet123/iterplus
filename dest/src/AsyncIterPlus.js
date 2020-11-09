@@ -784,11 +784,23 @@ class AsyncIterPlus {
      * @returns If the two iterators are equal.
      */
     async equalsWith(other, key) {
-        return this.equalsBy(other, async function (a, b) {
-            const ak = await key(a);
-            const bk = await key(b);
-            return ak === bk;
-        });
+        const iter = other[Symbol.asyncIterator]();
+        while (true) {
+            const a = await this.next();
+            const b = await iter.next();
+            if (a.done && b.done) {
+                return true;
+            }
+            else if (a.done || b.done) {
+                return false;
+            }
+            else {
+                const eq = (await key(a.value)) === (await key(b.value));
+                if (!eq) {
+                    return false;
+                }
+            }
+        }
     }
     /**
      * Checks if this iterator is equal to another.
@@ -800,9 +812,23 @@ class AsyncIterPlus {
      * @returns If the two iterators are equal.
      */
     async equals(other) {
-        return this.equalsBy(other, async function (a, b) {
-            return a === b;
-        });
+        const iter = other[Symbol.asyncIterator]();
+        while (true) {
+            const a = await this.next();
+            const b = await iter.next();
+            if (a.done && b.done) {
+                return true;
+            }
+            else if (a.done || b.done) {
+                return false;
+            }
+            else {
+                const eq = a.value === b.value;
+                if (!eq) {
+                    return false;
+                }
+            }
+        }
     }
     /**
      * Generates an iterator that only yields elements that match a predicate.
@@ -1849,7 +1875,27 @@ class AsyncIterPlus {
      * @returns The generated iterator.
      */
     zip(...iters) {
-        return this.zipWith(Array.of, ...iters);
+        const that = this;
+        function ret() {
+            return __asyncGenerator(this, arguments, function* ret_31() {
+                const zippers = [
+                    that,
+                    ...iters.map((v) => v[Symbol.asyncIterator]()),
+                ];
+                while (true) {
+                    const tot = [];
+                    for (const iter of zippers) {
+                        const val = yield __await(iter.next());
+                        if (val.done) {
+                            return yield __await(void 0);
+                        }
+                        tot.push(val.value);
+                    }
+                    yield yield __await(tot);
+                }
+            });
+        }
+        return new AsyncIterPlus(ret());
     }
     /**
      * Splits an iterator into multiple, where advancing one iterator does not advance the others.
@@ -1874,7 +1920,7 @@ class AsyncIterPlus {
         const tot = [];
         const indices = [];
         function ret(index) {
-            return __asyncGenerator(this, arguments, function* ret_31() {
+            return __asyncGenerator(this, arguments, function* ret_32() {
                 let n = 0;
                 while (true) {
                     if (n >= init + stored.size()) {
@@ -1912,7 +1958,6 @@ class AsyncIterPlus {
      * Returns the average of all elements in the iterator.
      *
      * @throws A RangeError on an empty iterator.
-     *
      * @returns The average.
      */
     async average() {
@@ -1960,13 +2005,12 @@ class AsyncIterPlus {
      * consider using `windows` with the appropriate interval instead.
      *
      * @param chunkSize The chunk size.
-     *
      * @returns An iterator that yields the chunks.
      */
     chunks(chunkSize) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_32() {
+            return __asyncGenerator(this, arguments, function* ret_33() {
                 while (true) {
                     const eles = [];
                     for (let i = 0; i < chunkSize; i++) {
@@ -1995,13 +2039,12 @@ class AsyncIterPlus {
      * consider using `windows` with the appropriate interval instead.
      *
      * @param chunkSize The chunk size.
-     *
      * @returns An iterator that yields the chunks.
      */
     chunksExact(chunkSize) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_33() {
+            return __asyncGenerator(this, arguments, function* ret_34() {
                 while (true) {
                     const eles = [];
                     for (let i = 0; i < chunkSize; i++) {
@@ -2024,13 +2067,12 @@ class AsyncIterPlus {
      * Creates an iterator that repeats the contents of the current iterator a certain number of times.
      *
      * @param n The number of times to repeat.
-     *
      * @returns An iterator that repeats itself n times.
      */
     repeat(n) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_34() {
+            return __asyncGenerator(this, arguments, function* ret_35() {
                 var e_37, _a;
                 const eles = [];
                 try {
@@ -2063,10 +2105,8 @@ class AsyncIterPlus {
      * This **does not** handle negative numbers due to right rotation being significantly slower.
      * If you want negatives, please do the checks yourself and use rotateRight when appropriate.
      *
-     * @throws A RangeError when the amount is negative.
-     *
      * @param amount Amount to rotate by.
-     *
+     * @throws A RangeError when the amount is negative.
      * @returns The rotated iterator.
      */
     rotateLeft(amount) {
@@ -2075,7 +2115,7 @@ class AsyncIterPlus {
         }
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_35() {
+            return __asyncGenerator(this, arguments, function* ret_36() {
                 const eles = [];
                 for (let i = 0; i < amount; i++) {
                     const val = yield __await(that.next());
@@ -2106,19 +2146,17 @@ class AsyncIterPlus {
      * This **does not** handle negative numbers to be consistent with `rotateLeft`.
      * If you want negatives, please do the checks yourself and use rotateRight when appropriate.
      *
-     * @throws A RangeError when the amount is negative.
-     *
      * @param amount Amount to rotate by.
-     *
+     * @throws A RangeError when the amount is negative.
      * @returns The rotated iterator.
      */
     rotateRight(amount) {
         if (amount < 0) {
-            throw new RangeError("Cannot left rotate by a negative amount.");
+            throw new RangeError("Cannot right rotate by a negative amount.");
         }
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_36() {
+            return __asyncGenerator(this, arguments, function* ret_37() {
                 const eles = [];
                 while (true) {
                     const val = yield __await(that.next());
@@ -2140,13 +2178,12 @@ class AsyncIterPlus {
      *
      * @param ele The element to split on.
      * @param limit The maximum number of chunks to make.
-     *
      * @returns The iterator with the split chunks.
      */
     split(elem, limit = Infinity) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_37() {
+            return __asyncGenerator(this, arguments, function* ret_38() {
                 const awaited = yield __await(elem);
                 let foundEle = false;
                 let chunks = 1;
@@ -2178,13 +2215,12 @@ class AsyncIterPlus {
      *
      * @param pred The predicate to split with.
      * @param limit The maximum number of chunks to make.
-     *
      * @returns The iterator with the split chunks.
      */
     splitPred(pred, limit = Infinity) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_38() {
+            return __asyncGenerator(this, arguments, function* ret_39() {
                 let foundEle = false;
                 let chunks = 1;
                 let eles = [];
@@ -2219,13 +2255,12 @@ class AsyncIterPlus {
      *
      * @param ele The element to split on.
      * @param limit The maximum number of chunks to make.
-     *
      * @returns The iterator with the split chunks.
      */
     splitInclusive(elem, limit = Infinity) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_39() {
+            return __asyncGenerator(this, arguments, function* ret_40() {
                 const awaited = yield __await(elem);
                 let foundEle = false;
                 let chunks = 1;
@@ -2259,13 +2294,12 @@ class AsyncIterPlus {
      *
      * @param pred The predicate to split with.
      * @param limit The maximum number of chunks to make.
-     *
      * @returns The iterator with the split chunks.
      */
     splitPredInclusive(pred, limit = Infinity) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_40() {
+            return __asyncGenerator(this, arguments, function* ret_41() {
                 let foundEle = false;
                 let chunks = 1;
                 let eles = [];
@@ -2297,13 +2331,12 @@ class AsyncIterPlus {
      *
      * @param windowSize The window size.
      * @param interval The increment between the starts of windows. Defaults to 1.
-     *
      * @returns An iterator that yields the windows.
      */
     windows(windowSize, interval = 1) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_41() {
+            return __asyncGenerator(this, arguments, function* ret_42() {
                 const eles = new CircularBuffer_1.CircularBuffer();
                 for (let i = 0; i < windowSize; i++) {
                     const val = yield __await(that.next());
@@ -2329,13 +2362,12 @@ class AsyncIterPlus {
     }
     /**
      * Removes elements of an iterator that are equal to the previous one.
-     *
      * @returns An iterator with no consecutive duplicates.
      */
     dedup() {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_42() {
+            return __asyncGenerator(this, arguments, function* ret_43() {
                 var e_38, _a;
                 const val = yield __await(that.next());
                 if (val.done) {
@@ -2368,13 +2400,12 @@ class AsyncIterPlus {
      *
      * @typeParam K The type of the key.
      * @param key The key function.
-     *
      * @returns An iterator with no consecutive duplicates.
      */
     dedupWith(key) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_43() {
+            return __asyncGenerator(this, arguments, function* ret_44() {
                 var e_39, _a;
                 const val = yield __await(that.next());
                 if (val.done) {
@@ -2407,13 +2438,12 @@ class AsyncIterPlus {
      * Removes elements of an iterator that are equal to the previous one with a comparison function.
      *
      * @param cmp A function that checks if elements are equal.
-     *
      * @returns An iterator with no consecutive duplicates.
      */
     dedupBy(cmp) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_44() {
+            return __asyncGenerator(this, arguments, function* ret_45() {
                 var e_40, _a;
                 const val = yield __await(that.next());
                 if (val.done) {
@@ -2445,13 +2475,12 @@ class AsyncIterPlus {
      * Intersperses an element between every element of the iterator.
      *
      * @param elem The element to intersperse.
-     *
      * @returns The new iterator.
      */
     intersperse(elem) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_45() {
+            return __asyncGenerator(this, arguments, function* ret_46() {
                 var e_41, _a;
                 const awaited = yield __await(elem);
                 const val = yield __await(that.next());
@@ -2481,13 +2510,12 @@ class AsyncIterPlus {
      * Intersperses multiple elements between every element of the iterator.
      *
      * @param elems The elements to intersperse.
-     *
      * @returns The new iterator.
      */
     intersperseMultiple(elems) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_46() {
+            return __asyncGenerator(this, arguments, function* ret_47() {
                 var e_42, _a, e_43, _b;
                 const awaited = [];
                 try {
@@ -2531,13 +2559,12 @@ class AsyncIterPlus {
      *
      * @typeParam K The internal type.
      * @param elem The element to join with.
-     *
      * @returns The joined iterator.
      */
     join(elem) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_47() {
+            return __asyncGenerator(this, arguments, function* ret_48() {
                 var e_44, _a;
                 const awaited = yield __await(elem);
                 const val = yield __await(that.next());
@@ -2568,13 +2595,12 @@ class AsyncIterPlus {
      *
      * @typeParam K The internal type.
      * @param elems The elements to intersperse.
-     *
      * @returns The joined iterator.
      */
     joinMultiple(elems) {
         const that = this;
         function ret() {
-            return __asyncGenerator(this, arguments, function* ret_48() {
+            return __asyncGenerator(this, arguments, function* ret_49() {
                 var e_45, _a, e_46, _b;
                 const awaited = [];
                 try {
@@ -2612,6 +2638,366 @@ class AsyncIterPlus {
             });
         }
         return new AsyncIterPlus(ret());
+    }
+    /**
+     * Converts an iterator of key-value pairs into an object.
+     *
+     * @typeParam K The key type.
+     * @typeParam V The value type.
+     * @param duplicate How to handle duplicate keys.
+     * `"overwrite"` replaces values with the new value.
+     * `"maintain"` maintains the old value.
+     * `"error"` throws an error.
+     * Defaults to `"overwrite"`.
+     * @throws A RangeError if `duplicate` is `"error"` and a duplicate key is encountered.
+     * @returns The generated object.
+     */
+    async toObject(duplicate = "overwrite") {
+        var e_47, _a;
+        const ret = {};
+        try {
+            for (var _b = __asyncValues(this), _c; _c = await _b.next(), !_c.done;) {
+                const [key, val] = _c.value;
+                if (duplicate !== "overwrite" && key in ret) {
+                    if (duplicate === "error") {
+                        throw new RangeError("Duplicate key encountered.");
+                    }
+                    else if (duplicate === "maintain") {
+                        // do nothing
+                    }
+                    else {
+                        ret[key] = val;
+                    }
+                }
+                else {
+                    ret[key] = val;
+                }
+            }
+        }
+        catch (e_47_1) { e_47 = { error: e_47_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
+            }
+            finally { if (e_47) throw e_47.error; }
+        }
+        return ret;
+    }
+    /**
+     * Converts an iterator of key-value pairs into a map.
+     *
+     * @typeParam K The key type.
+     * @typeParam V The value type.
+     * @param duplicate How to handle duplicate keys.
+     * `"overwrite"` replaces values with the new value.
+     * `"maintain"` maintains the old value.
+     * `"error"` throws an error.
+     * Defaults to `"overwrite"`.
+     * @throws A RangeError if `duplicate` is `"error"` and a duplicate key is encountered.
+     * @returns The generated map.
+     */
+    async toMap(duplicate = "overwrite") {
+        var e_48, _a;
+        const ret = new Map();
+        try {
+            for (var _b = __asyncValues(this), _c; _c = await _b.next(), !_c.done;) {
+                const [key, val] = _c.value;
+                if (duplicate !== "overwrite" && ret.has(key)) {
+                    if (duplicate === "error") {
+                        throw new RangeError("Duplicate key encountered.");
+                    }
+                    else if (duplicate === "maintain") {
+                        // do nothing
+                    }
+                    else {
+                        ret.set(key, val);
+                    }
+                }
+                else {
+                    ret.set(key, val);
+                }
+            }
+        }
+        catch (e_48_1) { e_48 = { error: e_48_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
+            }
+            finally { if (e_48) throw e_48.error; }
+        }
+        return ret;
+    }
+    /**
+     * Converts an iterator into a set.
+     *
+     * @returns The generated set.
+     */
+    async toSet() {
+        var e_49, _a;
+        const ret = new Set();
+        try {
+            for (var _b = __asyncValues(this), _c; _c = await _b.next(), !_c.done;) {
+                const val = _c.value;
+                ret.add(val);
+            }
+        }
+        catch (e_49_1) { e_49 = { error: e_49_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
+            }
+            finally { if (e_49) throw e_49.error; }
+        }
+        return ret;
+    }
+    /**
+     * Converts an iterator into an array.
+     *
+     * @returns The generated array.
+     */
+    async toArray() {
+        var e_50, _a;
+        const ret = [];
+        try {
+            for (var _b = __asyncValues(this), _c; _c = await _b.next(), !_c.done;) {
+                const item = _c.value;
+                ret.push(item);
+            }
+        }
+        catch (e_50_1) { e_50 = { error: e_50_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
+            }
+            finally { if (e_50) throw e_50.error; }
+        }
+        return ret;
+    }
+    /**
+     * Interleaves one or more iterables with this iterator.
+     *
+     * @param iters The iterables to interleave with this one.
+     *
+     * @returns The interleaved iterator, yielding elements in the iterators in order.
+     */
+    interleave(...iters) {
+        const that = this;
+        function ret() {
+            return __asyncGenerator(this, arguments, function* ret_50() {
+                const iterList = [
+                    that,
+                    ...iters.map((v) => v[Symbol.asyncIterator]()),
+                ].map((v) => ({
+                    done: false,
+                    iter: v,
+                }));
+                while (true) {
+                    let found = false;
+                    for (const obj of iterList) {
+                        if (obj.done) {
+                            continue;
+                        }
+                        found = true;
+                        const val = yield __await(obj.iter.next());
+                        if (val.done) {
+                            obj.done = true;
+                            continue;
+                        }
+                        yield yield __await(val.value);
+                    }
+                    if (!found) {
+                        break;
+                    }
+                }
+            });
+        }
+        return new AsyncIterPlus(ret());
+    }
+    /**
+     * Runs a function for every element of the iterator, keeping track of an accumulator.
+     *
+     * @typeParam A The type of the accumulator.
+     * @typeParam V The resulting type.
+     * @param func The mapping function.
+     * @param initializer The initial accumulator.
+     * @returns The mapped iterator.
+     */
+    mapAccum(func, initializer) {
+        const that = this;
+        function ret() {
+            return __asyncGenerator(this, arguments, function* ret_51() {
+                var e_51, _a;
+                let accum = initializer;
+                try {
+                    for (var that_19 = __asyncValues(that), that_19_1; that_19_1 = yield __await(that_19.next()), !that_19_1.done;) {
+                        const elem = that_19_1.value;
+                        const [newAccum, newElem] = yield __await(func(accum, elem));
+                        yield yield __await(newElem);
+                        accum = newAccum;
+                    }
+                }
+                catch (e_51_1) { e_51 = { error: e_51_1 }; }
+                finally {
+                    try {
+                        if (that_19_1 && !that_19_1.done && (_a = that_19.return)) yield __await(_a.call(that_19));
+                    }
+                    finally { if (e_51) throw e_51.error; }
+                }
+            });
+        }
+        return new AsyncIterPlus(ret());
+    }
+    /**
+     * Counts the number of items in this iterator that match a predicate.
+     *
+     * @param pred The predicate function.
+     * @returns The number of matched items in the iterator.
+     */
+    async countIf(pred) {
+        var e_52, _a;
+        let ret = 0;
+        try {
+            for (var _b = __asyncValues(this), _c; _c = await _b.next(), !_c.done;) {
+                const item = _c.value;
+                if (await pred(item)) {
+                    ret++;
+                }
+            }
+        }
+        catch (e_52_1) { e_52 = { error: e_52_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
+            }
+            finally { if (e_52) throw e_52.error; }
+        }
+        return ret;
+    }
+    scan(func, initializer) {
+        const that = this;
+        function ret() {
+            return __asyncGenerator(this, arguments, function* ret_52() {
+                var e_53, _a;
+                let accum;
+                if (initializer === undefined) {
+                    const next = yield __await(that.next());
+                    if (next.done) {
+                        throw new TypeError("Scan of empty iterator with no initializer.");
+                    }
+                    accum = next.value;
+                }
+                else {
+                    accum = initializer;
+                }
+                try {
+                    for (var that_20 = __asyncValues(that), that_20_1; that_20_1 = yield __await(that_20.next()), !that_20_1.done;) {
+                        const elem = that_20_1.value;
+                        yield yield __await(accum);
+                        accum = yield __await(func(accum, elem));
+                    }
+                }
+                catch (e_53_1) { e_53 = { error: e_53_1 }; }
+                finally {
+                    try {
+                        if (that_20_1 && !that_20_1.done && (_a = that_20.return)) yield __await(_a.call(that_20));
+                    }
+                    finally { if (e_53) throw e_53.error; }
+                }
+                yield yield __await(accum);
+            });
+        }
+        return new AsyncIterPlus(ret());
+    }
+    /**
+     * Checks if this iterator is equal to another,
+     * while they both yield elements, using a comparison function.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * However, if the first iterator terminates,
+     * a value will still be yielded from the second so that `headEquals` is commutative.
+     *
+     * @typeParam O The type of the other iterable.
+     * @param other Iterable to compare to.
+     * @param cmp A function that checks if elements are equal.
+     * @returns If the two iterators are equal.
+     */
+    async headEqualsBy(other, cmp) {
+        const iter = other[Symbol.asyncIterator]();
+        while (true) {
+            const a = await this.next();
+            const b = await iter.next();
+            if (a.done || b.done) {
+                return true;
+            }
+            else {
+                const eq = await cmp(a.value, b.value);
+                if (!eq) {
+                    return false;
+                }
+            }
+        }
+    }
+    /**
+     * Checks if this iterator is equal to another,
+     * while they both yield elements, using a key.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * However, if the first iterator terminates,
+     * a value will still be yielded from the second so that `headEquals` is commutative.
+     *
+     * @typeParam O The type of the Key.
+     * @param other Iterable to compare to.
+     * @param key The key function.
+     * @returns If the two iterators are equal.
+     */
+    async headEqualsWith(other, key) {
+        const iter = other[Symbol.asyncIterator]();
+        while (true) {
+            const a = await this.next();
+            const b = await iter.next();
+            if (a.done || b.done) {
+                return true;
+            }
+            else {
+                const eq = (await key(a.value)) === (await key(b.value));
+                if (!eq) {
+                    return false;
+                }
+            }
+        }
+    }
+    /**
+     * Checks if this iterator is equal to another,
+     * while they both yield elements.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * However, if the first iterator terminates,
+     * a value will still be yielded from the second so that `headEquals` is commutative.
+     *
+     * @param other Iterable to compare to.
+     * @returns If the two iterators are equal.
+     */
+    async headEquals(other) {
+        const iter = other[Symbol.asyncIterator]();
+        while (true) {
+            const a = await this.next();
+            const b = await iter.next();
+            if (a.done || b.done) {
+                return true;
+            }
+            else {
+                const eq = a.value === b.value;
+                if (!eq) {
+                    return false;
+                }
+            }
+        }
     }
 }
 exports.AsyncIterPlus = AsyncIterPlus;

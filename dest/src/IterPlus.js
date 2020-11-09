@@ -658,12 +658,24 @@ class IterPlus {
      * @returns If the two iterators are equal.
      */
     /* o:async */ equalsWith(other, key /* o:-> */) {
-        return this.equalsBy(other, 
-        /* o:async */ function (a, b) {
-            const ak = /* o:await */ key(a);
-            const bk = /* o:await */ key(b);
-            return ak === bk;
-        });
+        const iter = other[Symbol. /* r:asyncIterator */iterator]();
+        while (true) {
+            const a = /* o:await */ this.next();
+            const b = /* o:await */ iter.next();
+            if (a.done && b.done) {
+                return true;
+            }
+            else if (a.done || b.done) {
+                return false;
+            }
+            else {
+                const eq = 
+                /* o:await */ key(a.value) === /* o:await */ key(b.value);
+                if (!eq) {
+                    return false;
+                }
+            }
+        }
     }
     /**
      * Checks if this iterator is equal to another.
@@ -675,10 +687,23 @@ class IterPlus {
      * @returns If the two iterators are equal.
      */
     /* o:async */ equals(other) {
-        return this.equalsBy(other, 
-        /* o:async */ function (a, b) {
-            return a === b;
-        });
+        const iter = other[Symbol. /* r:asyncIterator */iterator]();
+        while (true) {
+            const a = /* o:await */ this.next();
+            const b = /* o:await */ iter.next();
+            if (a.done && b.done) {
+                return true;
+            }
+            else if (a.done || b.done) {
+                return false;
+            }
+            else {
+                const eq = a.value === b.value;
+                if (!eq) {
+                    return false;
+                }
+            }
+        }
     }
     /**
      * Generates an iterator that only yields elements that match a predicate.
@@ -1389,7 +1414,25 @@ class IterPlus {
      * @returns The generated iterator.
      */
     zip(...iters) {
-        return this.zipWith(Array.of, ...iters);
+        const that = this;
+        /* o:async */ function* ret() {
+            const zippers = [
+                that,
+                ...iters.map((v) => v[Symbol. /* r:asyncIterator */iterator]()),
+            ];
+            while (true) {
+                const tot = [];
+                for (const iter of zippers) {
+                    const val = /* o:await */ iter.next();
+                    if (val.done) {
+                        return;
+                    }
+                    tot.push(val.value);
+                }
+                yield tot;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
     }
     /**
      * Splits an iterator into multiple, where advancing one iterator does not advance the others.
@@ -1450,7 +1493,6 @@ class IterPlus {
      * Returns the average of all elements in the iterator.
      *
      * @throws A RangeError on an empty iterator.
-     *
      * @returns The average.
      */
     /* o: async */ average() {
@@ -1487,7 +1529,6 @@ class IterPlus {
      * consider using `windows` with the appropriate interval instead.
      *
      * @param chunkSize The chunk size.
-     *
      * @returns An iterator that yields the chunks.
      */
     chunks(chunkSize) {
@@ -1520,7 +1561,6 @@ class IterPlus {
      * consider using `windows` with the appropriate interval instead.
      *
      * @param chunkSize The chunk size.
-     *
      * @returns An iterator that yields the chunks.
      */
     chunksExact(chunkSize) {
@@ -1547,7 +1587,6 @@ class IterPlus {
      * Creates an iterator that repeats the contents of the current iterator a certain number of times.
      *
      * @param n The number of times to repeat.
-     *
      * @returns An iterator that repeats itself n times.
      */
     repeat(n) {
@@ -1573,10 +1612,8 @@ class IterPlus {
      * This **does not** handle negative numbers due to right rotation being significantly slower.
      * If you want negatives, please do the checks yourself and use rotateRight when appropriate.
      *
-     * @throws A RangeError when the amount is negative.
-     *
      * @param amount Amount to rotate by.
-     *
+     * @throws A RangeError when the amount is negative.
      * @returns The rotated iterator.
      */
     rotateLeft(amount) {
@@ -1614,15 +1651,13 @@ class IterPlus {
      * This **does not** handle negative numbers to be consistent with `rotateLeft`.
      * If you want negatives, please do the checks yourself and use rotateRight when appropriate.
      *
-     * @throws A RangeError when the amount is negative.
-     *
      * @param amount Amount to rotate by.
-     *
+     * @throws A RangeError when the amount is negative.
      * @returns The rotated iterator.
      */
     rotateRight(amount) {
         if (amount < 0) {
-            throw new RangeError("Cannot left rotate by a negative amount.");
+            throw new RangeError("Cannot right rotate by a negative amount.");
         }
         const that = this;
         /* o:async */ function* ret() {
@@ -1646,7 +1681,6 @@ class IterPlus {
      *
      * @param ele The element to split on.
      * @param limit The maximum number of chunks to make.
-     *
      * @returns The iterator with the split chunks.
      */
     split(elem /* o:-> */, limit = Infinity) {
@@ -1682,7 +1716,6 @@ class IterPlus {
      *
      * @param pred The predicate to split with.
      * @param limit The maximum number of chunks to make.
-     *
      * @returns The iterator with the split chunks.
      */
     splitPred(pred /* o:-> */, limit = Infinity) {
@@ -1721,7 +1754,6 @@ class IterPlus {
      *
      * @param ele The element to split on.
      * @param limit The maximum number of chunks to make.
-     *
      * @returns The iterator with the split chunks.
      */
     splitInclusive(elem /* o:-> */, limit = Infinity) {
@@ -1759,7 +1791,6 @@ class IterPlus {
      *
      * @param pred The predicate to split with.
      * @param limit The maximum number of chunks to make.
-     *
      * @returns The iterator with the split chunks.
      */
     splitPredInclusive(pred /* o:-> */, limit = Infinity) {
@@ -1795,7 +1826,6 @@ class IterPlus {
      *
      * @param windowSize The window size.
      * @param interval The increment between the starts of windows. Defaults to 1.
-     *
      * @returns An iterator that yields the windows.
      */
     windows(windowSize, interval = 1) {
@@ -1825,7 +1855,6 @@ class IterPlus {
     }
     /**
      * Removes elements of an iterator that are equal to the previous one.
-     *
      * @returns An iterator with no consecutive duplicates.
      */
     dedup() {
@@ -1851,7 +1880,6 @@ class IterPlus {
      *
      * @typeParam K The type of the key.
      * @param key The key function.
-     *
      * @returns An iterator with no consecutive duplicates.
      */
     dedupWith(key /* o:-> */) {
@@ -1877,7 +1905,6 @@ class IterPlus {
      * Removes elements of an iterator that are equal to the previous one with a comparison function.
      *
      * @param cmp A function that checks if elements are equal.
-     *
      * @returns An iterator with no consecutive duplicates.
      */
     dedupBy(cmp /* o:-> */) {
@@ -1902,7 +1929,6 @@ class IterPlus {
      * Intersperses an element between every element of the iterator.
      *
      * @param elem The element to intersperse.
-     *
      * @returns The new iterator.
      */
     intersperse(elem /* o:-> */) {
@@ -1925,7 +1951,6 @@ class IterPlus {
      * Intersperses multiple elements between every element of the iterator.
      *
      * @param elems The elements to intersperse.
-     *
      * @returns The new iterator.
      */
     intersperseMultiple(elems) {
@@ -1952,7 +1977,6 @@ class IterPlus {
      *
      * @typeParam K The internal type.
      * @param elem The element to join with.
-     *
      * @returns The joined iterator.
      */
     join(elem /* o:-> */) {
@@ -1976,7 +2000,6 @@ class IterPlus {
      *
      * @typeParam K The internal type.
      * @param elems The elements to intersperse.
-     *
      * @returns The joined iterator.
      */
     joinMultiple(elems) {
@@ -1997,6 +2020,284 @@ class IterPlus {
             }
         }
         return new /* o:Async- */ IterPlus(ret());
+    }
+    /**
+     * Converts an iterator of key-value pairs into an object.
+     *
+     * @typeParam K The key type.
+     * @typeParam V The value type.
+     * @param duplicate How to handle duplicate keys.
+     * `"overwrite"` replaces values with the new value.
+     * `"maintain"` maintains the old value.
+     * `"error"` throws an error.
+     * Defaults to `"overwrite"`.
+     * @throws A RangeError if `duplicate` is `"error"` and a duplicate key is encountered.
+     * @returns The generated object.
+     */
+    /* o:async */ toObject(duplicate = "overwrite") {
+        const ret = {};
+        /* r:for await */ for (const [key, val] of this) {
+            if (duplicate !== "overwrite" && key in ret) {
+                if (duplicate === "error") {
+                    throw new RangeError("Duplicate key encountered.");
+                }
+                else if (duplicate === "maintain") {
+                    // do nothing
+                }
+                else {
+                    ret[key] = val;
+                }
+            }
+            else {
+                ret[key] = val;
+            }
+        }
+        return ret;
+    }
+    /**
+     * Converts an iterator of key-value pairs into a map.
+     *
+     * @typeParam K The key type.
+     * @typeParam V The value type.
+     * @param duplicate How to handle duplicate keys.
+     * `"overwrite"` replaces values with the new value.
+     * `"maintain"` maintains the old value.
+     * `"error"` throws an error.
+     * Defaults to `"overwrite"`.
+     * @throws A RangeError if `duplicate` is `"error"` and a duplicate key is encountered.
+     * @returns The generated map.
+     */
+    /* o:async */ toMap(duplicate = "overwrite") {
+        const ret = new Map();
+        /* r:for await */ for (const [key, val] of this) {
+            if (duplicate !== "overwrite" && ret.has(key)) {
+                if (duplicate === "error") {
+                    throw new RangeError("Duplicate key encountered.");
+                }
+                else if (duplicate === "maintain") {
+                    // do nothing
+                }
+                else {
+                    ret.set(key, val);
+                }
+            }
+            else {
+                ret.set(key, val);
+            }
+        }
+        return ret;
+    }
+    /**
+     * Converts an iterator into a set.
+     *
+     * @returns The generated set.
+     */
+    /* o:async */ toSet() {
+        const ret = new Set();
+        /* r:for await */ for (const val of this) {
+            ret.add(val);
+        }
+        return ret;
+    }
+    /**
+     * Converts an iterator into an array.
+     *
+     * @returns The generated array.
+     */
+    /* o:async */ toArray() {
+        const ret = [];
+        /* r:for await */ for (const item of this) {
+            ret.push(item);
+        }
+        return ret;
+    }
+    /**
+     * Interleaves one or more iterables with this iterator.
+     *
+     * @param iters The iterables to interleave with this one.
+     *
+     * @returns The interleaved iterator, yielding elements in the iterators in order.
+     */
+    interleave(...iters) {
+        const that = this;
+        /* o:async */ function* ret() {
+            const iterList = [
+                that,
+                ...iters.map((v) => v[Symbol. /* r:asyncIterator */iterator]()),
+            ].map((v) => ({
+                done: false,
+                iter: v,
+            }));
+            while (true) {
+                let found = false;
+                for (const obj of iterList) {
+                    if (obj.done) {
+                        continue;
+                    }
+                    found = true;
+                    const val = /* o:await */ obj.iter.next();
+                    if (val.done) {
+                        obj.done = true;
+                        continue;
+                    }
+                    yield val.value;
+                }
+                if (!found) {
+                    break;
+                }
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+    /**
+     * Runs a function for every element of the iterator, keeping track of an accumulator.
+     *
+     * @typeParam A The type of the accumulator.
+     * @typeParam V The resulting type.
+     * @param func The mapping function.
+     * @param initializer The initial accumulator.
+     * @returns The mapped iterator.
+     */
+    mapAccum(func /* o:-> */, initializer) {
+        const that = this;
+        /* o:async */ function* ret() {
+            let accum = initializer;
+            /* r:for await */ for (const elem of that) {
+                const [newAccum, newElem] = /* o:await */ func(accum, elem);
+                yield newElem;
+                accum = newAccum;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+    /**
+     * Counts the number of items in this iterator that match a predicate.
+     *
+     * @param pred The predicate function.
+     * @returns The number of matched items in the iterator.
+     */
+    /* o:async */ countIf(pred /* o:-> */) {
+        let ret = 0;
+        /* r:for await */ for (const item of this) {
+            if ( /* o:await */pred(item)) {
+                ret++;
+            }
+        }
+        return ret;
+    }
+    scan(func /* o:-> */, initializer) {
+        const that = this;
+        /* o: async */ function* ret() {
+            let accum;
+            if (initializer === undefined) {
+                const next = /* o: await */ that.next();
+                if (next.done) {
+                    throw new TypeError("Scan of empty iterator with no initializer.");
+                }
+                accum = next.value;
+            }
+            else {
+                accum = initializer;
+            }
+            /* r:for await */ for (const elem of that) {
+                yield accum;
+                accum = /* o:await */ func(accum, elem);
+            }
+            yield accum;
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+    /**
+     * Checks if this iterator is equal to another,
+     * while they both yield elements, using a comparison function.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * However, if the first iterator terminates,
+     * a value will still be yielded from the second so that `headEquals` is commutative.
+     *
+     * @typeParam O The type of the other iterable.
+     * @param other Iterable to compare to.
+     * @param cmp A function that checks if elements are equal.
+     * @returns If the two iterators are equal.
+     */
+    /* o:async */ headEqualsBy(other, cmp /* o:-> */) {
+        const iter = other[Symbol. /* r:asyncIterator */iterator]();
+        while (true) {
+            const a = /* o:await */ this.next();
+            const b = /* o:await */ iter.next();
+            if (a.done || b.done) {
+                return true;
+            }
+            else {
+                const eq = /* o:await */ cmp(a.value, b.value);
+                if (!eq) {
+                    return false;
+                }
+            }
+        }
+    }
+    /**
+     * Checks if this iterator is equal to another,
+     * while they both yield elements, using a key.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * However, if the first iterator terminates,
+     * a value will still be yielded from the second so that `headEquals` is commutative.
+     *
+     * @typeParam O The type of the Key.
+     * @param other Iterable to compare to.
+     * @param key The key function.
+     * @returns If the two iterators are equal.
+     */
+    /* o:async */ headEqualsWith(other, key /* o:-> */) {
+        const iter = other[Symbol. /* r:asyncIterator */iterator]();
+        while (true) {
+            const a = /* o:await */ this.next();
+            const b = /* o:await */ iter.next();
+            if (a.done || b.done) {
+                return true;
+            }
+            else {
+                const eq = 
+                /* o:await */ key(a.value) === /* o:await */ key(b.value);
+                if (!eq) {
+                    return false;
+                }
+            }
+        }
+    }
+    /**
+     * Checks if this iterator is equal to another,
+     * while they both yield elements.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * However, if the first iterator terminates,
+     * a value will still be yielded from the second so that `headEquals` is commutative.
+     *
+     * @param other Iterable to compare to.
+     * @returns If the two iterators are equal.
+     */
+    /* o:async */ headEquals(other) {
+        const iter = other[Symbol. /* r:asyncIterator */iterator]();
+        while (true) {
+            const a = /* o:await */ this.next();
+            const b = /* o:await */ iter.next();
+            if (a.done || b.done) {
+                return true;
+            }
+            else {
+                const eq = a.value === b.value;
+                if (!eq) {
+                    return false;
+                }
+            }
+        }
     }
 }
 exports.IterPlus = IterPlus;

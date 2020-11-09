@@ -744,11 +744,21 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
         other: AsyncIterable<T>,
         key: (elem: T) => PromiseOrValue<K>
     ): Promise<boolean> {
-        return this.equalsBy(other, async function (a, b) {
-            const ak = await key(a);
-            const bk = await key(b);
-            return ak === bk;
-        });
+        const iter = other[Symbol.asyncIterator]();
+        while (true) {
+            const a = await this.next();
+            const b = await iter.next();
+            if (a.done && b.done) {
+                return true;
+            } else if (a.done || b.done) {
+                return false;
+            } else {
+                const eq = (await key(a.value)) === (await key(b.value));
+                if (!eq) {
+                    return false;
+                }
+            }
+        }
     }
 
     /**
@@ -761,9 +771,21 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns If the two iterators are equal.
      */
     async equals(other: AsyncIterable<T>): Promise<boolean> {
-        return this.equalsBy(other, async function (a, b) {
-            return a === b;
-        });
+        const iter = other[Symbol.asyncIterator]();
+        while (true) {
+            const a = await this.next();
+            const b = await iter.next();
+            if (a.done && b.done) {
+                return true;
+            } else if (a.done || b.done) {
+                return false;
+            } else {
+                const eq = a.value === b.value;
+                if (!eq) {
+                    return false;
+                }
+            }
+        }
     }
 
     /**
@@ -947,23 +969,18 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
     /**
      * Runs a function for every element of the iterator, keeping track of an accumulator.
      *
+     * Uses the first element as the initial accumulator,
+     * and it will be skipped over in the reduction.
+     *
      * @param func The reducing function.
-     * @param initializer The initial accumulator.
-     * If not provided, the first element of the iterator will be used instead,
-     * and the first element will be skipped over in the reduction.
-     *
-     * @throws If an initializer is not provided and the iterator is empty,
+     * @throws If the iterator is empty,
      * then an error will be thrown.
-     *
      * @returns The final accumulator.
      */
-    reduce(
-        func: (accum: T, elem: T) => PromiseOrValue<T>,
-        initializer?: T
-    ): Promise<T>;
+    reduce(func: (accum: T, elem: T) => PromiseOrValue<T>): Promise<T>;
     async reduce<A>(
         func: (accum: A, elem: T) => PromiseOrValue<A>,
-        initializer: A
+        initializer?: A
     ): Promise<A> {
         let accum: A;
         if (initializer === undefined) {
@@ -1594,7 +1611,25 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
     zip<K extends unknown[]>(
         ...iters: AsyncIterableMap<K>
     ): AsyncIterPlus<[T, ...K]> {
-        return this.zipWith(Array.of, ...iters) as AsyncIterPlus<[T, ...K]>;
+        const that = this;
+        async function* ret() {
+            const zippers = [
+                that,
+                ...iters.map((v) => v[Symbol.asyncIterator]()),
+            ];
+            while (true) {
+                const tot = [];
+                for (const iter of zippers) {
+                    const val = await iter.next();
+                    if (val.done) {
+                        return;
+                    }
+                    tot.push(val.value);
+                }
+                yield tot as [T, ...K];
+            }
+        }
+        return new AsyncIterPlus(ret());
     }
 
     /**
@@ -1656,7 +1691,6 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Returns the average of all elements in the iterator.
      *
      * @throws A RangeError on an empty iterator.
-     *
      * @returns The average.
      */
     async average(
@@ -1696,7 +1730,6 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * consider using `windows` with the appropriate interval instead.
      *
      * @param chunkSize The chunk size.
-     *
      * @returns An iterator that yields the chunks.
      */
     chunks(chunkSize: number): AsyncIterPlus<T[]> {
@@ -1730,7 +1763,6 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * consider using `windows` with the appropriate interval instead.
      *
      * @param chunkSize The chunk size.
-     *
      * @returns An iterator that yields the chunks.
      */
     chunksExact(chunkSize: number): AsyncIterPlus<T[]> {
@@ -1758,7 +1790,6 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Creates an iterator that repeats the contents of the current iterator a certain number of times.
      *
      * @param n The number of times to repeat.
-     *
      * @returns An iterator that repeats itself n times.
      */
     repeat(n: number): AsyncIterPlus<T> {
@@ -1785,10 +1816,8 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * This **does not** handle negative numbers due to right rotation being significantly slower.
      * If you want negatives, please do the checks yourself and use rotateRight when appropriate.
      *
-     * @throws A RangeError when the amount is negative.
-     *
      * @param amount Amount to rotate by.
-     *
+     * @throws A RangeError when the amount is negative.
      * @returns The rotated iterator.
      */
     rotateLeft(amount: number): AsyncIterPlus<T> {
@@ -1827,15 +1856,13 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * This **does not** handle negative numbers to be consistent with `rotateLeft`.
      * If you want negatives, please do the checks yourself and use rotateRight when appropriate.
      *
-     * @throws A RangeError when the amount is negative.
-     *
      * @param amount Amount to rotate by.
-     *
+     * @throws A RangeError when the amount is negative.
      * @returns The rotated iterator.
      */
     rotateRight(amount: number): AsyncIterPlus<T> {
         if (amount < 0) {
-            throw new RangeError("Cannot left rotate by a negative amount.");
+            throw new RangeError("Cannot right rotate by a negative amount.");
         }
         const that = this;
         async function* ret() {
@@ -1860,7 +1887,6 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @param ele The element to split on.
      * @param limit The maximum number of chunks to make.
-     *
      * @returns The iterator with the split chunks.
      */
     split(
@@ -1899,7 +1925,6 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @param pred The predicate to split with.
      * @param limit The maximum number of chunks to make.
-     *
      * @returns The iterator with the split chunks.
      */
     splitPred(
@@ -1941,7 +1966,6 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @param ele The element to split on.
      * @param limit The maximum number of chunks to make.
-     *
      * @returns The iterator with the split chunks.
      */
     splitInclusive(
@@ -1983,7 +2007,6 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @param pred The predicate to split with.
      * @param limit The maximum number of chunks to make.
-     *
      * @returns The iterator with the split chunks.
      */
     splitPredInclusive(
@@ -2023,7 +2046,6 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @param windowSize The window size.
      * @param interval The increment between the starts of windows. Defaults to 1.
-     *
      * @returns An iterator that yields the windows.
      */
     windows(windowSize: number, interval: number = 1): AsyncIterPlus<T[]> {
@@ -2054,7 +2076,6 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
 
     /**
      * Removes elements of an iterator that are equal to the previous one.
-     *
      * @returns An iterator with no consecutive duplicates.
      */
     dedup(): AsyncIterPlus<T> {
@@ -2081,7 +2102,6 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @typeParam K The type of the key.
      * @param key The key function.
-     *
      * @returns An iterator with no consecutive duplicates.
      */
     dedupWith<K>(key: (elem: T) => PromiseOrValue<K>): AsyncIterPlus<T> {
@@ -2108,7 +2128,6 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Removes elements of an iterator that are equal to the previous one with a comparison function.
      *
      * @param cmp A function that checks if elements are equal.
-     *
      * @returns An iterator with no consecutive duplicates.
      */
     dedupBy(
@@ -2136,7 +2155,6 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Intersperses an element between every element of the iterator.
      *
      * @param elem The element to intersperse.
-     *
      * @returns The new iterator.
      */
     intersperse(elem: PromiseOrValue<T>): AsyncIterPlus<T> {
@@ -2160,7 +2178,6 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Intersperses multiple elements between every element of the iterator.
      *
      * @param elems The elements to intersperse.
-     *
      * @returns The new iterator.
      */
     intersperseMultiple(elems: AsyncIterable<T>): AsyncIterPlus<T> {
@@ -2188,7 +2205,6 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @typeParam K The internal type.
      * @param elem The element to join with.
-     *
      * @returns The joined iterator.
      */
     join<K>(
@@ -2216,7 +2232,6 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @typeParam K The internal type.
      * @param elems The elements to intersperse.
-     *
      * @returns The joined iterator.
      */
     joinMultiple<K>(
@@ -2240,6 +2255,328 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
             }
         }
         return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Converts an iterator of key-value pairs into an object.
+     *
+     * @typeParam K The key type.
+     * @typeParam V The value type.
+     * @param duplicate How to handle duplicate keys.
+     * `"overwrite"` replaces values with the new value.
+     * `"maintain"` maintains the old value.
+     * `"error"` throws an error.
+     * Defaults to `"overwrite"`.
+     * @throws A RangeError if `duplicate` is `"error"` and a duplicate key is encountered.
+     * @returns The generated object.
+     */
+    async toObject<K, V>(
+        this: AsyncIterPlus<[K, V]>,
+        duplicate: "overwrite" | "maintain" | "error" = "overwrite"
+    ): Promise<{[key: string]: V}> {
+        const ret: {[key: string]: V} = {};
+        for await (const [key, val] of this) {
+            if (duplicate !== "overwrite" && key in ret) {
+                if (duplicate === "error") {
+                    throw new RangeError("Duplicate key encountered.");
+                } else if (duplicate === "maintain") {
+                    // do nothing
+                } else {
+                    ret[key as any] = val;
+                }
+            } else {
+                ret[key as any] = val;
+            }
+        }
+        return ret;
+    }
+
+    /**
+     * Converts an iterator of key-value pairs into a map.
+     *
+     * @typeParam K The key type.
+     * @typeParam V The value type.
+     * @param duplicate How to handle duplicate keys.
+     * `"overwrite"` replaces values with the new value.
+     * `"maintain"` maintains the old value.
+     * `"error"` throws an error.
+     * Defaults to `"overwrite"`.
+     * @throws A RangeError if `duplicate` is `"error"` and a duplicate key is encountered.
+     * @returns The generated map.
+     */
+    async toMap<K, V>(
+        this: AsyncIterPlus<[K, V]>,
+        duplicate: "overwrite" | "maintain" | "error" = "overwrite"
+    ): Promise<Map<K, V>> {
+        const ret: Map<K, V> = new Map();
+        for await (const [key, val] of this) {
+            if (duplicate !== "overwrite" && ret.has(key)) {
+                if (duplicate === "error") {
+                    throw new RangeError("Duplicate key encountered.");
+                } else if (duplicate === "maintain") {
+                    // do nothing
+                } else {
+                    ret.set(key, val);
+                }
+            } else {
+                ret.set(key, val);
+            }
+        }
+        return ret;
+    }
+
+    /**
+     * Converts an iterator into a set.
+     *
+     * @returns The generated set.
+     */
+    async toSet(): Promise<Set<T>> {
+        const ret: Set<T> = new Set();
+        for await (const val of this) {
+            ret.add(val);
+        }
+        return ret;
+    }
+
+    /**
+     * Converts an iterator into an array.
+     *
+     * @returns The generated array.
+     */
+    async toArray(): Promise<T[]> {
+        const ret: T[] = [];
+        for await (const item of this) {
+            ret.push(item);
+        }
+        return ret;
+    }
+
+    /**
+     * Interleaves one or more iterables with this iterator.
+     *
+     * @param iters The iterables to interleave with this one.
+     *
+     * @returns The interleaved iterator, yielding elements in the iterators in order.
+     */
+    interleave(...iters: AsyncIterable<T>[]): AsyncIterPlus<T> {
+        const that = this;
+        async function* ret() {
+            const iterList = [
+                that,
+                ...iters.map((v) => v[Symbol.asyncIterator]()),
+            ].map((v) => ({
+                done: false,
+                iter: v,
+            }));
+            while (true) {
+                let found = false;
+                for (const obj of iterList) {
+                    if (obj.done) {
+                        continue;
+                    }
+                    found = true;
+                    const val = await obj.iter.next();
+                    if (val.done) {
+                        obj.done = true;
+                        continue;
+                    }
+                    yield val.value;
+                }
+                if (!found) {
+                    break;
+                }
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Runs a function for every element of the iterator, keeping track of an accumulator.
+     *
+     * @typeParam A The type of the accumulator.
+     * @typeParam V The resulting type.
+     * @param func The mapping function.
+     * @param initializer The initial accumulator.
+     * @returns The mapped iterator.
+     */
+    mapAccum<A, V>(
+        func: (accum: A, elem: T) => PromiseOrValue<[A, V]>,
+        initializer: A
+    ): AsyncIterPlus<V> {
+        const that = this;
+        async function* ret() {
+            let accum: A = initializer;
+            for await (const elem of that) {
+                const [newAccum, newElem] = await func(accum, elem);
+                yield newElem;
+                accum = newAccum;
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Counts the number of items in this iterator that match a predicate.
+     *
+     * @param pred The predicate function.
+     * @returns The number of matched items in the iterator.
+     */
+    async countIf(pred: (elem: T) => PromiseOrValue<boolean>): Promise<number> {
+        let ret: number = 0;
+        for await (const item of this) {
+            if (await pred(item)) {
+                ret++;
+            }
+        }
+        return ret;
+    }
+
+    /**
+     * Runs a function for every element of the iterator, keeping track of an accumulator.
+     *
+     * @typeParam A The type of the accumulator.
+     * @param func The reducing function.
+     * @param initializer The initial accumulator.
+     * @returns The iterator containing all intermediate accumulators.
+     */
+    scan<A>(
+        func: (accum: A, elem: T) => PromiseOrValue<A>,
+        initializer: A
+    ): AsyncIterPlus<A>;
+    /**
+     * Runs a function for every element of the iterator, keeping track of an accumulator.
+     *
+     * Uses the first element as the initial accumulator,
+     * and it will be skipped over in the scan.
+     *
+     * @param func The reducing function.
+     * @throws If the iterator is empty,
+     * then an error will be thrown.
+     * @returns The iterator containing all intermediate accumulators.
+     */
+    scan(func: (accum: T, elem: T) => PromiseOrValue<T>): AsyncIterPlus<T>;
+    scan<A>(
+        func: (accum: A, elem: T) => PromiseOrValue<A>,
+        initializer?: A
+    ): AsyncIterPlus<A> {
+        const that = this;
+        async function* ret() {
+            let accum: A;
+            if (initializer === undefined) {
+                const next = await that.next();
+                if (next.done) {
+                    throw new TypeError(
+                        "Scan of empty iterator with no initializer."
+                    );
+                }
+                accum = (next.value as unknown) as A;
+            } else {
+                accum = initializer as A;
+            }
+            for await (const elem of that) {
+                yield accum;
+                accum = await func(accum, elem);
+            }
+            yield accum;
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Checks if this iterator is equal to another,
+     * while they both yield elements, using a comparison function.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * However, if the first iterator terminates,
+     * a value will still be yielded from the second so that `headEquals` is commutative.
+     *
+     * @typeParam O The type of the other iterable.
+     * @param other Iterable to compare to.
+     * @param cmp A function that checks if elements are equal.
+     * @returns If the two iterators are equal.
+     */
+    async headEqualsBy<O>(
+        other: AsyncIterable<O>,
+        cmp: (first: T, second: O) => PromiseOrValue<boolean>
+    ): Promise<boolean> {
+        const iter = other[Symbol.asyncIterator]();
+        while (true) {
+            const a = await this.next();
+            const b = await iter.next();
+            if (a.done || b.done) {
+                return true;
+            } else {
+                const eq = await cmp(a.value, b.value);
+                if (!eq) {
+                    return false;
+                }
+            }
+        }
+    }
+
+    /**
+     * Checks if this iterator is equal to another,
+     * while they both yield elements, using a key.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * However, if the first iterator terminates,
+     * a value will still be yielded from the second so that `headEquals` is commutative.
+     *
+     * @typeParam O The type of the Key.
+     * @param other Iterable to compare to.
+     * @param key The key function.
+     * @returns If the two iterators are equal.
+     */
+    async headEqualsWith<K>(
+        other: AsyncIterable<T>,
+        key: (elem: T) => PromiseOrValue<K>
+    ): Promise<boolean> {
+        const iter = other[Symbol.asyncIterator]();
+        while (true) {
+            const a = await this.next();
+            const b = await iter.next();
+            if (a.done || b.done) {
+                return true;
+            } else {
+                const eq = (await key(a.value)) === (await key(b.value));
+                if (!eq) {
+                    return false;
+                }
+            }
+        }
+    }
+
+    /**
+     * Checks if this iterator is equal to another,
+     * while they both yield elements.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * However, if the first iterator terminates,
+     * a value will still be yielded from the second so that `headEquals` is commutative.
+     *
+     * @param other Iterable to compare to.
+     * @returns If the two iterators are equal.
+     */
+    async headEquals(other: AsyncIterable<T>): Promise<boolean> {
+        const iter = other[Symbol.asyncIterator]();
+        while (true) {
+            const a = await this.next();
+            const b = await iter.next();
+            if (a.done || b.done) {
+                return true;
+            } else {
+                const eq = a.value === b.value;
+                if (!eq) {
+                    return false;
+                }
+            }
+        }
     }
 }
 

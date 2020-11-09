@@ -396,17 +396,15 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
     /**
      * Runs a function for every element of the iterator, keeping track of an accumulator.
      *
+     * Uses the first element as the initial accumulator,
+     * and it will be skipped over in the reduction.
+     *
      * @param func The reducing function.
-     * @param initializer The initial accumulator.
-     * If not provided, the first element of the iterator will be used instead,
-     * and the first element will be skipped over in the reduction.
-     *
-     * @throws If an initializer is not provided and the iterator is empty,
+     * @throws If the iterator is empty,
      * then an error will be thrown.
-     *
      * @returns The final accumulator.
      */
-    reduce(func: (accum: T, elem: T) => PromiseOrValue<T>, initializer?: T): Promise<T>;
+    reduce(func: (accum: T, elem: T) => PromiseOrValue<T>): Promise<T>;
     /**
      * Runs a function on each element of an iterator.
      *
@@ -672,7 +670,6 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Returns the average of all elements in the iterator.
      *
      * @throws A RangeError on an empty iterator.
-     *
      * @returns The average.
      */
     average(this: AsyncIterPlus<number> | AsyncIterPlus<bigint>): Promise<T>;
@@ -686,7 +683,6 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * consider using `windows` with the appropriate interval instead.
      *
      * @param chunkSize The chunk size.
-     *
      * @returns An iterator that yields the chunks.
      */
     chunks(chunkSize: number): AsyncIterPlus<T[]>;
@@ -700,7 +696,6 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * consider using `windows` with the appropriate interval instead.
      *
      * @param chunkSize The chunk size.
-     *
      * @returns An iterator that yields the chunks.
      */
     chunksExact(chunkSize: number): AsyncIterPlus<T[]>;
@@ -708,7 +703,6 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Creates an iterator that repeats the contents of the current iterator a certain number of times.
      *
      * @param n The number of times to repeat.
-     *
      * @returns An iterator that repeats itself n times.
      */
     repeat(n: number): AsyncIterPlus<T>;
@@ -719,10 +713,8 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * This **does not** handle negative numbers due to right rotation being significantly slower.
      * If you want negatives, please do the checks yourself and use rotateRight when appropriate.
      *
-     * @throws A RangeError when the amount is negative.
-     *
      * @param amount Amount to rotate by.
-     *
+     * @throws A RangeError when the amount is negative.
      * @returns The rotated iterator.
      */
     rotateLeft(amount: number): AsyncIterPlus<T>;
@@ -735,10 +727,8 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * This **does not** handle negative numbers to be consistent with `rotateLeft`.
      * If you want negatives, please do the checks yourself and use rotateRight when appropriate.
      *
-     * @throws A RangeError when the amount is negative.
-     *
      * @param amount Amount to rotate by.
-     *
+     * @throws A RangeError when the amount is negative.
      * @returns The rotated iterator.
      */
     rotateRight(amount: number): AsyncIterPlus<T>;
@@ -747,7 +737,6 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @param ele The element to split on.
      * @param limit The maximum number of chunks to make.
-     *
      * @returns The iterator with the split chunks.
      */
     split(elem: PromiseOrValue<T>, limit?: number): AsyncIterPlus<T[]>;
@@ -756,7 +745,6 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @param pred The predicate to split with.
      * @param limit The maximum number of chunks to make.
-     *
      * @returns The iterator with the split chunks.
      */
     splitPred(pred: (elem: T) => PromiseOrValue<boolean>, limit?: number): AsyncIterPlus<T[]>;
@@ -769,7 +757,6 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @param ele The element to split on.
      * @param limit The maximum number of chunks to make.
-     *
      * @returns The iterator with the split chunks.
      */
     splitInclusive(elem: PromiseOrValue<T>, limit?: number): AsyncIterPlus<T[]>;
@@ -782,7 +769,6 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @param pred The predicate to split with.
      * @param limit The maximum number of chunks to make.
-     *
      * @returns The iterator with the split chunks.
      */
     splitPredInclusive(pred: (elem: T) => PromiseOrValue<boolean>, limit?: number): AsyncIterPlus<T[]>;
@@ -794,13 +780,11 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @param windowSize The window size.
      * @param interval The increment between the starts of windows. Defaults to 1.
-     *
      * @returns An iterator that yields the windows.
      */
     windows(windowSize: number, interval?: number): AsyncIterPlus<T[]>;
     /**
      * Removes elements of an iterator that are equal to the previous one.
-     *
      * @returns An iterator with no consecutive duplicates.
      */
     dedup(): AsyncIterPlus<T>;
@@ -809,7 +793,6 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @typeParam K The type of the key.
      * @param key The key function.
-     *
      * @returns An iterator with no consecutive duplicates.
      */
     dedupWith<K>(key: (elem: T) => PromiseOrValue<K>): AsyncIterPlus<T>;
@@ -817,7 +800,6 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Removes elements of an iterator that are equal to the previous one with a comparison function.
      *
      * @param cmp A function that checks if elements are equal.
-     *
      * @returns An iterator with no consecutive duplicates.
      */
     dedupBy(cmp: (first: T, second: T) => PromiseOrValue<boolean>): AsyncIterPlus<T>;
@@ -825,7 +807,6 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Intersperses an element between every element of the iterator.
      *
      * @param elem The element to intersperse.
-     *
      * @returns The new iterator.
      */
     intersperse(elem: PromiseOrValue<T>): AsyncIterPlus<T>;
@@ -833,7 +814,6 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Intersperses multiple elements between every element of the iterator.
      *
      * @param elems The elements to intersperse.
-     *
      * @returns The new iterator.
      */
     intersperseMultiple(elems: AsyncIterable<T>): AsyncIterPlus<T>;
@@ -842,7 +822,6 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @typeParam K The internal type.
      * @param elem The element to join with.
-     *
      * @returns The joined iterator.
      */
     join<K>(this: AsyncIterPlus<Iterable<K> | AsyncIterable<K>>, elem: PromiseOrValue<K>): AsyncIterPlus<K>;
@@ -851,10 +830,143 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @typeParam K The internal type.
      * @param elems The elements to intersperse.
-     *
      * @returns The joined iterator.
      */
     joinMultiple<K>(this: AsyncIterPlus<Iterable<K> | AsyncIterable<K>>, elems: AsyncIterable<K>): AsyncIterPlus<K>;
+    /**
+     * Converts an iterator of key-value pairs into an object.
+     *
+     * @typeParam K The key type.
+     * @typeParam V The value type.
+     * @param duplicate How to handle duplicate keys.
+     * `"overwrite"` replaces values with the new value.
+     * `"maintain"` maintains the old value.
+     * `"error"` throws an error.
+     * Defaults to `"overwrite"`.
+     * @throws A RangeError if `duplicate` is `"error"` and a duplicate key is encountered.
+     * @returns The generated object.
+     */
+    toObject<K, V>(this: AsyncIterPlus<[K, V]>, duplicate?: "overwrite" | "maintain" | "error"): Promise<{
+        [key: string]: V;
+    }>;
+    /**
+     * Converts an iterator of key-value pairs into a map.
+     *
+     * @typeParam K The key type.
+     * @typeParam V The value type.
+     * @param duplicate How to handle duplicate keys.
+     * `"overwrite"` replaces values with the new value.
+     * `"maintain"` maintains the old value.
+     * `"error"` throws an error.
+     * Defaults to `"overwrite"`.
+     * @throws A RangeError if `duplicate` is `"error"` and a duplicate key is encountered.
+     * @returns The generated map.
+     */
+    toMap<K, V>(this: AsyncIterPlus<[K, V]>, duplicate?: "overwrite" | "maintain" | "error"): Promise<Map<K, V>>;
+    /**
+     * Converts an iterator into a set.
+     *
+     * @returns The generated set.
+     */
+    toSet(): Promise<Set<T>>;
+    /**
+     * Converts an iterator into an array.
+     *
+     * @returns The generated array.
+     */
+    toArray(): Promise<T[]>;
+    /**
+     * Interleaves one or more iterables with this iterator.
+     *
+     * @param iters The iterables to interleave with this one.
+     *
+     * @returns The interleaved iterator, yielding elements in the iterators in order.
+     */
+    interleave(...iters: AsyncIterable<T>[]): AsyncIterPlus<T>;
+    /**
+     * Runs a function for every element of the iterator, keeping track of an accumulator.
+     *
+     * @typeParam A The type of the accumulator.
+     * @typeParam V The resulting type.
+     * @param func The mapping function.
+     * @param initializer The initial accumulator.
+     * @returns The mapped iterator.
+     */
+    mapAccum<A, V>(func: (accum: A, elem: T) => PromiseOrValue<[A, V]>, initializer: A): AsyncIterPlus<V>;
+    /**
+     * Counts the number of items in this iterator that match a predicate.
+     *
+     * @param pred The predicate function.
+     * @returns The number of matched items in the iterator.
+     */
+    countIf(pred: (elem: T) => PromiseOrValue<boolean>): Promise<number>;
+    /**
+     * Runs a function for every element of the iterator, keeping track of an accumulator.
+     *
+     * @typeParam A The type of the accumulator.
+     * @param func The reducing function.
+     * @param initializer The initial accumulator.
+     * @returns The iterator containing all intermediate accumulators.
+     */
+    scan<A>(func: (accum: A, elem: T) => PromiseOrValue<A>, initializer: A): AsyncIterPlus<A>;
+    /**
+     * Runs a function for every element of the iterator, keeping track of an accumulator.
+     *
+     * Uses the first element as the initial accumulator,
+     * and it will be skipped over in the scan.
+     *
+     * @param func The reducing function.
+     * @throws If the iterator is empty,
+     * then an error will be thrown.
+     * @returns The iterator containing all intermediate accumulators.
+     */
+    scan(func: (accum: T, elem: T) => PromiseOrValue<T>): AsyncIterPlus<T>;
+    /**
+     * Checks if this iterator is equal to another,
+     * while they both yield elements, using a comparison function.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * However, if the first iterator terminates,
+     * a value will still be yielded from the second so that `headEquals` is commutative.
+     *
+     * @typeParam O The type of the other iterable.
+     * @param other Iterable to compare to.
+     * @param cmp A function that checks if elements are equal.
+     * @returns If the two iterators are equal.
+     */
+    headEqualsBy<O>(other: AsyncIterable<O>, cmp: (first: T, second: O) => PromiseOrValue<boolean>): Promise<boolean>;
+    /**
+     * Checks if this iterator is equal to another,
+     * while they both yield elements, using a key.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * However, if the first iterator terminates,
+     * a value will still be yielded from the second so that `headEquals` is commutative.
+     *
+     * @typeParam O The type of the Key.
+     * @param other Iterable to compare to.
+     * @param key The key function.
+     * @returns If the two iterators are equal.
+     */
+    headEqualsWith<K>(other: AsyncIterable<T>, key: (elem: T) => PromiseOrValue<K>): Promise<boolean>;
+    /**
+     * Checks if this iterator is equal to another,
+     * while they both yield elements.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * However, if the first iterator terminates,
+     * a value will still be yielded from the second so that `headEquals` is commutative.
+     *
+     * @param other Iterable to compare to.
+     * @returns If the two iterators are equal.
+     */
+    headEquals(other: AsyncIterable<T>): Promise<boolean>;
 }
 /**
  * An iterator with a `peek`. method that can look one element in advance.
