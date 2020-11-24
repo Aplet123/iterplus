@@ -1451,12 +1451,11 @@ export class /* o:Async- */ IterPlus<T>
         let typechecked = false;
         /* r:for await */ for (const elem of this) {
             if (!typechecked) {
-                if (typeof elem === "bigint") {
-                    accum = BigInt(accum);
-                }
+                accum = elem;
                 typechecked = true;
+            } else {
+                accum = accum * (elem as number);
             }
-            accum = accum * (elem as number);
         }
         return (accum as unknown) as T;
     }
@@ -1475,16 +1474,11 @@ export class /* o:Async- */ IterPlus<T>
         let typechecked = false;
         /* r:for await */ for (const elem of this) {
             if (!typechecked) {
-                if (typeof elem === "bigint") {
-                    accum = BigInt(0);
-                } else if (typeof elem === "number") {
-                    accum = 0;
-                } else {
-                    accum = "";
-                }
+                accum = elem;
                 typechecked = true;
+            } else {
+                accum += elem;
             }
-            accum += elem;
         }
         if (accum === undefined) {
             accum = 0;

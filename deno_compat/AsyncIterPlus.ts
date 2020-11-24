@@ -1,7 +1,6 @@
-import {IterPlus as SyncIterPlus} from "./IterPlus";
-import {PromiseOrValue} from "./util";
-import {CircularBuffer} from "./CircularBuffer";
-
+import {IterPlus as SyncIterPlus} from "./IterPlus.ts";
+import {PromiseOrValue} from "./util.ts";
+import {CircularBuffer} from "./CircularBuffer.ts";
 /**
  * Tests if an object is an iterator.
  * @param obj The object to test for.
@@ -57,13 +56,12 @@ type AsyncIterableMap<T extends unknown[]> = {
  * Defaults to `null`.
  */
 // export const nullVal = null;
-import {nullVal} from "./IterPlus";
+import {nullVal} from "./IterPlus.ts";
 /**
  * The type of null to use.
  */
 //export type AsyncNull = typeof asyncNullVal;
-import {Null} from "./IterPlus";
-
+import {Null} from "./IterPlus.ts";
 /**
  * A wrapper around an iterator to add additional functionality. The types intentionally ignore return value.
  *

@@ -1220,12 +1220,12 @@ class IterPlus {
         let typechecked = false;
         /* r:for await */ for (const elem of this) {
             if (!typechecked) {
-                if (typeof elem === "bigint") {
-                    accum = BigInt(accum);
-                }
+                accum = elem;
                 typechecked = true;
             }
-            accum = accum * elem;
+            else {
+                accum = accum * elem;
+            }
         }
         return accum;
     }
@@ -1239,18 +1239,12 @@ class IterPlus {
         let typechecked = false;
         /* r:for await */ for (const elem of this) {
             if (!typechecked) {
-                if (typeof elem === "bigint") {
-                    accum = BigInt(0);
-                }
-                else if (typeof elem === "number") {
-                    accum = 0;
-                }
-                else {
-                    accum = "";
-                }
+                accum = elem;
                 typechecked = true;
             }
-            accum += elem;
+            else {
+                accum += elem;
+            }
         }
         if (accum === undefined) {
             accum = 0;

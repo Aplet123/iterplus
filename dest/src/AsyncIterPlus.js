@@ -1630,12 +1630,12 @@ class AsyncIterPlus {
             for (var _b = __asyncValues(this), _c; _c = await _b.next(), !_c.done;) {
                 const elem = _c.value;
                 if (!typechecked) {
-                    if (typeof elem === "bigint") {
-                        accum = BigInt(accum);
-                    }
+                    accum = elem;
                     typechecked = true;
                 }
-                accum = accum * elem;
+                else {
+                    accum = accum * elem;
+                }
             }
         }
         catch (e_32_1) { e_32 = { error: e_32_1 }; }
@@ -1660,18 +1660,12 @@ class AsyncIterPlus {
             for (var _b = __asyncValues(this), _c; _c = await _b.next(), !_c.done;) {
                 const elem = _c.value;
                 if (!typechecked) {
-                    if (typeof elem === "bigint") {
-                        accum = BigInt(0);
-                    }
-                    else if (typeof elem === "number") {
-                        accum = 0;
-                    }
-                    else {
-                        accum = "";
-                    }
+                    accum = elem;
                     typechecked = true;
                 }
-                accum += elem;
+                else {
+                    accum += elem;
+                }
             }
         }
         catch (e_33_1) { e_33 = { error: e_33_1 }; }

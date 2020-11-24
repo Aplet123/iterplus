@@ -1,13 +1,14 @@
-import {IterPlus as SyncIterPlus} from "./IterPlus";
-import {PromiseOrValue} from "./util";
-import {CircularBuffer} from "./CircularBuffer";
-
+/* o:import {IterPlus as SyncIterPlus} from "./IterPlus"; */
+/* o:import {PromiseOrValue} from "./util"; */
+import {CircularBuffer} from "./CircularBuffer.ts";
 /**
  * Tests if an object is an iterator.
  * @param obj The object to test for.
  * @returns If `obj` is an iterator.
  */
-export function isAsyncIter(obj: any): obj is AsyncIterator<unknown> {
+export function /* r:isAsyncIter */ isIter(
+    obj: any
+): obj is /* o:Async- */ Iterator<unknown> {
     return (
         typeof obj === "object" &&
         obj !== null &&
@@ -20,22 +21,26 @@ export function isAsyncIter(obj: any): obj is AsyncIterator<unknown> {
  * @param obj The object to test for.
  * @returns If `obj` is an iterable.
  */
-export function canAsyncIter(obj: any): obj is AsyncIterable<unknown> {
+export function /* r:canAsyncIter */ canIter(
+    obj: any
+): obj is /* o:Async- */ Iterable<unknown> {
     return (
-        //typeof obj === "string" ||
-        typeof obj === "object" && obj !== null && Symbol.asyncIterator in obj
+        /* o://- */ typeof obj === "string" ||
+        (typeof obj === "object" &&
+            obj !== null &&
+            Symbol./* r:asyncIterator */ iterator in obj)
     );
 }
 
 /**
  * Dirty workaround for Prettier moving comments.
  */
-type CurIter<T> = AsyncIterator<T>;
+type CurIter<T> = /* o:Async- */ Iterator<T>;
 
 /**
  * Dirty workaround for Prettier moving comments.
  */
-type CurIterable<T> = AsyncIterable<T>;
+type CurIterable<T> = /* o:Async- */ Iterable<T>;
 
 /**
  * Typescript-abusing type that wraps every type in a tuple type with an array.
@@ -47,7 +52,7 @@ type ArrayMap<T extends unknown[]> = {
 /**
  * Typescript-abusing type that wraps every type in a tuple type with an Iterable.
  */
-type AsyncIterableMap<T extends unknown[]> = {
+type /* o:Async- */ IterableMap<T extends unknown[]> = {
     [K in keyof T]: CurIterable<T[K]>;
 };
 
@@ -56,13 +61,13 @@ type AsyncIterableMap<T extends unknown[]> = {
  *
  * Defaults to `null`.
  */
-// export const nullVal = null;
-import {nullVal} from "./IterPlus";
+/* o:// */ export const nullVal = null;
+/* o:import {nullVal} from "./IterPlus"; */
 /**
  * The type of null to use.
  */
-//export type AsyncNull = typeof asyncNullVal;
-import {Null} from "./IterPlus";
+/* o://- */ export type /* o:Async- */ Null = typeof /* r:asyncNullVal */ nullVal;
+/* o:import {Null} from "./IterPlus"; */
 
 /**
  * A wrapper around an iterator to add additional functionality. The types intentionally ignore return value.
@@ -72,18 +77,19 @@ import {Null} from "./IterPlus";
  *
  * @typeParam T The item type of the iterator.
  */
-export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
+export class /* o:Async- */ IterPlus<T>
+    implements CurIter<T>, /* o:Async- */ Iterable<T> {
     /**
      * The internal iterator that this wraps around.
      */
-    protected internal: AsyncIterator<T>;
+    protected internal: /* o:Async- */ Iterator<T>;
 
     /**
      * Instantiates an `IterPlus` from any iterator.
      *
      * @param iter The iterator to wrap around.
      */
-    constructor(iter: AsyncIterator<T>) {
+    constructor(iter: /* o:Async- */ Iterator<T>) {
         this.internal = iter;
     }
 
@@ -92,8 +98,8 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @returns The next element.
      */
-    async next(): Promise<IteratorResult<T>> {
-        return await this.internal.next();
+    /* o:async */ next(): /* o:Promise<- */ IteratorResult<T> /* o:-> */ {
+        return /* o:await */ this.internal.next();
     }
 
     /**
@@ -101,8 +107,8 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @returns The next value, or null if the iterator ended.
      */
-    async nextVal(): Promise<T | Null> {
-        const elem = await this.internal.next();
+    /* o:async */ nextVal(): /* o:Promise<- */ T | Null /* o:-> */ {
+        const elem = /* o:await */ this.internal.next();
         if (elem.done) {
             return nullVal;
         }
@@ -114,7 +120,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @returns The same iterator.
      */
-    [Symbol.asyncIterator](): AsyncIterator<T> {
+    [Symbol./* r: asyncIterator */ iterator](): /* o:Async- */ Iterator<T> {
         return this;
     }
 
@@ -125,9 +131,9 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @typeParam T The item yielded by the iterator.
      * @returns The generated iterator.
      */
-    static empty<T>(): AsyncIterPlus<T> {
-        async function* ret() {}
-        return new AsyncIterPlus<T>(ret());
+    static empty<T>(): /* o:Async- */ IterPlus<T> {
+        /* o:async */ function* ret() {}
+        return new /* o:Async- */ IterPlus<T>(ret());
     }
 
     /**
@@ -138,18 +144,18 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The generated iterator.
      */
     static fromFunction<T>(
-        func: () => PromiseOrValue<T | Null>
-    ): AsyncIterPlus<T> {
-        async function* ret() {
+        func: () => /* o:PromiseOrValue<- */ T | Null /* o:-> */
+    ): /* o:Async- */ IterPlus<T> {
+        /* o:async */ function* ret() {
             while (true) {
-                const val = await func();
+                const val = /* o:await */ func();
                 if (val === nullVal) {
                     break;
                 }
                 yield val;
             }
         }
-        return new AsyncIterPlus<T>(ret());
+        return new /* o:Async- */ IterPlus<T>(ret());
     }
 
     /**
@@ -159,11 +165,13 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param func The function to generate a single value.
      * @returns The generated iterator.
      */
-    static onceWith<T>(func: () => PromiseOrValue<T>): AsyncIterPlus<T> {
-        async function* ret() {
-            yield await func();
+    static onceWith<T>(
+        func: () => /* o:PromiseOrValue<- */ T /* o:-> */
+    ): /* o:Async- */ IterPlus<T> {
+        /* o:async */ function* ret() {
+            yield /* o:await */ func();
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -173,11 +181,13 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param val The value to yield.
      * @returns The generated iterator.
      */
-    static once<T>(val: PromiseOrValue<T>): AsyncIterPlus<T> {
-        async function* ret() {
-            yield await val;
+    static once<T>(
+        val: /* o:PromiseOrValue<- */ T /* o:-> */
+    ): /* o:Async- */ IterPlus<T> {
+        /* o:async */ function* ret() {
+            yield /* o:await */ val;
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -187,13 +197,15 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param func The function to generate values.
      * @returns The generated iterator.
      */
-    static repeatWith<T>(func: () => PromiseOrValue<T>): AsyncIterPlus<T> {
-        async function* ret() {
+    static repeatWith<T>(
+        func: () => /* o:PromiseOrValue<- */ T /* o:-> */
+    ): /* o:Async- */ IterPlus<T> {
+        /* o:async */ function* ret() {
             while (true) {
-                yield await func();
+                yield /* o:await */ func();
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -203,13 +215,15 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param val The value to yield.
      * @returns The generated iterator.
      */
-    static repeat<T>(val: PromiseOrValue<T>): AsyncIterPlus<T> {
-        async function* ret() {
+    static repeat<T>(
+        val: /* o:PromiseOrValue<- */ T /* o:-> */
+    ): /* o:Async- */ IterPlus<T> {
+        /* o:async */ function* ret() {
             while (true) {
-                yield await val;
+                yield /* o:await */ val;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -223,8 +237,8 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
     static successors<T>(
         first: T | Null,
         func: (prev: T) => T | Null
-    ): AsyncIterPlus<T> {
-        async function* ret() {
+    ): /* o:Async- */ IterPlus<T> {
+        /* o:async */ function* ret() {
             while (true) {
                 if (first === nullVal) {
                     break;
@@ -233,7 +247,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 first = func(first);
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -247,10 +261,12 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param data The iterable to cycle through.
      * @returns The generated iterator.
      */
-    static cycle<T>(data: AsyncIterable<T>): AsyncIterPlus<T> {
-        async function* ret() {
+    static cycle<T>(
+        data: /* o:Async- */ Iterable<T>
+    ): /* o:Async- */ IterPlus<T> {
+        /* o:async */ function* ret() {
             const cache = [];
-            for await (const item of data) {
+            /* r:for await */ for (const item of data) {
                 yield item;
                 cache.push(item);
             }
@@ -258,7 +274,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 yield* cache;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -272,8 +288,8 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
     static combinations<T>(
         data: T[],
         count: number = data.length
-    ): AsyncIterPlus<T[]> {
-        async function* ret() {
+    ): /* o:Async- */ IterPlus<T[]> {
+        /* o:async */ function* ret() {
             if (count > data.length || count < 0) {
                 return;
             }
@@ -301,7 +317,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 }
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -315,8 +331,8 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
     static combinationsWithRepetition<T>(
         data: T[],
         count: number = data.length
-    ): AsyncIterPlus<T[]> {
-        async function* ret() {
+    ): /* o:Async- */ IterPlus<T[]> {
+        /* o:async */ function* ret() {
             if (data.length <= 0 || count < 0) {
                 return;
             }
@@ -344,7 +360,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 }
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -358,8 +374,8 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
     static permutations<T>(
         data: T[],
         count: number = data.length
-    ): AsyncIterPlus<T[]> {
-        async function* ret() {
+    ): /* o:Async- */ IterPlus<T[]> {
+        /* o:async */ function* ret() {
             if (count > data.length || count < 0) {
                 return;
             }
@@ -400,7 +416,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 }
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -414,8 +430,8 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
     static permutationsWithRepetition<T>(
         data: T[],
         count: number = data.length
-    ): AsyncIterPlus<T[]> {
-        async function* ret() {
+    ): /* o:Async- */ IterPlus<T[]> {
+        /* o:async */ function* ret() {
             if (data.length <= 0 || count < 0) {
                 return;
             }
@@ -446,7 +462,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 }
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -456,13 +472,13 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param data The data to get the powerset of.
      * @return The generated iterator.
      */
-    static powerset<T>(data: T[]): AsyncIterPlus<T[]> {
-        async function* ret() {
+    static powerset<T>(data: T[]): /* o:Async- */ IterPlus<T[]> {
+        /* o:async */ function* ret() {
             for (let i = 0; i <= data.length; i++) {
-                yield* AsyncIterPlus.combinations(data, i);
+                yield* /* o:Async- */ IterPlus.combinations(data, i);
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -474,8 +490,8 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      */
     static product<T extends unknown[]>(
         ...data: ArrayMap<T>
-    ): AsyncIterPlus<T> {
-        async function* ret() {
+    ): /* o:Async- */ IterPlus<T> {
+        /* o:async */ function* ret() {
             if (data.length <= 0) {
                 return;
             }
@@ -508,7 +524,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 }
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -521,9 +537,11 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param pred The predicate function.
      * @returns If every element satisfies the predicate.
      */
-    async every(pred: (elem: T) => PromiseOrValue<boolean>): Promise<boolean> {
-        for await (const elem of this) {
-            if (!(await pred(elem))) {
+    /* o:async */ every(
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
+    ): /* o:Promise<- */ boolean /* o:-> */ {
+        /* r:for await */ for (const elem of this) {
+            if (!(/* o:await */ pred(elem))) {
                 return false;
             }
         }
@@ -540,9 +558,11 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param pred The predicate function.
      * @returns If some element satisfies the predicate.
      */
-    async some(pred: (elem: T) => PromiseOrValue<boolean>): Promise<boolean> {
-        for await (const elem of this) {
-            if (await pred(elem)) {
+    /* o:async */ some(
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
+    ): /* o:Promise<- */ boolean /* o:-> */ {
+        /* r:for await */ for (const elem of this) {
+            if (/* o:await */ pred(elem)) {
                 return true;
             }
         }
@@ -556,16 +576,16 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param iters The iterables to chain to this one.
      * @returns The generated iterator.
      */
-    concat(...iters: AsyncIterable<T>[]): AsyncIterPlus<T> {
+    concat(...iters: /* o:Async- */ Iterable<T>[]): /* o:Async- */ IterPlus<T> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             for (const iter of [that, ...iters]) {
-                for await (const val of iter) {
+                /* r:for await */ for (const val of iter) {
                     yield val;
                 }
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -580,14 +600,14 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * and positive for greater than.
      * @returns -1 if this is less than the other, 0 if it's equal, and 1 if it's greater than.
      */
-    async compareBy<O>(
-        other: AsyncIterable<O>,
-        cmp: (first: T, second: O) => PromiseOrValue<number>
-    ): Promise<number> {
-        const iter = other[Symbol.asyncIterator]();
+    /* o:async */ compareBy<O>(
+        other: /* o:Async- */ Iterable<O>,
+        cmp: (first: T, second: O) => /* o:PromiseOrValue<- */ number /* o:-> */
+    ): /* o:Promise<- */ number /* o:-> */ {
+        const iter = other[Symbol./* r:asyncIterator */ iterator]();
         while (true) {
-            const a = await this.next();
-            const b = await iter.next();
+            const a = /* o:await */ this.next();
+            const b = /* o:await */ iter.next();
             if (a.done && b.done) {
                 return 0;
             } else if (a.done) {
@@ -595,7 +615,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
             } else if (b.done) {
                 return 1;
             } else {
-                const diff = await cmp(a.value, b.value);
+                const diff = /* o:await */ cmp(a.value, b.value);
                 if (diff < 0) {
                     return -1;
                 } else if (diff > 0) {
@@ -616,21 +636,24 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param key Function to generate a key to compare with from an element.
      * @returns -1 if this is less than the other, 0 if it's equal, and 1 if it's greater than.
      */
-    async compareWith<K>(
-        other: AsyncIterable<T>,
-        key: (elem: T) => PromiseOrValue<K>
-    ): Promise<number> {
-        return this.compareBy(other, async function (a, b) {
-            const ak = await key(a);
-            const bk = await key(b);
-            if (ak < bk) {
-                return -1;
+    /* o:async */ compareWith<K>(
+        other: /* o:Async- */ Iterable<T>,
+        key: (elem: T) => /* o:PromiseOrValue<- */ K /* o:-> */
+    ): /* o:Promise<- */ number /* o:-> */ {
+        return this.compareBy(
+            other,
+            /* o:async */ function (a, b) {
+                const ak = /* o:await */ key(a);
+                const bk = /* o:await */ key(b);
+                if (ak < bk) {
+                    return -1;
+                }
+                if (ak > bk) {
+                    return 1;
+                }
+                return 0;
             }
-            if (ak > bk) {
-                return 1;
-            }
-            return 0;
-        });
+        );
     }
 
     /**
@@ -642,16 +665,21 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param other Iterable to compare to.
      * @returns -1 if this is less than the other, 0 if it's equal, and 1 if it's greater than.
      */
-    async compare(other: AsyncIterable<T>): Promise<number> {
-        return this.compareBy(other, async function (a, b) {
-            if (a < b) {
-                return -1;
+    /* o:async */ compare(
+        other: /* o:Async- */ Iterable<T>
+    ): /* o:Promise<- */ number /* o:-> */ {
+        return this.compareBy(
+            other,
+            /* o:async */ function (a, b) {
+                if (a < b) {
+                    return -1;
+                }
+                if (a > b) {
+                    return 1;
+                }
+                return 0;
             }
-            if (a > b) {
-                return 1;
-            }
-            return 0;
-        });
+        );
     }
 
     /**
@@ -659,9 +687,9 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @returns An array with the items in the iterator.
      */
-    async collect(): Promise<T[]> {
+    /* o:async */ collect(): /* o:Promise<- */ T[] /* o:-> */ {
         const ret: T[] = [];
-        for await (const item of this) {
+        /* r:for await */ for (const item of this) {
             ret.push(item);
         }
         return ret;
@@ -672,9 +700,9 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @returns The number of items in the iterator.
      */
-    async count(): Promise<number> {
+    /* o:async */ count(): /* o:Promise<- */ number /* o:-> */ {
         let ret: number = 0;
-        for await (const item of this) {
+        /* r:for await */ for (const item of this) {
             ret++;
         }
         return ret;
@@ -685,16 +713,16 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @returns The generated iterator.
      */
-    enumerate(): AsyncIterPlus<[number, T]> {
+    enumerate(): /* o:Async- */ IterPlus<[number, T]> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             let count = 0;
-            for await (const item of that) {
+            /* r:for await */ for (const item of that) {
                 yield [count, item] as [number, T];
                 count++;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -708,20 +736,23 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param cmp A function that checks if elements are equal.
      * @returns If the two iterators are equal.
      */
-    async equalsBy<O>(
-        other: AsyncIterable<O>,
-        cmp: (first: T, second: O) => PromiseOrValue<boolean>
-    ): Promise<boolean> {
-        const iter = other[Symbol.asyncIterator]();
+    /* o:async */ equalsBy<O>(
+        other: /* o:Async- */ Iterable<O>,
+        cmp: (
+            first: T,
+            second: O
+        ) => /* o:PromiseOrValue<- */ boolean /* o:-> */
+    ): /* o:Promise<- */ boolean /* o:-> */ {
+        const iter = other[Symbol./* r:asyncIterator */ iterator]();
         while (true) {
-            const a = await this.next();
-            const b = await iter.next();
+            const a = /* o:await */ this.next();
+            const b = /* o:await */ iter.next();
             if (a.done && b.done) {
                 return true;
             } else if (a.done || b.done) {
                 return false;
             } else {
-                const eq = await cmp(a.value, b.value);
+                const eq = /* o:await */ cmp(a.value, b.value);
                 if (!eq) {
                     return false;
                 }
@@ -740,20 +771,21 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param key Function to generate a key to compare with from an element.
      * @returns If the two iterators are equal.
      */
-    async equalsWith<K>(
-        other: AsyncIterable<T>,
-        key: (elem: T) => PromiseOrValue<K>
-    ): Promise<boolean> {
-        const iter = other[Symbol.asyncIterator]();
+    /* o:async */ equalsWith<K>(
+        other: /* o:Async- */ Iterable<T>,
+        key: (elem: T) => /* o:PromiseOrValue<- */ K /* o:-> */
+    ): /* o:Promise<- */ boolean /* o:-> */ {
+        const iter = other[Symbol./* r:asyncIterator */ iterator]();
         while (true) {
-            const a = await this.next();
-            const b = await iter.next();
+            const a = /* o:await */ this.next();
+            const b = /* o:await */ iter.next();
             if (a.done && b.done) {
                 return true;
             } else if (a.done || b.done) {
                 return false;
             } else {
-                const eq = (await key(a.value)) === (await key(b.value));
+                const eq =
+                    /* o:await */ key(a.value) === /* o:await */ key(b.value);
                 if (!eq) {
                     return false;
                 }
@@ -770,11 +802,13 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param other Iterable to compare to.
      * @returns If the two iterators are equal.
      */
-    async equals(other: AsyncIterable<T>): Promise<boolean> {
-        const iter = other[Symbol.asyncIterator]();
+    /* o:async */ equals(
+        other: /* o:Async- */ Iterable<T>
+    ): /* o:Promise<- */ boolean /* o:-> */ {
+        const iter = other[Symbol./* r:asyncIterator */ iterator]();
         while (true) {
-            const a = await this.next();
-            const b = await iter.next();
+            const a = /* o:await */ this.next();
+            const b = /* o:await */ iter.next();
             if (a.done && b.done) {
                 return true;
             } else if (a.done || b.done) {
@@ -794,16 +828,18 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param pred The predicate function.
      * @returns The generated iterator.
      */
-    filter(pred: (elem: T) => PromiseOrValue<boolean>): AsyncIterPlus<T> {
+    filter(
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
+    ): /* o:Async- */ IterPlus<T> {
         const that = this;
-        async function* ret() {
-            for await (const elem of that) {
-                if (await pred(elem)) {
+        /* o:async */ function* ret() {
+            /* r:for await */ for (const elem of that) {
+                if (/* o:await */ pred(elem)) {
                     yield elem;
                 }
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -815,18 +851,18 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The generated iterator.
      */
     filterMap<K>(
-        func: (elem: T) => PromiseOrValue<K | Null>
-    ): AsyncIterPlus<K> {
+        func: (elem: T) => /* o:PromiseOrValue<- */ K | Null /* o:-> */
+    ): /* o:Async- */ IterPlus<K> {
         const that = this;
-        async function* ret() {
-            for await (const elem of that) {
-                const val = await func(elem);
+        /* o:async */ function* ret() {
+            /* r:for await */ for (const elem of that) {
+                const val = /* o:await */ func(elem);
                 if (val !== nullVal) {
                     yield val as K;
                 }
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -838,9 +874,11 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param pred The predicate function.
      * @returns The element, or null if none was found.
      */
-    async find(pred: (elem: T) => PromiseOrValue<boolean>): Promise<T | Null> {
-        for await (const elem of this) {
-            if (await pred(elem)) {
+    /* o:async */ find(
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
+    ): /* o:Promise<- */ T | Null /* o:-> */ {
+        /* r:for await */ for (const elem of this) {
+            if (/* o:await */ pred(elem)) {
                 return elem;
             }
         }
@@ -858,11 +896,11 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param func The mapping function.
      * @returns The element, or null if none was found.
      */
-    async findMap<K>(
-        func: (elem: T) => PromiseOrValue<K | Null>
-    ): Promise<K | Null> {
-        for await (const elem of this) {
-            const val = await func(elem);
+    /* o:async */ findMap<K>(
+        func: (elem: T) => /* o:PromiseOrValue<- */ K | Null /* o:-> */
+    ): /* o:Promise<- */ K | Null /* o:-> */ {
+        /* r:for await */ for (const elem of this) {
+            const val = /* o:await */ func(elem);
             if (val !== nullVal) {
                 return val as K;
             }
@@ -878,15 +916,15 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The generated iterator.
      */
     flatten<K>(
-        this: AsyncIterPlus<Iterable<K> | AsyncIterable<K>>
-    ): AsyncIterPlus<K> {
+        this: /* o:Async- */ IterPlus</* o:Iterable<K> | Async- */ Iterable<K>>
+    ): /* o:Async- */ IterPlus<K> {
         const that = this;
-        async function* ret() {
-            for await (const iterable of that) {
+        /* o:async */ function* ret() {
+            /* r:for await */ for (const iterable of that) {
                 yield* iterable;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -898,14 +936,16 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param func The mapping function.
      * @returns The generated iterator.
      */
-    map<K>(func: (elem: T) => PromiseOrValue<K>): AsyncIterPlus<K> {
+    map<K>(
+        func: (elem: T) => /* o:PromiseOrValue<- */ K /* o:-> */
+    ): /* o:Async- */ IterPlus<K> {
         const that = this;
-        async function* ret() {
-            for await (const elem of that) {
-                yield await func(elem);
+        /* o:async */ function* ret() {
+            /* r:for await */ for (const elem of that) {
+                yield /* o:await */ func(elem);
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -918,16 +958,16 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The generated iterator.
      */
     starmap<K, R>(
-        this: AsyncIterPlus<Iterable<K>>,
-        func: (...args: K[]) => PromiseOrValue<R>
-    ): AsyncIterPlus<R> {
+        this: /* o:Async- */ IterPlus<Iterable<K>>,
+        func: (...args: K[]) => /* o:PromiseOrValue<- */ R /* o:-> */
+    ): /* o:Async- */ IterPlus<R> {
         const that = this;
-        async function* ret() {
-            for await (const elem of that) {
-                yield await func(...elem);
+        /* o:async */ function* ret() {
+            /* r:for await */ for (const elem of that) {
+                yield /* o:await */ func(...elem);
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -940,18 +980,17 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
     flatMap<K>(
         func: (
             elem: T
-        ) =>
-            | Iterable<K>
-            | AsyncIterable<K>
-            | Promise<Iterable<K> | AsyncIterable<K>>
-    ): AsyncIterPlus<K> {
+        ) => /* o:Iterable<K> | AsyncIterable<K> | Promise<Iterable<K> | Async- */ Iterable<
+            K
+        > /* o:-> */
+    ): /* o:Async- */ IterPlus<K> {
         const that = this;
-        async function* ret() {
-            for await (const elem of that) {
-                yield* await func(elem);
+        /* o:async */ function* ret() {
+            /* r:for await */ for (const elem of that) {
+                yield* /* o:await */ func(elem);
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -962,10 +1001,10 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param initializer The initial accumulator.
      * @returns The final accumulator.
      */
-    async reduce<A>(
-        func: (accum: A, elem: T) => PromiseOrValue<A>,
+    /* o: async */ reduce<A>(
+        func: (accum: A, elem: T) => /* o:PromiseOrValue<- */ A /* o:-> */,
         initializer: A
-    ): Promise<A>;
+    ): /* o:Promise<- */ A /* o:-> */;
     /**
      * Runs a function for every element of the iterator, keeping track of an accumulator.
      *
@@ -977,14 +1016,16 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * then an error will be thrown.
      * @returns The final accumulator.
      */
-    reduce(func: (accum: T, elem: T) => PromiseOrValue<T>): Promise<T>;
-    async reduce<A>(
-        func: (accum: A, elem: T) => PromiseOrValue<A>,
+    reduce(
+        func: (accum: T, elem: T) => /* o:PromiseOrValue<- */ T /* o:-> */
+    ): /* o:Promise<- */ T /* o:-> */;
+    /* o: async */ reduce<A>(
+        func: (accum: A, elem: T) => /* o:PromiseOrValue<- */ A /* o:-> */,
         initializer?: A
-    ): Promise<A> {
+    ): /* o:Promise<- */ A /* o:-> */ {
         let accum: A;
         if (initializer === undefined) {
-            const next = await this.next();
+            const next = /* o: await */ this.next();
             if (next.done) {
                 throw new TypeError(
                     "Reduce of empty iterator with no initializer."
@@ -994,8 +1035,8 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
         } else {
             accum = initializer as A;
         }
-        for await (const elem of this) {
-            accum = await func(accum, elem);
+        /* r:for await */ for (const elem of this) {
+            accum = /* o:await */ func(accum, elem);
         }
         return accum;
     }
@@ -1008,9 +1049,11 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @param func The function to run.
      */
-    async forEach(func: (elem: T) => PromiseOrValue<unknown>): Promise<void> {
-        for await (const elem of this) {
-            await func(elem);
+    /* o:async */ forEach(
+        func: (elem: T) => /* o:PromiseOrValue<- */ unknown /* o:-> */
+    ): /* o:Promise<- */ void /* o:-> */ {
+        /* r:for await */ for (const elem of this) {
+            /* o:await */ func(elem);
         }
     }
 
@@ -1019,14 +1062,14 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @returns The generated iterator.
      */
-    fuse(): AsyncIterPlus<T> {
+    fuse(): /* o:Async- */ IterPlus<T> {
         const that = this;
-        async function* ret() {
-            for await (const elem of that) {
+        /* o:async */ function* ret() {
+            /* r:for await */ for (const elem of that) {
                 yield elem;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -1037,15 +1080,17 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param func The function to call.
      * @returns The generated iterator.
      */
-    inspect(func: (elem: T) => PromiseOrValue<unknown>): AsyncIterPlus<T> {
+    inspect(
+        func: (elem: T) => /* o:PromiseOrValue<- */ unknown /* o:-> */
+    ): /* o:Async- */ IterPlus<T> {
         const that = this;
-        async function* ret() {
-            for await (const elem of that) {
-                await func(elem);
+        /* o:async */ function* ret() {
+            /* r:for await */ for (const elem of that) {
+                /* o:await */ func(elem);
                 yield elem;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -1058,12 +1103,12 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param pred The predicate function.
      * @returns If the iterator is partitioned.
      */
-    async isPartitioned(
-        pred: (elem: T) => PromiseOrValue<boolean>
-    ): Promise<boolean> {
+    /* o:async */ isPartitioned(
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
+    ): /* o:Promise<- */ boolean /* o:-> */ {
         let seenFalse = false;
-        for await (const elem of this) {
-            if (await pred(elem)) {
+        /* r:for await */ for (const elem of this) {
+            if (/* o:await */ pred(elem)) {
                 if (seenFalse) {
                     return false;
                 }
@@ -1084,16 +1129,16 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * and positive for greater than.
      * @returns If the iterator is sorted.
      */
-    async isSortedBy(
-        cmp: (first: T, second: T) => PromiseOrValue<number>
-    ): Promise<boolean> {
-        const first = await this.next();
+    /* o:async */ isSortedBy(
+        cmp: (first: T, second: T) => /* o:PromiseOrValue<- */ number /* o:-> */
+    ): /* o:Promise<- */ boolean /* o:-> */ {
+        const first = /* o:await */ this.next();
         if (first.done) {
             return true;
         }
         let prev = first.value;
-        for await (const elem of this) {
-            if ((await cmp(prev, elem)) > 0) {
+        /* r:for await */ for (const elem of this) {
+            if (/* o:await */ cmp(prev, elem) > 0) {
                 return false;
             }
             prev = elem;
@@ -1111,16 +1156,16 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param key The key function.
      * @returns If the iterator is sorted.
      */
-    async isSortedWith<K>(
-        key: (elem: T) => PromiseOrValue<K>
-    ): Promise<boolean> {
-        const first = await this.next();
+    /* o:async */ isSortedWith<K>(
+        key: (elem: T) => /* o:PromiseOrValue<- */ K /* o:-> */
+    ): /* o:Promise<- */ boolean /* o:-> */ {
+        const first = /* o:await */ this.next();
         if (first.done) {
             return true;
         }
-        let prev = await key(first.value);
-        for await (const elem of this) {
-            const elKey = await key(elem);
+        let prev = /* o:await */ key(first.value);
+        /* r:for await */ for (const elem of this) {
+            const elKey = /* o:await */ key(elem);
             if (prev > elKey) {
                 return false;
             }
@@ -1137,8 +1182,8 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @returns If the iterator is sorted.
      */
-    isSorted(): Promise<boolean> {
-        return this.isSortedWith(async (x) => x);
+    isSorted(): /* o:Promise<- */ boolean /* o:-> */ {
+        return this.isSortedWith(/* o:async */ (x) => x);
     }
 
     /**
@@ -1146,9 +1191,9 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @returns The last element of the iterator, or null if the iterator is empty.
      */
-    async last(): Promise<T | Null> {
+    /* o:async */ last(): /* o:Promise<- */ T | Null /* o:-> */ {
         let last: T | Null = nullVal;
-        for await (const elem of this) {
+        /* r:for await */ for (const elem of this) {
             last = elem;
         }
         return last;
@@ -1161,18 +1206,20 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param func The mapping function.
      * @returns The generated iterator.
      */
-    mapWhile<K>(func: (elem: T) => PromiseOrValue<K | Null>): AsyncIterPlus<K> {
+    mapWhile<K>(
+        func: (elem: T) => /* o:PromiseOrValue<- */ K | Null /* o:-> */
+    ): /* o:Async- */ IterPlus<K> {
         const that = this;
-        async function* ret() {
-            for await (const elem of that) {
-                const val = await func(elem);
+        /* o:async */ function* ret() {
+            /* r:for await */ for (const elem of that) {
+                const val = /* o:await */ func(elem);
                 if (val === null) {
                     break;
                 }
                 yield val as K;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -1184,17 +1231,20 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Defaults to `false`.
      * @returns The maximum element, or null if the iterator is empty.
      */
-    async maxBy(
-        cmp: (first: T, second: T) => PromiseOrValue<number>,
+    /* o: async */ maxBy(
+        cmp: (
+            first: T,
+            second: T
+        ) => /* o:PromiseOrValue<- */ number /* o:-> */,
         overwrite: boolean = false
-    ): Promise<T | null> {
-        const next = await this.next();
+    ): /* o:Promise<- */ T | null /* o:-> */ {
+        const next = /* o: await */ this.next();
         if (next.done) {
             return null;
         }
         let curMax = next.value;
-        for await (const elem of this) {
-            const diff = await cmp(elem, curMax);
+        /* r:for await */ for (const elem of this) {
+            const diff = /* o: await */ cmp(elem, curMax);
             if (diff > 0 || (overwrite && diff === 0)) {
                 curMax = elem;
             }
@@ -1211,18 +1261,18 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Defaults to `false`.
      * @returns The maximum element, or null if the iterator is empty.
      */
-    async maxWith<K>(
-        key: (elem: T) => PromiseOrValue<K>,
+    /* o: async */ maxWith<K>(
+        key: (elem: T) => /* o:PromiseOrValue<- */ K /* o:-> */,
         overwrite: boolean = false
-    ): Promise<T | null> {
-        const next = await this.next();
+    ): /* o:Promise<- */ T | null /* o:-> */ {
+        const next = /* o: await */ this.next();
         if (next.done) {
             return null;
         }
         let curMax = next.value;
-        let curMaxKey: K = await key(curMax);
-        for await (const elem of this) {
-            const elemKey = await key(elem);
+        let curMaxKey: K = /* o:await */ key(curMax);
+        /* r:for await */ for (const elem of this) {
+            const elemKey = /* o:await */ key(elem);
             if (elemKey > curMaxKey || (overwrite && elemKey === curMaxKey)) {
                 curMax = elem;
                 curMaxKey = elemKey;
@@ -1238,8 +1288,8 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Defaults to `false`.
      * @returns The maximum element, or null if the iterator is empty.
      */
-    max(overwrite: boolean = false): Promise<T | Null> {
-        return this.maxWith(async (x) => x, overwrite);
+    max(overwrite: boolean = false): /* o:Promise<- */ T | Null /* o:-> */ {
+        return this.maxWith(/* o:async */ (x) => x, overwrite);
     }
 
     /**
@@ -1251,17 +1301,20 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Defaults to `false`.
      * @returns The minimum element, or null if the iterator is empty.
      */
-    async minBy(
-        cmp: (first: T, second: T) => PromiseOrValue<number>,
+    /* o: async */ minBy(
+        cmp: (
+            first: T,
+            second: T
+        ) => /* o:PromiseOrValue<- */ number /* o:-> */,
         overwrite: boolean = false
-    ): Promise<T | null> {
-        const next = await this.next();
+    ): /* o:Promise<- */ T | null /* o:-> */ {
+        const next = /* o: await */ this.next();
         if (next.done) {
             return null;
         }
         let curMax = next.value;
-        for await (const elem of this) {
-            const diff = await cmp(elem, curMax);
+        /* r:for await */ for (const elem of this) {
+            const diff = /* o: await */ cmp(elem, curMax);
             if (diff < 0 || (overwrite && diff === 0)) {
                 curMax = elem;
             }
@@ -1278,18 +1331,18 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Defaults to `false`.
      * @returns The minimum element, or null if the iterator is empty.
      */
-    async minWith<K>(
-        key: (elem: T) => PromiseOrValue<K>,
+    /* o: async */ minWith<K>(
+        key: (elem: T) => /* o:PromiseOrValue<- */ K /* o:-> */,
         overwrite: boolean = false
-    ): Promise<T | null> {
-        const next = await this.next();
+    ): /* o:Promise<- */ T | null /* o:-> */ {
+        const next = /* o: await */ this.next();
         if (next.done) {
             return null;
         }
         let curMax = next.value;
-        let curMaxKey: K = await key(curMax);
-        for await (const elem of this) {
-            const elemKey = await key(elem);
+        let curMaxKey: K = /* o:await */ key(curMax);
+        /* r:for await */ for (const elem of this) {
+            const elemKey = /* o:await */ key(elem);
             if (elemKey < curMaxKey || (overwrite && elemKey === curMaxKey)) {
                 curMax = elem;
                 curMaxKey = elemKey;
@@ -1305,8 +1358,8 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * Defaults to `false`.
      * @returns The minimum element, or null if the iterator is empty.
      */
-    min(overwrite: boolean = false): Promise<T | Null> {
-        return this.minWith(async (x) => x, overwrite);
+    min(overwrite: boolean = false): /* o:Promise<- */ T | Null /* o:-> */ {
+        return this.minWith(/* o:async */ (x) => x, overwrite);
     }
 
     /**
@@ -1315,11 +1368,11 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param n The number element to get.
      * @returns The nth element of the iterator, or null if the iterator is too short.
      */
-    async nth(n: number): Promise<T | Null> {
+    /* o:async */ nth(n: number): /* o:Promise<- */ T | Null /* o:-> */ {
         if (n < 0) {
             return nullVal;
         }
-        for await (const elem of this) {
+        /* r:for await */ for (const elem of this) {
             if (n <= 0) {
                 return elem;
             }
@@ -1336,13 +1389,13 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *  - The elements where the predicate returned true.
      *  - The elements where the predicate returned false.
      */
-    async partition(
-        pred: (elem: T) => PromiseOrValue<boolean>
-    ): Promise<[T[], T[]]> {
+    /* o:async */ partition(
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
+    ): /* o:Promise<- */ [T[], T[]] /* o:-> */ {
         const truePart: T[] = [];
         const falsePart: T[] = [];
-        for await (const elem of this) {
-            if (await pred(elem)) {
+        /* r:for await */ for (const elem of this) {
+            if (/* o:await */ pred(elem)) {
                 truePart.push(elem);
             } else {
                 falsePart.push(elem);
@@ -1356,8 +1409,8 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @returns The peekable iterator.
      */
-    peekable(): AsyncPeekable<T> {
-        return new AsyncPeekable(this);
+    peekable(): /* o:Async- */ Peekable<T> {
+        return new /* o:Async- */ Peekable(this);
     }
 
     /**
@@ -1372,12 +1425,12 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param pred The predicate function.
      * @returns The index, or -1 if none was found.
      */
-    async findIndex(
-        pred: (elem: T) => PromiseOrValue<boolean>
-    ): Promise<number> {
+    /* o:async */ findIndex(
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
+    ): /* o:Promise<- */ number /* o:-> */ {
         let count = 0;
-        for await (const elem of this) {
-            if (await pred(elem)) {
+        /* r:for await */ for (const elem of this) {
+            if (/* o:await */ pred(elem)) {
                 return count;
             }
             count++;
@@ -1390,12 +1443,12 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @returns The product, or 1 if the iterator is empty.
      */
-    async product(
-        this: AsyncIterPlus<number> | AsyncIterPlus<bigint>
-    ): Promise<T> {
+    /* o: async */ product(
+        this: /* o:Async- */ IterPlus<number> | /* o:Async- */ IterPlus<bigint>
+    ): /* o:Promise<- */ T /* o:-> */ {
         let accum: any = 1;
         let typechecked = false;
-        for await (const elem of this) {
+        /* r:for await */ for (const elem of this) {
             if (!typechecked) {
                 accum = elem;
                 typechecked = true;
@@ -1411,12 +1464,14 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @returns The sum, or 0 if the iterator is empty.
      */
-    async sum(): Promise<
-        T extends number ? number : T extends bigint ? bigint : string
-    > {
+    /* o: async */ sum(): /* o:Promise<- */ T extends number
+        ? number
+        : T extends bigint
+        ? bigint
+        : string /* o:-> */ {
         let accum: any;
         let typechecked = false;
-        for await (const elem of this) {
+        /* r:for await */ for (const elem of this) {
             if (!typechecked) {
                 accum = elem;
                 typechecked = true;
@@ -1443,12 +1498,12 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @returns The reversed iterator.
      */
-    async reverse(): Promise<SyncIterPlus<T>> {
+    /* o: async */ reverse(): /* o:Promise<Sync- */ IterPlus<T> /* o:-> */ {
         const collected: T[] = [];
-        for await (const item of this) {
+        /* r:for await */ for (const item of this) {
             collected.push(item);
         }
-        return new SyncIterPlus(collected.reverse().values());
+        return new /* o:Sync- */ IterPlus(collected.reverse().values());
     }
 
     /**
@@ -1457,18 +1512,18 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param n The number of elements to skip.
      * @returns The generated iterator.
      */
-    skip(n: number): AsyncIterPlus<T> {
+    skip(n: number): /* o:Async- */ IterPlus<T> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             for (let i = 0; i < n; i++) {
-                const val = await that.next();
+                const val = /* o:await */ that.next();
                 if (val.done) {
                     return;
                 }
             }
             yield* that;
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -1477,11 +1532,13 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param pred The predicate function.
      * @returns The generated iterator.
      */
-    skipWhile(pred: (elem: T) => PromiseOrValue<boolean>): AsyncIterPlus<T> {
+    skipWhile(
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
+    ): /* o:Async- */ IterPlus<T> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             while (true) {
-                const val = await that.next();
+                const val = /* o:await */ that.next();
                 if (val.done) {
                     return;
                 }
@@ -1492,7 +1549,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
             }
             yield* that;
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -1501,18 +1558,18 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param n The number of elements to take.
      * @returns The generated iterator.
      */
-    take(n: number): AsyncIterPlus<T> {
+    take(n: number): /* o:Async- */ IterPlus<T> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             for (let i = 0; i < n; i++) {
-                const val = await that.next();
+                const val = /* o:await */ that.next();
                 if (val.done) {
                     return;
                 }
                 yield val.value;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -1521,11 +1578,13 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param pred The predicate function.
      * @returns The generated iterator.
      */
-    takeWhile(pred: (elem: T) => PromiseOrValue<boolean>): AsyncIterPlus<T> {
+    takeWhile(
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
+    ): /* o:Async- */ IterPlus<T> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             while (true) {
-                const val = await that.next();
+                const val = /* o:await */ that.next();
                 if (val.done) {
                     return;
                 }
@@ -1535,7 +1594,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 yield val.value;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -1544,11 +1603,11 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @typeParam K The tuple type.
      * @returns A tuple with the individual elements.
      */
-    async unzip<K extends unknown[]>(
-        this: AsyncIterPlus<K>
-    ): Promise<ArrayMap<K>> {
+    /* o:async */ unzip<K extends unknown[]>(
+        this: /* o:Async- */ IterPlus<K>
+    ): /* o:Promise<- */ ArrayMap<K> /* o:-> */ {
         const ret: any[][] = [];
-        for await (const elem of this) {
+        /* r:for await */ for (const elem of this) {
             while (elem.length > ret.length) {
                 ret.push([]);
             }
@@ -1571,28 +1630,28 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The generated iterator.
      */
     zipWith<K extends unknown[], R>(
-        func: (...args: [T, ...K]) => PromiseOrValue<R>,
-        ...iters: AsyncIterableMap<K>
-    ): AsyncIterPlus<R> {
+        func: (...args: [T, ...K]) => /* o:PromiseOrValue<- */ R /* o:-> */,
+        ...iters: /* o:Async- */ IterableMap<K>
+    ): /* o:Async- */ IterPlus<R> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             const zippers = [
                 that,
-                ...iters.map((v) => v[Symbol.asyncIterator]()),
+                ...iters.map((v) => v[Symbol./* r:asyncIterator */ iterator]()),
             ];
             while (true) {
                 const tot = [];
                 for (const iter of zippers) {
-                    const val = await iter.next();
+                    const val = /* o:await */ iter.next();
                     if (val.done) {
                         return;
                     }
                     tot.push(val.value);
                 }
-                yield await func(...(tot as [T, ...K]));
+                yield /* o:await */ func(...(tot as [T, ...K]));
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -1603,18 +1662,18 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The generated iterator.
      */
     zip<K extends unknown[]>(
-        ...iters: AsyncIterableMap<K>
-    ): AsyncIterPlus<[T, ...K]> {
+        ...iters: /* o:Async- */ IterableMap<K>
+    ): /* o:Async- */ IterPlus<[T, ...K]> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             const zippers = [
                 that,
-                ...iters.map((v) => v[Symbol.asyncIterator]()),
+                ...iters.map((v) => v[Symbol./* r:asyncIterator */ iterator]()),
             ];
             while (true) {
                 const tot = [];
                 for (const iter of zippers) {
-                    const val = await iter.next();
+                    const val = /* o:await */ iter.next();
                     if (val.done) {
                         return;
                     }
@@ -1623,7 +1682,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 yield tot as [T, ...K];
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -1638,7 +1697,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param count The number of iterators to split into.
      * @returns An array of length `count` with separate iterators.
      */
-    tee(count: number = 2): AsyncIterPlus<T>[] {
+    tee(count: number = 2): /* o:Async- */ IterPlus<T>[] {
         if (count <= 0) {
             return [];
         }
@@ -1646,16 +1705,16 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
         let init = 0;
         let finished = false;
         const that = this;
-        const tot: AsyncIterPlus<T>[] = [];
+        const tot: /* o:Async- */ IterPlus<T>[] = [];
         const indices: number[] = [];
-        async function* ret(index: number) {
+        /* o:async */ function* ret(index: number) {
             let n = 0;
             while (true) {
                 if (n >= init + stored.size()) {
                     if (finished) {
                         return;
                     }
-                    const elem = await that.next();
+                    const elem = /* o:await */ that.next();
                     if (elem.done) {
                         finished = true;
                         return;
@@ -1676,7 +1735,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
         }
         for (let i = 0; i < count; i++) {
             indices.push(0);
-            tot.push(new AsyncIterPlus(ret(i)));
+            tot.push(new /* o:Async- */ IterPlus(ret(i)));
         }
         return tot;
     }
@@ -1687,14 +1746,14 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @throws A RangeError on an empty iterator.
      * @returns The average.
      */
-    async average(
-        this: AsyncIterPlus<number> | AsyncIterPlus<bigint>
-    ): Promise<T> {
+    /* o: async */ average(
+        this: /* o:Async- */ IterPlus<number> | /* o:Async- */ IterPlus<bigint>
+    ): /* o:Promise<- */ T /* o:-> */ {
         let accum: any = 0;
         let typechecked = false;
         let bigint = false;
         let count = 0;
-        for await (const elem of this) {
+        /* r:for await */ for (const elem of this) {
             if (!typechecked) {
                 if (typeof elem === "bigint") {
                     bigint = true;
@@ -1726,13 +1785,13 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param chunkSize The chunk size.
      * @returns An iterator that yields the chunks.
      */
-    chunks(chunkSize: number): AsyncIterPlus<T[]> {
+    chunks(chunkSize: number): /* o:Async- */ IterPlus<T[]> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             while (true) {
                 const eles: T[] = [];
                 for (let i = 0; i < chunkSize; i++) {
-                    const val = await that.next();
+                    const val = /* o:await */ that.next();
                     if (val.done) {
                         if (eles.length > 0) {
                             yield eles;
@@ -1744,7 +1803,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 yield eles;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -1759,13 +1818,13 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param chunkSize The chunk size.
      * @returns An iterator that yields the chunks.
      */
-    chunksExact(chunkSize: number): AsyncIterPlus<T[]> {
+    chunksExact(chunkSize: number): /* o:Async- */ IterPlus<T[]> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             while (true) {
                 const eles: T[] = [];
                 for (let i = 0; i < chunkSize; i++) {
-                    const val = await that.next();
+                    const val = /* o:await */ that.next();
                     if (val.done) {
                         if (eles.length === chunkSize) {
                             yield eles;
@@ -1777,7 +1836,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 yield eles;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -1786,11 +1845,11 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param n The number of times to repeat.
      * @returns An iterator that repeats itself n times.
      */
-    repeat(n: number): AsyncIterPlus<T> {
+    repeat(n: number): /* o:Async- */ IterPlus<T> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             const eles: T[] = [];
-            for await (const item of that) {
+            /* r:for await */ for (const item of that) {
                 eles.push(item);
             }
             if (eles.length === 0) {
@@ -1800,7 +1859,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 yield* eles;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -1814,15 +1873,15 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @throws A RangeError when the amount is negative.
      * @returns The rotated iterator.
      */
-    rotateLeft(amount: number): AsyncIterPlus<T> {
+    rotateLeft(amount: number): /* o:Async- */ IterPlus<T> {
         if (amount < 0) {
             throw new RangeError("Cannot left rotate by a negative amount.");
         }
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             const eles: T[] = [];
             for (let i = 0; i < amount; i++) {
-                const val = await that.next();
+                const val = /* o:await */ that.next();
                 if (val.done) {
                     if (eles.length > 0) {
                         amount %= eles.length;
@@ -1838,7 +1897,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
             yield* that;
             yield* eles;
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -1854,15 +1913,15 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @throws A RangeError when the amount is negative.
      * @returns The rotated iterator.
      */
-    rotateRight(amount: number): AsyncIterPlus<T> {
+    rotateRight(amount: number): /* o:Async- */ IterPlus<T> {
         if (amount < 0) {
             throw new RangeError("Cannot right rotate by a negative amount.");
         }
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             const eles: T[] = [];
             while (true) {
-                const val = await that.next();
+                const val = /* o:await */ that.next();
                 if (val.done) {
                     break;
                 }
@@ -1873,7 +1932,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 yield* [...eles.slice(-amount), ...eles.slice(0, -amount)];
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -1884,17 +1943,17 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The iterator with the split chunks.
      */
     split(
-        elem: PromiseOrValue<T>,
+        elem: /* o:PromiseOrValue<- */ T /* o:-> */,
         limit: number = Infinity
-    ): AsyncIterPlus<T[]> {
+    ): /* o:Async- */ IterPlus<T[]> {
         const that = this;
-        async function* ret() {
-            const awaited = await elem;
+        /* o:async */ function* ret() {
+            const awaited = /* o:await */ elem;
             let foundEle = false;
             let chunks = 1;
             let eles: T[] = [];
             while (true) {
-                const val = await that.next();
+                const val = /* o:await */ that.next();
                 if (val.done) {
                     if (foundEle) {
                         yield eles;
@@ -1911,7 +1970,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 }
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -1922,16 +1981,16 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The iterator with the split chunks.
      */
     splitPred(
-        pred: (elem: T) => PromiseOrValue<boolean>,
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */,
         limit: number = Infinity
-    ): AsyncIterPlus<T[]> {
+    ): /* o:Async- */ IterPlus<T[]> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             let foundEle = false;
             let chunks = 1;
             let eles: T[] = [];
             while (true) {
-                const val = await that.next();
+                const val = /* o:await */ that.next();
                 if (val.done) {
                     if (foundEle) {
                         yield eles;
@@ -1939,7 +1998,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                     break;
                 }
                 foundEle = true;
-                if (chunks < limit && (await pred(val.value))) {
+                if (chunks < limit && /* o:await */ pred(val.value)) {
                     yield eles;
                     eles = [];
                     chunks++;
@@ -1948,7 +2007,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 }
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -1963,17 +2022,17 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The iterator with the split chunks.
      */
     splitInclusive(
-        elem: PromiseOrValue<T>,
+        elem: /* o:PromiseOrValue<- */ T /* o:-> */,
         limit: number = Infinity
-    ): AsyncIterPlus<T[]> {
+    ): /* o:Async- */ IterPlus<T[]> {
         const that = this;
-        async function* ret() {
-            const awaited = await elem;
+        /* o:async */ function* ret() {
+            const awaited = /* o:await */ elem;
             let foundEle = false;
             let chunks = 1;
             let eles: T[] = [];
             while (true) {
-                const val = await that.next();
+                const val = /* o:await */ that.next();
                 if (val.done) {
                     if (foundEle && eles.length > 0) {
                         yield eles;
@@ -1989,7 +2048,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 }
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -2004,16 +2063,16 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The iterator with the split chunks.
      */
     splitPredInclusive(
-        pred: (elem: T) => PromiseOrValue<boolean>,
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */,
         limit: number = Infinity
-    ): AsyncIterPlus<T[]> {
+    ): /* o:Async- */ IterPlus<T[]> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             let foundEle = false;
             let chunks = 1;
             let eles: T[] = [];
             while (true) {
-                const val = await that.next();
+                const val = /* o:await */ that.next();
                 if (val.done) {
                     if (foundEle && eles.length > 0) {
                         yield eles;
@@ -2022,14 +2081,14 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 }
                 foundEle = true;
                 eles.push(val.value);
-                if (chunks < limit && (await pred(val.value))) {
+                if (chunks < limit && /* o:await */ pred(val.value)) {
                     yield eles;
                     eles = [];
                     chunks++;
                 }
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -2042,12 +2101,15 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param interval The increment between the starts of windows. Defaults to 1.
      * @returns An iterator that yields the windows.
      */
-    windows(windowSize: number, interval: number = 1): AsyncIterPlus<T[]> {
+    windows(
+        windowSize: number,
+        interval: number = 1
+    ): /* o:Async- */ IterPlus<T[]> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             const eles: CircularBuffer<T> = new CircularBuffer();
             for (let i = 0; i < windowSize; i++) {
-                const val = await that.next();
+                const val = /* o:await */ that.next();
                 if (val.done) {
                     return;
                 }
@@ -2056,7 +2118,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
             while (true) {
                 yield eles.toArray();
                 for (let i = 0; i < interval; i++) {
-                    const val = await that.next();
+                    const val = /* o:await */ that.next();
                     if (val.done) {
                         return;
                     }
@@ -2065,30 +2127,30 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 }
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
      * Removes elements of an iterator that are equal to the previous one.
      * @returns An iterator with no consecutive duplicates.
      */
-    dedup(): AsyncIterPlus<T> {
+    dedup(): /* o:Async- */ IterPlus<T> {
         const that = this;
-        async function* ret() {
-            const val = await that.next();
+        /* o:async */ function* ret() {
+            const val = /* o:await */ that.next();
             if (val.done) {
                 return;
             }
             yield val.value;
             let prev = val.value;
-            for await (const item of that) {
+            /* r:for await */ for (const item of that) {
                 if (item !== prev) {
                     yield item;
                 }
                 prev = item;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -2098,24 +2160,26 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param key The key function.
      * @returns An iterator with no consecutive duplicates.
      */
-    dedupWith<K>(key: (elem: T) => PromiseOrValue<K>): AsyncIterPlus<T> {
+    dedupWith<K>(
+        key: (elem: T) => /* o:PromiseOrValue<- */ K /* o:-> */
+    ): /* o:Async- */ IterPlus<T> {
         const that = this;
-        async function* ret() {
-            const val = await that.next();
+        /* o:async */ function* ret() {
+            const val = /* o:await */ that.next();
             if (val.done) {
                 return;
             }
             yield val.value;
-            let prev = await key(val.value);
-            for await (const item of that) {
-                const keyItem = await key(item);
+            let prev = /* o:await */ key(val.value);
+            /* r:for await */ for (const item of that) {
+                const keyItem = /* o:await */ key(item);
                 if (keyItem !== prev) {
                     yield item;
                 }
                 prev = keyItem;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -2125,24 +2189,27 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns An iterator with no consecutive duplicates.
      */
     dedupBy(
-        cmp: (first: T, second: T) => PromiseOrValue<boolean>
-    ): AsyncIterPlus<T> {
+        cmp: (
+            first: T,
+            second: T
+        ) => /* o:PromiseOrValue<- */ boolean /* o:-> */
+    ): /* o:Async- */ IterPlus<T> {
         const that = this;
-        async function* ret() {
-            const val = await that.next();
+        /* o:async */ function* ret() {
+            const val = /* o:await */ that.next();
             if (val.done) {
                 return;
             }
             yield val.value;
             let prev = val.value;
-            for await (const item of that) {
+            /* r:for await */ for (const item of that) {
                 if (!cmp(prev, item)) {
                     yield item;
                 }
                 prev = item;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -2151,21 +2218,23 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param elem The element to intersperse.
      * @returns The new iterator.
      */
-    intersperse(elem: PromiseOrValue<T>): AsyncIterPlus<T> {
+    intersperse(
+        elem: /* o:PromiseOrValue<- */ T /* o:-> */
+    ): /* o:Async- */ IterPlus<T> {
         const that = this;
-        async function* ret() {
-            const awaited = await elem;
-            const val = await that.next();
+        /* o:async */ function* ret() {
+            const awaited = /* o:await */ elem;
+            const val = /* o:await */ that.next();
             if (val.done) {
                 return;
             }
             yield val.value;
-            for await (const item of that) {
+            /* r:for await */ for (const item of that) {
                 yield awaited;
                 yield item;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -2174,24 +2243,26 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param elems The elements to intersperse.
      * @returns The new iterator.
      */
-    intersperseMultiple(elems: AsyncIterable<T>): AsyncIterPlus<T> {
+    intersperseMultiple(
+        elems: /* o:Async- */ Iterable<T>
+    ): /* o:Async- */ IterPlus<T> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             const awaited: T[] = [];
-            for await (const item of elems) {
+            /* r:for await */ for (const item of elems) {
                 awaited.push(item);
             }
-            const val = await that.next();
+            const val = /* o:await */ that.next();
             if (val.done) {
                 return;
             }
             yield val.value;
-            for await (const item of that) {
+            /* r:for await */ for (const item of that) {
                 yield* awaited;
                 yield item;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -2202,23 +2273,23 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The joined iterator.
      */
     join<K>(
-        this: AsyncIterPlus<Iterable<K> | AsyncIterable<K>>,
-        elem: PromiseOrValue<K>
-    ): AsyncIterPlus<K> {
+        this: /* o:Async- */ IterPlus</* o:Iterable<K> | Async- */ Iterable<K>>,
+        elem: /* o:PromiseOrValue<- */ K /* o:-> */
+    ): /* o:Async- */ IterPlus<K> {
         const that = this;
-        async function* ret() {
-            const awaited = await elem;
-            const val = await that.next();
+        /* o:async */ function* ret() {
+            const awaited = /* o:await */ elem;
+            const val = /* o:await */ that.next();
             if (val.done) {
                 return;
             }
             yield* val.value;
-            for await (const item of that) {
+            /* r:for await */ for (const item of that) {
                 yield awaited;
                 yield* item;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -2229,26 +2300,26 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The joined iterator.
      */
     joinMultiple<K>(
-        this: AsyncIterPlus<Iterable<K> | AsyncIterable<K>>,
-        elems: AsyncIterable<K>
-    ): AsyncIterPlus<K> {
+        this: /* o:Async- */ IterPlus</* o:Iterable<K> | Async- */ Iterable<K>>,
+        elems: /* o:Async- */ Iterable<K>
+    ): /* o:Async- */ IterPlus<K> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             const awaited: K[] = [];
-            for await (const item of elems) {
+            /* r:for await */ for (const item of elems) {
                 awaited.push(item);
             }
-            const val = await that.next();
+            const val = /* o:await */ that.next();
             if (val.done) {
                 return;
             }
             yield* val.value;
-            for await (const item of that) {
+            /* r:for await */ for (const item of that) {
                 yield* awaited;
                 yield* item;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -2264,12 +2335,12 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @throws A RangeError if `duplicate` is `"error"` and a duplicate key is encountered.
      * @returns The generated object.
      */
-    async toObject<K, V>(
-        this: AsyncIterPlus<[K, V]>,
+    /* o:async */ toObject<K, V>(
+        this: /* o:Async- */ IterPlus<[K, V]>,
         duplicate: "overwrite" | "maintain" | "error" = "overwrite"
-    ): Promise<{[key: string]: V}> {
+    ): /* o:Promise<- */ {[key: string]: V} /* o:-> */ {
         const ret: {[key: string]: V} = {};
-        for await (const [key, val] of this) {
+        /* r:for await */ for (const [key, val] of this) {
             if (duplicate !== "overwrite" && key in ret) {
                 if (duplicate === "error") {
                     throw new RangeError("Duplicate key encountered.");
@@ -2298,12 +2369,12 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @throws A RangeError if `duplicate` is `"error"` and a duplicate key is encountered.
      * @returns The generated map.
      */
-    async toMap<K, V>(
-        this: AsyncIterPlus<[K, V]>,
+    /* o:async */ toMap<K, V>(
+        this: /* o:Async- */ IterPlus<[K, V]>,
         duplicate: "overwrite" | "maintain" | "error" = "overwrite"
-    ): Promise<Map<K, V>> {
+    ): /* o:Promise<- */ Map<K, V> /* o:-> */ {
         const ret: Map<K, V> = new Map();
-        for await (const [key, val] of this) {
+        /* r:for await */ for (const [key, val] of this) {
             if (duplicate !== "overwrite" && ret.has(key)) {
                 if (duplicate === "error") {
                     throw new RangeError("Duplicate key encountered.");
@@ -2324,9 +2395,9 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @returns The generated set.
      */
-    async toSet(): Promise<Set<T>> {
+    /* o:async */ toSet(): /* o:Promise<- */ Set<T> /* o:-> */ {
         const ret: Set<T> = new Set();
-        for await (const val of this) {
+        /* r:for await */ for (const val of this) {
             ret.add(val);
         }
         return ret;
@@ -2337,9 +2408,9 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @returns The generated array.
      */
-    async toArray(): Promise<T[]> {
+    /* o:async */ toArray(): /* o:Promise<- */ T[] /* o:-> */ {
         const ret: T[] = [];
-        for await (const item of this) {
+        /* r:for await */ for (const item of this) {
             ret.push(item);
         }
         return ret;
@@ -2352,12 +2423,14 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      *
      * @returns The interleaved iterator, yielding elements in the iterators in order.
      */
-    interleave(...iters: AsyncIterable<T>[]): AsyncIterPlus<T> {
+    interleave(
+        ...iters: /* o:Async- */ Iterable<T>[]
+    ): /* o:Async- */ IterPlus<T> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             const iterList = [
                 that,
-                ...iters.map((v) => v[Symbol.asyncIterator]()),
+                ...iters.map((v) => v[Symbol./* r:asyncIterator */ iterator]()),
             ].map((v) => ({
                 done: false,
                 iter: v,
@@ -2369,7 +2442,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                         continue;
                     }
                     found = true;
-                    const val = await obj.iter.next();
+                    const val = /* o:await */ obj.iter.next();
                     if (val.done) {
                         obj.done = true;
                         continue;
@@ -2381,7 +2454,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 }
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -2394,19 +2467,19 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The mapped iterator.
      */
     mapAccum<A, V>(
-        func: (accum: A, elem: T) => PromiseOrValue<[A, V]>,
+        func: (accum: A, elem: T) => /* o:PromiseOrValue<- */ [A, V] /* o:-> */,
         initializer: A
-    ): AsyncIterPlus<V> {
+    ): /* o:Async- */ IterPlus<V> {
         const that = this;
-        async function* ret() {
+        /* o:async */ function* ret() {
             let accum: A = initializer;
-            for await (const elem of that) {
-                const [newAccum, newElem] = await func(accum, elem);
+            /* r:for await */ for (const elem of that) {
+                const [newAccum, newElem] = /* o:await */ func(accum, elem);
                 yield newElem;
                 accum = newAccum;
             }
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -2415,10 +2488,12 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param pred The predicate function.
      * @returns The number of matched items in the iterator.
      */
-    async countIf(pred: (elem: T) => PromiseOrValue<boolean>): Promise<number> {
+    /* o:async */ countIf(
+        pred: (elem: T) => /* o:PromiseOrValue<- */ boolean /* o:-> */
+    ): /* o:Promise<- */ number /* o:-> */ {
         let ret: number = 0;
-        for await (const item of this) {
-            if (await pred(item)) {
+        /* r:for await */ for (const item of this) {
+            if (/* o:await */ pred(item)) {
                 ret++;
             }
         }
@@ -2434,9 +2509,9 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The iterator containing all intermediate accumulators.
      */
     scan<A>(
-        func: (accum: A, elem: T) => PromiseOrValue<A>,
+        func: (accum: A, elem: T) => /* o:PromiseOrValue<- */ A /* o:-> */,
         initializer: A
-    ): AsyncIterPlus<A>;
+    ): /* o:Async- */ IterPlus<A>;
     /**
      * Runs a function for every element of the iterator, keeping track of an accumulator.
      *
@@ -2448,16 +2523,18 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * then an error will be thrown.
      * @returns The iterator containing all intermediate accumulators.
      */
-    scan(func: (accum: T, elem: T) => PromiseOrValue<T>): AsyncIterPlus<T>;
+    scan(
+        func: (accum: T, elem: T) => /* o:PromiseOrValue<- */ T /* o:-> */
+    ): /* o:Async- */ IterPlus<T>;
     scan<A>(
-        func: (accum: A, elem: T) => PromiseOrValue<A>,
+        func: (accum: A, elem: T) => /* o:PromiseOrValue<- */ A /* o:-> */,
         initializer?: A
-    ): AsyncIterPlus<A> {
+    ): /* o:Async- */ IterPlus<A> {
         const that = this;
-        async function* ret() {
+        /* o: async */ function* ret() {
             let accum: A;
             if (initializer === undefined) {
-                const next = await that.next();
+                const next = /* o: await */ that.next();
                 if (next.done) {
                     throw new TypeError(
                         "Scan of empty iterator with no initializer."
@@ -2467,13 +2544,13 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
             } else {
                 accum = initializer as A;
             }
-            for await (const elem of that) {
+            /* r:for await */ for (const elem of that) {
                 yield accum;
-                accum = await func(accum, elem);
+                accum = /* o:await */ func(accum, elem);
             }
             yield accum;
         }
-        return new AsyncIterPlus(ret());
+        return new /* o:Async- */ IterPlus(ret());
     }
 
     /**
@@ -2491,18 +2568,21 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param cmp A function that checks if elements are equal.
      * @returns If the two iterators are equal.
      */
-    async headEqualsBy<O>(
-        other: AsyncIterable<O>,
-        cmp: (first: T, second: O) => PromiseOrValue<boolean>
-    ): Promise<boolean> {
-        const iter = other[Symbol.asyncIterator]();
+    /* o:async */ headEqualsBy<O>(
+        other: /* o:Async- */ Iterable<O>,
+        cmp: (
+            first: T,
+            second: O
+        ) => /* o:PromiseOrValue<- */ boolean /* o:-> */
+    ): /* o:Promise<- */ boolean /* o:-> */ {
+        const iter = other[Symbol./* r:asyncIterator */ iterator]();
         while (true) {
-            const a = await this.next();
-            const b = await iter.next();
+            const a = /* o:await */ this.next();
+            const b = /* o:await */ iter.next();
             if (a.done || b.done) {
                 return true;
             } else {
-                const eq = await cmp(a.value, b.value);
+                const eq = /* o:await */ cmp(a.value, b.value);
                 if (!eq) {
                     return false;
                 }
@@ -2525,18 +2605,19 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param key The key function.
      * @returns If the two iterators are equal.
      */
-    async headEqualsWith<K>(
-        other: AsyncIterable<T>,
-        key: (elem: T) => PromiseOrValue<K>
-    ): Promise<boolean> {
-        const iter = other[Symbol.asyncIterator]();
+    /* o:async */ headEqualsWith<K>(
+        other: /* o:Async- */ Iterable<T>,
+        key: (elem: T) => /* o:PromiseOrValue<- */ K /* o:-> */
+    ): /* o:Promise<- */ boolean /* o:-> */ {
+        const iter = other[Symbol./* r:asyncIterator */ iterator]();
         while (true) {
-            const a = await this.next();
-            const b = await iter.next();
+            const a = /* o:await */ this.next();
+            const b = /* o:await */ iter.next();
             if (a.done || b.done) {
                 return true;
             } else {
-                const eq = (await key(a.value)) === (await key(b.value));
+                const eq =
+                    /* o:await */ key(a.value) === /* o:await */ key(b.value);
                 if (!eq) {
                     return false;
                 }
@@ -2557,11 +2638,13 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param other Iterable to compare to.
      * @returns If the two iterators are equal.
      */
-    async headEquals(other: AsyncIterable<T>): Promise<boolean> {
-        const iter = other[Symbol.asyncIterator]();
+    /* o:async */ headEquals(
+        other: /* o:Async- */ Iterable<T>
+    ): /* o:Promise<- */ boolean /* o:-> */ {
+        const iter = other[Symbol./* r:asyncIterator */ iterator]();
         while (true) {
-            const a = await this.next();
-            const b = await iter.next();
+            const a = /* o:await */ this.next();
+            const b = /* o:await */ iter.next();
             if (a.done || b.done) {
                 return true;
             } else {
@@ -2581,12 +2664,14 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
  *
  * @typeParam T The item type of the iterator.
  */
-export class AsyncPeekable<T> extends AsyncIterPlus<T> {
+export class /* o:Async- */ Peekable<T> /* r:extends Async- */ extends IterPlus<
+    T
+> {
     private storedVal:
         | {has: true; val: IteratorResult<T>}
         | {has: false; val: unknown};
 
-    constructor(iter: AsyncIterator<T>) {
+    constructor(iter: /* o:Async- */ Iterator<T>) {
         super(iter);
         this.storedVal = {
             has: false,
@@ -2599,7 +2684,7 @@ export class AsyncPeekable<T> extends AsyncIterPlus<T> {
      *
      * @returns The next element.
      */
-    async next(): Promise<IteratorResult<T>> {
+    /* o:async */ next(): /* o:Promise<- */ IteratorResult<T> /* o:-> */ {
         if (this.storedVal.has) {
             const ret = this.storedVal.val;
             this.storedVal = {
@@ -2608,7 +2693,7 @@ export class AsyncPeekable<T> extends AsyncIterPlus<T> {
             };
             return ret;
         }
-        return await this.internal.next();
+        return /* o:await */ this.internal.next();
     }
 
     /**
@@ -2616,11 +2701,11 @@ export class AsyncPeekable<T> extends AsyncIterPlus<T> {
      *
      * @returns The next element.
      */
-    async peek(): Promise<IteratorResult<T>> {
+    /* o:async */ peek(): /* o:Promise<- */ IteratorResult<T> /* o:-> */ {
         if (this.storedVal.has) {
             return this.storedVal.val;
         }
-        this.storedVal = {has: true, val: await this.internal.next()};
+        this.storedVal = {has: true, val: /* o:await */ this.internal.next()};
         return this.storedVal.val;
     }
 }

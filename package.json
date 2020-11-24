@@ -7,13 +7,14 @@
   "scripts": {
     "test": "jest",
     "gen": "node ./generateSources.js",
+    "deno": "node ./generateDeno.js",
     "build": "tsc",
     "doc": "typedoc --options typedoc.json && cp docconfig.yml docs/config.yml && touch docs/.nojekyll",
-    "format": "prettier --write src",
+    "format": "prettier --write src deno_compat",
     "check": "eslint src",
-    "magic": "npm run gen && npm run format && npm run build && npm test",
+    "magic": "npm run gen && npm run deno && npm run format && npm run build && npm test",
     "bundle": "webpack",
-    "full": "npm run gen && npm run format && npm run check && npm run build && npm run doc && npm run bundle && npm test"
+    "full": "npm run gen && npm run deno && npm run format && npm run check && npm run build && npm run doc && npm run bundle && npm test"
   },
   "repository": {
     "type": "git",
