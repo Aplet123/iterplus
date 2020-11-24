@@ -174,14 +174,29 @@ class IterPlus {
      * @param func The function to generate new values.
      * @returns The generated iterator.
      */
-    static successors(first, func) {
+    static successors(first /* o:-> */, func /* o:-> */) {
         /* o:async */ function* ret() {
+            let val = /* o:await */ first;
             while (true) {
-                if (first === exports.nullVal) {
+                if (val === exports.nullVal) {
                     break;
                 }
-                yield first;
-                first = func(first);
+                yield val;
+                val = /* o:await */ func(val);
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+    static unfold(func /* o:-> */, init /* o:-> */) {
+        /* o:async */ function* ret() {
+            let accum = /* o:await */ init;
+            while (true) {
+                const pair = /* o:await */ func(accum);
+                if (pair === exports.nullVal) {
+                    break;
+                }
+                yield pair[0];
+                accum = pair[1];
             }
         }
         return new /* o:Async- */ IterPlus(ret());
@@ -2242,7 +2257,7 @@ class IterPlus {
      * However, if the first iterator terminates,
      * a value will still be yielded from the second so that `headEquals` is commutative.
      *
-     * @typeParam K The type of the Key.
+     * @typeParam K The type of the key.
      * @param other Iterable to compare to.
      * @param key The key function.
      * @returns If the two iterators are equal.
@@ -2327,7 +2342,7 @@ class IterPlus {
      * This function is short-circuiting,
      * so it stops on the first inequality.
      *
-     * @typeParam K The type of the Key.
+     * @typeParam K The type of the key.
      * @param other Iterable to compare to.
      * @param key The key function.
      * @returns If the first iterator starts with the second iterator.
@@ -2372,6 +2387,84 @@ class IterPlus {
                 return false;
             }
             const eq = a.value === b.value;
+            if (!eq) {
+                return false;
+            }
+        }
+    }
+    /**
+     * Checks if every element in this iterator is equal, using a comparison function.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * @param cmp A function that checks if elements are equal.
+     * @returns If every element is equal, or true if the iterator has one or less elements.
+     */
+    /* o:async */ allEqualBy(cmp /* o:-> */) {
+        const firstItem = /* o:await */ this.next();
+        if (firstItem.done) {
+            return true;
+        }
+        const first = firstItem.value;
+        while (true) {
+            const item = /* o:await */ this.next();
+            if (item.done) {
+                return true;
+            }
+            const eq = /* o:await */ cmp(item.value, first);
+            if (!eq) {
+                return false;
+            }
+        }
+    }
+    /**
+     * Checks if every element in this iterator is equal, using a key function.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     * @returns If every element is equal, or true if the iterator has one or less elements.
+     */
+    /* o:async */ allEqualWith(key /* o:-> */) {
+        const firstItem = /* o:await */ this.next();
+        if (firstItem.done) {
+            return true;
+        }
+        const first = /* o:await */ key(firstItem.value);
+        while (true) {
+            const item = /* o:await */ this.next();
+            if (item.done) {
+                return true;
+            }
+            const eq = /* o:await */ key(item.value) === first;
+            if (!eq) {
+                return false;
+            }
+        }
+    }
+    /**
+     * Checks if every element in this iterator is equal.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * @returns If every element is equal, or true if the iterator has one or less elements.
+     */
+    /* o:async */ allEqual() {
+        const firstItem = /* o:await */ this.next();
+        if (firstItem.done) {
+            return true;
+        }
+        const first = firstItem.value;
+        while (true) {
+            const item = /* o:await */ this.next();
+            if (item.done) {
+                return true;
+            }
+            const eq = item.value === first;
             if (!eq) {
                 return false;
             }

@@ -221,16 +221,35 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The generated iterator.
      */
     static successors<T>(
-        first: T | Null,
-        func: (prev: T) => T | Null
+        first: PromiseOrValue<T | Null>,
+        func: (prev: T) => PromiseOrValue<T | Null>
     ): AsyncIterPlus<T> {
         async function* ret() {
+            let val = await first;
             while (true) {
-                if (first === nullVal) {
+                if (val === nullVal) {
                     break;
                 }
-                yield first;
-                first = func(first);
+                yield val;
+                val = await func(val);
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    static unfold<T, A>(
+        func: (accum: A) => PromiseOrValue<[T, A] | Null>,
+        init: PromiseOrValue<A>
+    ): AsyncIterPlus<T> {
+        async function* ret() {
+            let accum = await init;
+            while (true) {
+                const pair = await func(accum);
+                if (pair === nullVal) {
+                    break;
+                }
+                yield pair[0];
+                accum = pair[1];
             }
         }
         return new AsyncIterPlus(ret());
@@ -2520,7 +2539,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * However, if the first iterator terminates,
      * a value will still be yielded from the second so that `headEquals` is commutative.
      *
-     * @typeParam K The type of the Key.
+     * @typeParam K The type of the key.
      * @param other Iterable to compare to.
      * @param key The key function.
      * @returns If the two iterators are equal.
@@ -2611,7 +2630,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * This function is short-circuiting,
      * so it stops on the first inequality.
      *
-     * @typeParam K The type of the Key.
+     * @typeParam K The type of the key.
      * @param other Iterable to compare to.
      * @param key The key function.
      * @returns If the first iterator starts with the second iterator.
@@ -2659,6 +2678,91 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 return false;
             }
             const eq = a.value === b.value;
+            if (!eq) {
+                return false;
+            }
+        }
+    }
+
+    /**
+     * Checks if every element in this iterator is equal, using a comparison function.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * @param cmp A function that checks if elements are equal.
+     * @returns If every element is equal, or true if the iterator has one or less elements.
+     */
+    async allEqualBy(
+        cmp: (first: T, second: T) => PromiseOrValue<boolean>
+    ): Promise<boolean> {
+        const firstItem = await this.next();
+        if (firstItem.done) {
+            return true;
+        }
+        const first = firstItem.value;
+        while (true) {
+            const item = await this.next();
+            if (item.done) {
+                return true;
+            }
+            const eq = await cmp(item.value, first);
+            if (!eq) {
+                return false;
+            }
+        }
+    }
+
+    /**
+     * Checks if every element in this iterator is equal, using a key function.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     * @returns If every element is equal, or true if the iterator has one or less elements.
+     */
+    async allEqualWith<K>(
+        key: (elem: T) => PromiseOrValue<K>
+    ): Promise<boolean> {
+        const firstItem = await this.next();
+        if (firstItem.done) {
+            return true;
+        }
+        const first = await key(firstItem.value);
+        while (true) {
+            const item = await this.next();
+            if (item.done) {
+                return true;
+            }
+            const eq = (await key(item.value)) === first;
+            if (!eq) {
+                return false;
+            }
+        }
+    }
+
+    /**
+     * Checks if every element in this iterator is equal.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * @returns If every element is equal, or true if the iterator has one or less elements.
+     */
+    async allEqual(): Promise<boolean> {
+        const firstItem = await this.next();
+        if (firstItem.done) {
+            return true;
+        }
+        const first = firstItem.value;
+        while (true) {
+            const item = await this.next();
+            if (item.done) {
+                return true;
+            }
+            const eq = item.value === first;
             if (!eq) {
                 return false;
             }

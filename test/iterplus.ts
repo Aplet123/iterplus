@@ -92,6 +92,18 @@ describe("Static functions", () => {
         expect(vals).toEqual([1, 2, 3, 4, 5]);
     });
 
+    it(".unfold works", () => {
+        const vals = [];
+        const mock = jest.fn((x: number) => (x <= 5 ? [2 * x, x + 1] as [number, number] : nullVal));
+        const iter = IterPlus.unfold(mock, 1);
+        for (let i = 0; i < 5; i++) {
+            vals.push(iter.next().value);
+            expect(mock).toBeCalledTimes(i + 1);
+        }
+        expect(iter.next().done).toBe(true);
+        expect(vals).toEqual([2, 4, 6, 8, 10]);
+    });
+
     it(".cycle works", () => {
         const vals = [];
         const iter = IterPlus.cycle([1, 2, 3]);
@@ -1778,6 +1790,60 @@ describe("Methods", () => {
             const iter = iterplus([1, 2, 3, 4, 5]);
             expect(iter.hasPrefix([1, 2, 5, 6, 7])).toBe(false);
             expectIter(iter).toEqual([4, 5]);
+        });
+    });
+
+    describe(".allEqualBy", () => {
+        it("works normally", () => {
+            expect(iterplus([]).allEqualBy((a, b) => a % 10 === b % 10)).toBe(true);
+            expect(iterplus([11]).allEqualBy((a, b) => a % 10 === b % 10)).toBe(true);
+            expect(iterplus([11, 21]).allEqualBy((a, b) => a % 10 === b % 10)).toBe(true);
+            expect(iterplus([11, 21, 31]).allEqualBy((a, b) => a % 10 === b % 10)).toBe(true);
+            expect(iterplus([11, 22, 31]).allEqualBy((a, b) => a % 10 === b % 10)).toBe(false);
+            expect(iterplus([11, 21, 32]).allEqualBy((a, b) => a % 10 === b % 10)).toBe(false);
+            expect(iterplus([12, 21, 31]).allEqualBy((a, b) => a % 10 === b % 10)).toBe(false);
+        });
+
+        it("short circuits", () => {
+            const iter = iterplus([11, 21, 31, 42, 53, 64]);
+            expect(iter.allEqualBy((a, b) => a % 10 === b % 10)).toBe(false);
+            expectIter(iter).toEqual([53, 64]);
+        });
+    });
+
+    describe(".allEqualWith", () => {
+        it("works normally", () => {
+            expect(iterplus([]).allEqualWith((x) => x % 10)).toBe(true);
+            expect(iterplus([11]).allEqualWith((x) => x % 10)).toBe(true);
+            expect(iterplus([11, 21]).allEqualWith((x) => x % 10)).toBe(true);
+            expect(iterplus([11, 21, 31]).allEqualWith((x) => x % 10)).toBe(true);
+            expect(iterplus([11, 22, 31]).allEqualWith((x) => x % 10)).toBe(false);
+            expect(iterplus([11, 21, 32]).allEqualWith((x) => x % 10)).toBe(false);
+            expect(iterplus([12, 21, 31]).allEqualWith((x) => x % 10)).toBe(false);
+        });
+
+        it("short circuits", () => {
+            const iter = iterplus([11, 21, 31, 42, 53, 64]);
+            expect(iter.allEqualWith((x) => x % 10)).toBe(false);
+            expectIter(iter).toEqual([53, 64]);
+        });
+    });
+
+    describe(".allEqual", () => {
+        it("works normally", () => {
+            expect(iterplus([]).allEqual()).toBe(true);
+            expect(iterplus([1]).allEqual()).toBe(true);
+            expect(iterplus([1, 1]).allEqual()).toBe(true);
+            expect(iterplus([1, 1, 1]).allEqual()).toBe(true);
+            expect(iterplus([1, 2, 1]).allEqual()).toBe(false);
+            expect(iterplus([1, 1, 2]).allEqual()).toBe(false);
+            expect(iterplus([2, 1, 1]).allEqual()).toBe(false);
+        });
+
+        it("short circuits", () => {
+            const iter = iterplus([1, 1, 1, 2, 3, 4]);
+            expect(iter.allEqual()).toBe(false);
+            expectIter(iter).toEqual([3, 4]);
         });
     });
 });

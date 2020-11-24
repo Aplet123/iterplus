@@ -128,7 +128,8 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @param func The function to generate new values.
      * @returns The generated iterator.
      */
-    static successors<T>(first: T | Null, func: (prev: T) => T | Null): AsyncIterPlus<T>;
+    static successors<T>(first: PromiseOrValue<T | Null>, func: (prev: T) => PromiseOrValue<T | Null>): AsyncIterPlus<T>;
+    static unfold<T, A>(func: (accum: A) => PromiseOrValue<[T, A] | Null>, init: PromiseOrValue<A>): AsyncIterPlus<T>;
     /**
      * Generates an iterator that cycles through an iterable.
      *
@@ -947,7 +948,7 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * However, if the first iterator terminates,
      * a value will still be yielded from the second so that `headEquals` is commutative.
      *
-     * @typeParam K The type of the Key.
+     * @typeParam K The type of the key.
      * @param other Iterable to compare to.
      * @param key The key function.
      * @returns If the two iterators are equal.
@@ -987,7 +988,7 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * This function is short-circuiting,
      * so it stops on the first inequality.
      *
-     * @typeParam K The type of the Key.
+     * @typeParam K The type of the key.
      * @param other Iterable to compare to.
      * @param key The key function.
      * @returns If the first iterator starts with the second iterator.
@@ -1004,6 +1005,36 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns If the first iterator starts with the second iterator.
      */
     hasPrefix(other: AsyncIterable<T>): Promise<boolean>;
+    /**
+     * Checks if every element in this iterator is equal, using a comparison function.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * @param cmp A function that checks if elements are equal.
+     * @returns If every element is equal, or true if the iterator has one or less elements.
+     */
+    allEqualBy(cmp: (first: T, second: T) => PromiseOrValue<boolean>): Promise<boolean>;
+    /**
+     * Checks if every element in this iterator is equal, using a key function.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     * @returns If every element is equal, or true if the iterator has one or less elements.
+     */
+    allEqualWith<K>(key: (elem: T) => PromiseOrValue<K>): Promise<boolean>;
+    /**
+     * Checks if every element in this iterator is equal.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * @returns If every element is equal, or true if the iterator has one or less elements.
+     */
+    allEqual(): Promise<boolean>;
 }
 /**
  * An iterator with a `peek`. method that can look one element in advance.
