@@ -3280,6 +3280,215 @@ class AsyncIterPlus {
         }
         return new AsyncIterPlus(ret());
     }
+    /**
+     * Groups elements of an iterator together with a key function.
+     *
+     * @typeParam K The type of the key.
+     * @param cmp A function that checks if elements are equal.
+     * @returns An object mapping keys to arrays of matching items.
+     */
+    async group(key) {
+        var e_57, _a;
+        const ret = {};
+        try {
+            for (var _b = __asyncValues(this), _c; _c = await _b.next(), !_c.done;) {
+                const elem = _c.value;
+                const keyVal = await key(elem);
+                if (keyVal in ret) {
+                    ret[keyVal].push(elem);
+                }
+                else {
+                    ret[keyVal] = [elem];
+                }
+            }
+        }
+        catch (e_57_1) { e_57 = { error: e_57_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
+            }
+            finally { if (e_57) throw e_57.error; }
+        }
+        return ret;
+    }
+    /**
+     * Tallies elements of an iterator together with a key function.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     * @returns An object mapping keys to the number of times they appeared.
+     */
+    async tallyWith(key) {
+        var e_58, _a;
+        const ret = {};
+        try {
+            for (var _b = __asyncValues(this), _c; _c = await _b.next(), !_c.done;) {
+                const elem = _c.value;
+                const keyVal = await key(elem);
+                if (keyVal in ret) {
+                    ret[keyVal] += 1;
+                }
+                else {
+                    ret[keyVal] = 1;
+                }
+            }
+        }
+        catch (e_58_1) { e_58 = { error: e_58_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
+            }
+            finally { if (e_58) throw e_58.error; }
+        }
+        return ret;
+    }
+    /**
+     * Tallies elements of an iterator together.
+     *
+     * @returns An object mapping keys to the number of times they appeared.
+     */
+    async tally() {
+        var e_59, _a;
+        const ret = {};
+        try {
+            for (var _b = __asyncValues(this), _c; _c = await _b.next(), !_c.done;) {
+                const elem = _c.value;
+                if (elem in ret) {
+                    ret[elem.toString()] += 1;
+                }
+                else {
+                    ret[elem.toString()] = 1;
+                }
+            }
+        }
+        catch (e_59_1) { e_59 = { error: e_59_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
+            }
+            finally { if (e_59) throw e_59.error; }
+        }
+        return ret;
+    }
+    /**
+     * Globs elements of an iterator together, with a comparison function.
+     *
+     * @param cmp A function that checks if elements are equal.
+     * @returns An iterator where every element is an array of consecutively equal elements.
+     */
+    globBy(cmp) {
+        const that = this;
+        function ret() {
+            return __asyncGenerator(this, arguments, function* ret_57() {
+                var e_60, _a;
+                let curGlob = [];
+                try {
+                    for (var that_24 = __asyncValues(that), that_24_1; that_24_1 = yield __await(that_24.next()), !that_24_1.done;) {
+                        const elem = that_24_1.value;
+                        if (curGlob.length === 0 ||
+                            (yield __await(cmp(curGlob[curGlob.length - 1], elem)))) {
+                            curGlob.push(elem);
+                        }
+                        else {
+                            yield yield __await(curGlob);
+                            curGlob = [elem];
+                        }
+                    }
+                }
+                catch (e_60_1) { e_60 = { error: e_60_1 }; }
+                finally {
+                    try {
+                        if (that_24_1 && !that_24_1.done && (_a = that_24.return)) yield __await(_a.call(that_24));
+                    }
+                    finally { if (e_60) throw e_60.error; }
+                }
+                if (curGlob.length > 0) {
+                    yield yield __await(curGlob);
+                }
+            });
+        }
+        return new AsyncIterPlus(ret());
+    }
+    /**
+     * Globs elements of an iterator together, with a key function.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     * @returns An iterator where every element is an array of consecutively equal elements.
+     */
+    globWith(key) {
+        const that = this;
+        function ret() {
+            return __asyncGenerator(this, arguments, function* ret_58() {
+                var e_61, _a;
+                let curGlob = [];
+                let prevKey = undefined;
+                try {
+                    for (var that_25 = __asyncValues(that), that_25_1; that_25_1 = yield __await(that_25.next()), !that_25_1.done;) {
+                        const elem = that_25_1.value;
+                        const elemKey = yield __await(key(elem));
+                        if (curGlob.length === 0 || prevKey === elemKey) {
+                            curGlob.push(elem);
+                        }
+                        else {
+                            yield yield __await(curGlob);
+                            curGlob = [elem];
+                        }
+                        prevKey = elemKey;
+                    }
+                }
+                catch (e_61_1) { e_61 = { error: e_61_1 }; }
+                finally {
+                    try {
+                        if (that_25_1 && !that_25_1.done && (_a = that_25.return)) yield __await(_a.call(that_25));
+                    }
+                    finally { if (e_61) throw e_61.error; }
+                }
+                if (curGlob.length > 0) {
+                    yield yield __await(curGlob);
+                }
+            });
+        }
+        return new AsyncIterPlus(ret());
+    }
+    /**
+     * Globs elements of an iterator together.
+     *
+     * @returns An iterator where every element is an array of consecutively equal elements.
+     */
+    glob() {
+        const that = this;
+        function ret() {
+            return __asyncGenerator(this, arguments, function* ret_59() {
+                var e_62, _a;
+                let curGlob = [];
+                try {
+                    for (var that_26 = __asyncValues(that), that_26_1; that_26_1 = yield __await(that_26.next()), !that_26_1.done;) {
+                        const elem = that_26_1.value;
+                        if (curGlob.length === 0 ||
+                            elem === curGlob[curGlob.length - 1]) {
+                            curGlob.push(elem);
+                        }
+                        else {
+                            yield yield __await(curGlob);
+                            curGlob = [elem];
+                        }
+                    }
+                }
+                catch (e_62_1) { e_62 = { error: e_62_1 }; }
+                finally {
+                    try {
+                        if (that_26_1 && !that_26_1.done && (_a = that_26.return)) yield __await(_a.call(that_26));
+                    }
+                    finally { if (e_62) throw e_62.error; }
+                }
+                if (curGlob.length > 0) {
+                    yield yield __await(curGlob);
+                }
+            });
+        }
+        return new AsyncIterPlus(ret());
+    }
 }
 exports.AsyncIterPlus = AsyncIterPlus;
 /**

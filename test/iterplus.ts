@@ -94,7 +94,9 @@ describe("Static functions", () => {
 
     it(".unfold works", () => {
         const vals = [];
-        const mock = jest.fn((x: number) => (x <= 5 ? [2 * x, x + 1] as [number, number] : nullVal));
+        const mock = jest.fn((x: number) =>
+            x <= 5 ? ([2 * x, x + 1] as [number, number]) : nullVal
+        );
         const iter = IterPlus.unfold(mock, 1);
         for (let i = 0; i < 5; i++) {
             vals.push(iter.next().value);
@@ -1595,19 +1597,23 @@ describe("Methods", () => {
 
     describe(".scan", () => {
         it("works normally", () => {
-            expectIter(iterplus([1, 2, 3, 4]).scan((a, b) => a * 10 + b)).toEqual(
-                [1, 12, 123, 1234]
-            );
-            expectIter(iterplus([1, 2, 3, 4]).scan((a, b) => a * 10 + b, 9)).toEqual(
-                [9, 91, 912, 9123, 91234]
-            );
-            expectIter(iterplus([] as string[]).scan((a, _) => a, "foo")).toEqual(
-                ["foo"]
-            );
+            expectIter(
+                iterplus([1, 2, 3, 4]).scan((a, b) => a * 10 + b)
+            ).toEqual([1, 12, 123, 1234]);
+            expectIter(
+                iterplus([1, 2, 3, 4]).scan((a, b) => a * 10 + b, 9)
+            ).toEqual([9, 91, 912, 9123, 91234]);
+            expectIter(
+                iterplus([] as string[]).scan((a, _) => a, "foo")
+            ).toEqual(["foo"]);
         });
 
         it("errors on empty array", () => {
-            expect(() => iterplus([]).scan((a, _) => a).next()).toThrow(TypeError);
+            expect(() =>
+                iterplus([])
+                    .scan((a, _) => a)
+                    .next()
+            ).toThrow(TypeError);
         });
     });
 
@@ -1641,9 +1647,9 @@ describe("Methods", () => {
 
         it("short circuits", () => {
             const iter = iterplus([1, 2, 3, 4, 5]);
-            expect(iter.headEqualsBy([0, 1, 3, 9, 10], (a, b) => a === b + 1)).toBe(
-                false
-            );
+            expect(
+                iter.headEqualsBy([0, 1, 3, 9, 10], (a, b) => a === b + 1)
+            ).toBe(false);
             expectIter(iter).toEqual([4, 5]);
         });
     });
@@ -1732,9 +1738,9 @@ describe("Methods", () => {
 
         it("short circuits", () => {
             const iter = iterplus([1, 2, 3, 4, 5]);
-            expect(iter.hasPrefixBy([0, 1, 3, 9, 10], (a, b) => a === b + 1)).toBe(
-                false
-            );
+            expect(
+                iter.hasPrefixBy([0, 1, 3, 9, 10], (a, b) => a === b + 1)
+            ).toBe(false);
             expectIter(iter).toEqual([4, 5]);
         });
     });
@@ -1795,13 +1801,27 @@ describe("Methods", () => {
 
     describe(".allEqualBy", () => {
         it("works normally", () => {
-            expect(iterplus([]).allEqualBy((a, b) => a % 10 === b % 10)).toBe(true);
-            expect(iterplus([11]).allEqualBy((a, b) => a % 10 === b % 10)).toBe(true);
-            expect(iterplus([11, 21]).allEqualBy((a, b) => a % 10 === b % 10)).toBe(true);
-            expect(iterplus([11, 21, 31]).allEqualBy((a, b) => a % 10 === b % 10)).toBe(true);
-            expect(iterplus([11, 22, 31]).allEqualBy((a, b) => a % 10 === b % 10)).toBe(false);
-            expect(iterplus([11, 21, 32]).allEqualBy((a, b) => a % 10 === b % 10)).toBe(false);
-            expect(iterplus([12, 21, 31]).allEqualBy((a, b) => a % 10 === b % 10)).toBe(false);
+            expect(iterplus([]).allEqualBy((a, b) => a % 10 === b % 10)).toBe(
+                true
+            );
+            expect(iterplus([11]).allEqualBy((a, b) => a % 10 === b % 10)).toBe(
+                true
+            );
+            expect(
+                iterplus([11, 21]).allEqualBy((a, b) => a % 10 === b % 10)
+            ).toBe(true);
+            expect(
+                iterplus([11, 21, 31]).allEqualBy((a, b) => a % 10 === b % 10)
+            ).toBe(true);
+            expect(
+                iterplus([11, 22, 31]).allEqualBy((a, b) => a % 10 === b % 10)
+            ).toBe(false);
+            expect(
+                iterplus([11, 21, 32]).allEqualBy((a, b) => a % 10 === b % 10)
+            ).toBe(false);
+            expect(
+                iterplus([12, 21, 31]).allEqualBy((a, b) => a % 10 === b % 10)
+            ).toBe(false);
         });
 
         it("short circuits", () => {
@@ -1816,10 +1836,18 @@ describe("Methods", () => {
             expect(iterplus([]).allEqualWith((x) => x % 10)).toBe(true);
             expect(iterplus([11]).allEqualWith((x) => x % 10)).toBe(true);
             expect(iterplus([11, 21]).allEqualWith((x) => x % 10)).toBe(true);
-            expect(iterplus([11, 21, 31]).allEqualWith((x) => x % 10)).toBe(true);
-            expect(iterplus([11, 22, 31]).allEqualWith((x) => x % 10)).toBe(false);
-            expect(iterplus([11, 21, 32]).allEqualWith((x) => x % 10)).toBe(false);
-            expect(iterplus([12, 21, 31]).allEqualWith((x) => x % 10)).toBe(false);
+            expect(iterplus([11, 21, 31]).allEqualWith((x) => x % 10)).toBe(
+                true
+            );
+            expect(iterplus([11, 22, 31]).allEqualWith((x) => x % 10)).toBe(
+                false
+            );
+            expect(iterplus([11, 21, 32]).allEqualWith((x) => x % 10)).toBe(
+                false
+            );
+            expect(iterplus([12, 21, 31]).allEqualWith((x) => x % 10)).toBe(
+                false
+            );
         });
 
         it("short circuits", () => {
@@ -1849,25 +1877,134 @@ describe("Methods", () => {
 
     describe(".nubBy", () => {
         it("works normally", () => {
-            expectIter(iterplus([]).nubBy((a, b) => a % 10 === b % 10)).toEqual([]);
-            expectIter(iterplus([11, 21, 33, 41, 53, 63, 72, 81, 92, 13, 23]).nubBy((a, b) => a % 10 === b % 10)).toEqual([11, 33, 72]);
-            expectIter(iterplus([21, 11, 31]).nubBy((a, b) => a % 10 === b % 10)).toEqual([21]);
+            expectIter(iterplus([]).nubBy((a, b) => a % 10 === b % 10)).toEqual(
+                []
+            );
+            expectIter(
+                iterplus([11, 21, 33, 41, 53, 63, 72, 81, 92, 13, 23]).nubBy(
+                    (a, b) => a % 10 === b % 10
+                )
+            ).toEqual([11, 33, 72]);
+            expectIter(
+                iterplus([21, 11, 31]).nubBy((a, b) => a % 10 === b % 10)
+            ).toEqual([21]);
         });
     });
 
     describe(".nubWith", () => {
         it("works normally", () => {
             expectIter(iterplus([]).nubWith((x) => x % 10)).toEqual([]);
-            expectIter(iterplus([11, 21, 33, 41, 53, 63, 72, 81, 92, 13, 23]).nubWith((x) => x % 10)).toEqual([11, 33, 72]);
-            expectIter(iterplus([21, 11, 31]).nubWith((x) => x % 10)).toEqual([21]);
+            expectIter(
+                iterplus([11, 21, 33, 41, 53, 63, 72, 81, 92, 13, 23]).nubWith(
+                    (x) => x % 10
+                )
+            ).toEqual([11, 33, 72]);
+            expectIter(iterplus([21, 11, 31]).nubWith((x) => x % 10)).toEqual([
+                21,
+            ]);
         });
     });
 
     describe(".nub", () => {
         it("works normally", () => {
             expectIter(iterplus([]).nub()).toEqual([]);
-            expectIter(iterplus([1, 1, 3, 1, 3, 3, 2, 1, 2, 3, 3]).nub()).toEqual([1, 3, 2]);
+            expectIter(
+                iterplus([1, 1, 3, 1, 3, 3, 2, 1, 2, 3, 3]).nub()
+            ).toEqual([1, 3, 2]);
             expectIter(iterplus([1, 1, 1]).nub()).toEqual([1]);
+        });
+    });
+
+    describe(".group", () => {
+        it("works normally", () => {
+            expect(iterplus([]).group((x) => x)).toEqual({});
+            expect(iterplus([1, 1, 2, 1, 3, 3]).group((x) => x)).toEqual({
+                1: [1, 1, 1],
+                2: [2],
+                3: [3, 3],
+            });
+            expect(
+                iterplus([11, 21, 32, 41, 53, 63]).group((x) => x % 10)
+            ).toEqual({
+                1: [11, 21, 41],
+                2: [32],
+                3: [53, 63],
+            });
+        });
+    });
+
+    describe(".tallyWith", () => {
+        it("works normally", () => {
+            expect(iterplus([]).tallyWith((x) => x)).toEqual({});
+            expect(iterplus([1, 1, 2, 1, 3, 3]).tallyWith((x) => x)).toEqual({
+                1: 3,
+                2: 1,
+                3: 2,
+            });
+            expect(
+                iterplus([11, 21, 32, 41, 53, 63]).tallyWith((x) => x % 10)
+            ).toEqual({
+                1: 3,
+                2: 1,
+                3: 2,
+            });
+        });
+    });
+
+    describe(".tally", () => {
+        it("works normally", () => {
+            expect(iterplus([]).tally()).toEqual({});
+            expect(iterplus([1, 1, 2, 1, 3, 3]).tally()).toEqual({
+                1: 3,
+                2: 1,
+                3: 2,
+            });
+        });
+    });
+
+    describe(".globBy", () => {
+        it("works normally", () => {
+            expectIter(
+                iterplus([]).globBy((a, b) => a % 10 === b % 10)
+            ).toEqual([]);
+            expectIter(
+                iterplus([12]).globBy((a, b) => a % 10 === b % 10)
+            ).toEqual([[12]]);
+            expectIter(
+                iterplus([11, 21, 31]).globBy((a, b) => a % 10 === b % 10)
+            ).toEqual([[11, 21, 31]]);
+            expectIter(
+                iterplus([11, 21, 31, 42, 51, 63, 73]).globBy(
+                    (a, b) => a % 10 === b % 10
+                )
+            ).toEqual([[11, 21, 31], [42], [51], [63, 73]]);
+        });
+    });
+
+    describe(".globWith", () => {
+        it("works normally", () => {
+            expectIter(iterplus([]).globWith((x) => x % 10)).toEqual([]);
+            expectIter(iterplus([12]).globWith((x) => x % 10)).toEqual([[12]]);
+            expectIter(iterplus([11, 21, 31]).globWith((x) => x % 10)).toEqual([
+                [11, 21, 31],
+            ]);
+            expectIter(
+                iterplus([11, 21, 31, 42, 51, 63, 73]).globWith((x) => x % 10)
+            ).toEqual([[11, 21, 31], [42], [51], [63, 73]]);
+        });
+    });
+
+    describe(".glob", () => {
+        it("works normally", () => {
+            expectIter(iterplus([]).glob()).toEqual([]);
+            expectIter(iterplus([2]).glob()).toEqual([[2]]);
+            expectIter(iterplus([1, 1, 1]).glob()).toEqual([[1, 1, 1]]);
+            expectIter(iterplus([1, 1, 1, 2, 1, 3, 3]).glob()).toEqual([
+                [1, 1, 1],
+                [2],
+                [1],
+                [3, 3],
+            ]);
         });
     });
 });

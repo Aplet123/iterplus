@@ -1058,6 +1058,49 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The nubbed iterator.
      */
     nub(): AsyncIterPlus<T>;
+    /**
+     * Groups elements of an iterator together with a key function.
+     *
+     * @typeParam K The type of the key.
+     * @param cmp A function that checks if elements are equal.
+     * @returns An object mapping keys to arrays of matching items.
+     */
+    group<K extends string | number | symbol>(key: (elem: T) => PromiseOrValue<K>): Promise<Record<K, T[]>>;
+    /**
+     * Tallies elements of an iterator together with a key function.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     * @returns An object mapping keys to the number of times they appeared.
+     */
+    tallyWith<K extends string | number | symbol>(key: (elem: T) => PromiseOrValue<K>): Promise<Record<K, number>>;
+    /**
+     * Tallies elements of an iterator together.
+     *
+     * @returns An object mapping keys to the number of times they appeared.
+     */
+    tally(this: AsyncIterPlus<string | number | symbol>): Promise<Record<string, number>>;
+    /**
+     * Globs elements of an iterator together, with a comparison function.
+     *
+     * @param cmp A function that checks if elements are equal.
+     * @returns An iterator where every element is an array of consecutively equal elements.
+     */
+    globBy(cmp: (first: T, second: T) => PromiseOrValue<boolean>): AsyncIterPlus<T[]>;
+    /**
+     * Globs elements of an iterator together, with a key function.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     * @returns An iterator where every element is an array of consecutively equal elements.
+     */
+    globWith<K>(key: (elem: T) => PromiseOrValue<K>): AsyncIterPlus<T[]>;
+    /**
+     * Globs elements of an iterator together.
+     *
+     * @returns An iterator where every element is an array of consecutively equal elements.
+     */
+    glob(): AsyncIterPlus<T[]>;
 }
 /**
  * An iterator with a `peek`. method that can look one element in advance.

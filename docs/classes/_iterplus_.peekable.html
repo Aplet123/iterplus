@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Peekable | iterplus - v1.3.0</title>
-	<meta name="description" content="Documentation for iterplus - v1.3.0">
+	<title>Peekable | iterplus - v2.0.0</title>
+	<meta name="description" content="Documentation for iterplus - v2.0.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">iterplus - v1.3.0</a>
+					<a href="../index.html" class="title">iterplus - v2.0.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -159,6 +159,10 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#flatten" class="tsd-kind-icon">flatten</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#foreach" class="tsd-kind-icon">for<wbr>Each</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#fuse" class="tsd-kind-icon">fuse</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#glob" class="tsd-kind-icon">glob</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#globby" class="tsd-kind-icon">glob<wbr>By</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#globwith" class="tsd-kind-icon">glob<wbr>With</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#group" class="tsd-kind-icon">group</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#hasprefix" class="tsd-kind-icon">has<wbr>Prefix</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#hasprefixby" class="tsd-kind-icon">has<wbr>Prefix<wbr>By</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#hasprefixwith" class="tsd-kind-icon">has<wbr>Prefix<wbr>With</a></li>
@@ -212,6 +216,8 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#sum" class="tsd-kind-icon">sum</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#take" class="tsd-kind-icon">take</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#takewhile" class="tsd-kind-icon">take<wbr>While</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#tally" class="tsd-kind-icon">tally</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#tallywith" class="tsd-kind-icon">tally<wbr>With</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#tee" class="tsd-kind-icon">tee</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_iterplus_.peekable.html#toarray" class="tsd-kind-icon">to<wbr>Array</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_iterplus_.peekable.html#tomap" class="tsd-kind-icon">to<wbr>Map</a></li>
@@ -254,7 +260,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2958">IterPlus.ts:2958</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L3112">IterPlus.ts:3112</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -277,7 +283,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#internal">internal</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L86">IterPlus.ts:86</a></li>
+							<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L86">IterPlus.ts:86</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -292,7 +298,7 @@
 					<div class="tsd-signature tsd-kind-icon">stored<wbr>Val<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>has<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IteratorResult</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>has<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol">; </span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2956">IterPlus.ts:2956</a></li>
+							<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L3110">IterPlus.ts:3110</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -310,7 +316,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#_symbol_iterator_">[Symbol.iterator]</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L124">IterPlus.ts:124</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L124">IterPlus.ts:124</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -334,7 +340,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#allequal">allEqual</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2847">IterPlus.ts:2847</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2847">IterPlus.ts:2847</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -360,7 +366,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#allequalby">allEqualBy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2786">IterPlus.ts:2786</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2786">IterPlus.ts:2786</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -416,7 +422,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#allequalwith">allEqualWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2819">IterPlus.ts:2819</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2819">IterPlus.ts:2819</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -478,7 +484,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#average">average</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1769">IterPlus.ts:1769</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1769">IterPlus.ts:1769</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -513,7 +519,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#chunks">chunks</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1808">IterPlus.ts:1808</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1808">IterPlus.ts:1808</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -550,7 +556,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#chunksexact">chunksExact</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1841">IterPlus.ts:1841</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1841">IterPlus.ts:1841</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -587,7 +593,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#collect">collect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L710">IterPlus.ts:710</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L710">IterPlus.ts:710</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -611,7 +617,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#compare">compare</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L688">IterPlus.ts:688</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L688">IterPlus.ts:688</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -646,7 +652,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#compareby">compareBy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L623">IterPlus.ts:623</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L623">IterPlus.ts:623</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -718,7 +724,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#comparewith">compareWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L659">IterPlus.ts:659</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L659">IterPlus.ts:659</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -786,7 +792,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#concat">concat</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L599">IterPlus.ts:599</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L599">IterPlus.ts:599</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -820,7 +826,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#count">count</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L723">IterPlus.ts:723</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L723">IterPlus.ts:723</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -844,7 +850,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#countif">countIf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2511">IterPlus.ts:2511</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2511">IterPlus.ts:2511</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -895,7 +901,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#dedup">dedup</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2157">IterPlus.ts:2157</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2157">IterPlus.ts:2157</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -919,7 +925,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#dedupby">dedupBy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2211">IterPlus.ts:2211</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2211">IterPlus.ts:2211</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -973,7 +979,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#dedupwith">dedupWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2183">IterPlus.ts:2183</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2183">IterPlus.ts:2183</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1033,7 +1039,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#enumerate">enumerate</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L736">IterPlus.ts:736</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L736">IterPlus.ts:736</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1057,7 +1063,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#equals">equals</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L825">IterPlus.ts:825</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L825">IterPlus.ts:825</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1092,7 +1098,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#equalsby">equalsBy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L759">IterPlus.ts:759</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L759">IterPlus.ts:759</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1163,7 +1169,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#equalswith">equalsWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L794">IterPlus.ts:794</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L794">IterPlus.ts:794</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1231,7 +1237,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#every">every</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L560">IterPlus.ts:560</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L560">IterPlus.ts:560</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1285,7 +1291,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#filter">filter</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L851">IterPlus.ts:851</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L851">IterPlus.ts:851</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1336,7 +1342,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#filtermap">filterMap</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L873">IterPlus.ts:873</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L873">IterPlus.ts:873</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1401,7 +1407,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#find">find</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L897">IterPlus.ts:897</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L897">IterPlus.ts:897</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1454,7 +1460,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#findindex">findIndex</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1448">IterPlus.ts:1448</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1448">IterPlus.ts:1448</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1509,7 +1515,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#findmap">findMap</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L919">IterPlus.ts:919</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L919">IterPlus.ts:919</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1576,7 +1582,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#flatmap">flatMap</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1000">IterPlus.ts:1000</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1000">IterPlus.ts:1000</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1636,7 +1642,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#flatten">flatten</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L938">IterPlus.ts:938</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L938">IterPlus.ts:938</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1676,7 +1682,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#foreach">forEach</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1072">IterPlus.ts:1072</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1072">IterPlus.ts:1072</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1728,7 +1734,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#fuse">fuse</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1085">IterPlus.ts:1085</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1085">IterPlus.ts:1085</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1738,6 +1744,201 @@
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>The generated iterator.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="glob" class="tsd-anchor"></a>
+					<h3>glob</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">glob<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#glob">glob</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L3077">IterPlus.ts:3077</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Globs elements of an iterator together.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>An iterator where every element is an array of consecutively equal elements.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="globby" class="tsd-anchor"></a>
+					<h3>glob<wbr>By</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">glob<wbr>By<span class="tsd-signature-symbol">(</span>cmp<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>first<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, second<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#globby">globBy</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L3014">IterPlus.ts:3014</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Globs elements of an iterator together, with a comparison function.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>cmp: <span class="tsd-signature-symbol">(</span>first<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, second<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A function that checks if elements are equal.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>first<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, second<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>first: <span class="tsd-signature-type">T</span></h5>
+														</li>
+														<li>
+															<h5>second: <span class="tsd-signature-type">T</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>An iterator where every element is an array of consecutively equal elements.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+					<a name="globwith" class="tsd-anchor"></a>
+					<h3>glob<wbr>With</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">glob<wbr>With&lt;K&gt;<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#globwith">globWith</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L3048">IterPlus.ts:3048</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Globs elements of an iterator together, with a key function.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>K</h4>
+									<div class="tsd-comment tsd-typography">
+										<p>The type of the key.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>key: <span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">K</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The key function.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>elem: <span class="tsd-signature-type">T</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">K</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>An iterator where every element is an array of consecutively equal elements.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+					<a name="group" class="tsd-anchor"></a>
+					<h3>group</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">group&lt;K&gt;<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#group">group</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2952">IterPlus.ts:2952</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Groups elements of an iterator together with a key function.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>K<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h4>
+									<div class="tsd-comment tsd-typography">
+										<p>The type of the key.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>key: <span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">K</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>elem: <span class="tsd-signature-type">T</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">K</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>An object mapping keys to arrays of matching items.</p>
 						</li>
 					</ul>
 				</section>
@@ -1752,7 +1953,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#hasprefix">hasPrefix</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2757">IterPlus.ts:2757</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2757">IterPlus.ts:2757</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1788,7 +1989,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#hasprefixby">hasPrefixBy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2689">IterPlus.ts:2689</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2689">IterPlus.ts:2689</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1860,7 +2061,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#hasprefixwith">hasPrefixWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2725">IterPlus.ts:2725</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2725">IterPlus.ts:2725</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1929,7 +2130,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#headequals">headEquals</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2660">IterPlus.ts:2660</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2660">IterPlus.ts:2660</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1967,7 +2168,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#headequalsby">headEqualsBy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2591">IterPlus.ts:2591</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2591">IterPlus.ts:2591</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2041,7 +2242,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#headequalswith">headEqualsWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2628">IterPlus.ts:2628</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2628">IterPlus.ts:2628</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2112,7 +2313,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#inspect">inspect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1103">IterPlus.ts:1103</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1103">IterPlus.ts:1103</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2164,7 +2365,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#interleave">interleave</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2446">IterPlus.ts:2446</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2446">IterPlus.ts:2446</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2197,7 +2398,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#intersperse">intersperse</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2241">IterPlus.ts:2241</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2241">IterPlus.ts:2241</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2230,7 +2431,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#interspersemultiple">intersperseMultiple</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2266">IterPlus.ts:2266</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2266">IterPlus.ts:2266</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2263,7 +2464,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#ispartitioned">isPartitioned</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1126">IterPlus.ts:1126</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1126">IterPlus.ts:1126</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2317,7 +2518,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#issorted">isSorted</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1205">IterPlus.ts:1205</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1205">IterPlus.ts:1205</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2343,7 +2544,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#issortedby">isSortedBy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1152">IterPlus.ts:1152</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1152">IterPlus.ts:1152</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2400,7 +2601,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#issortedwith">isSortedWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1179">IterPlus.ts:1179</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1179">IterPlus.ts:1179</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2462,7 +2663,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#join">join</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2295">IterPlus.ts:2295</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2295">IterPlus.ts:2295</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2507,7 +2708,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#joinmultiple">joinMultiple</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2322">IterPlus.ts:2322</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2322">IterPlus.ts:2322</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2552,7 +2753,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#last">last</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1214">IterPlus.ts:1214</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1214">IterPlus.ts:1214</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2576,7 +2777,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#map">map</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L959">IterPlus.ts:959</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L959">IterPlus.ts:959</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2637,7 +2838,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#mapaccum">mapAccum</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2489">IterPlus.ts:2489</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2489">IterPlus.ts:2489</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2712,7 +2913,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#mapwhile">mapWhile</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1229">IterPlus.ts:1229</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1229">IterPlus.ts:1229</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2772,7 +2973,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#max">max</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1311">IterPlus.ts:1311</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1311">IterPlus.ts:1311</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2806,7 +3007,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#maxby">maxBy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1254">IterPlus.ts:1254</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1254">IterPlus.ts:1254</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2868,7 +3069,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#maxwith">maxWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1284">IterPlus.ts:1284</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1284">IterPlus.ts:1284</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2935,7 +3136,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#min">min</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1381">IterPlus.ts:1381</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1381">IterPlus.ts:1381</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2969,7 +3170,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#minby">minBy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1324">IterPlus.ts:1324</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1324">IterPlus.ts:1324</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3031,7 +3232,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#minwith">minWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1354">IterPlus.ts:1354</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1354">IterPlus.ts:1354</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3098,7 +3299,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#next">next</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2973">IterPlus.ts:2973</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L3127">IterPlus.ts:3127</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3122,7 +3323,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#nextval">nextVal</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L111">IterPlus.ts:111</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L111">IterPlus.ts:111</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3146,7 +3347,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#nth">nth</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1391">IterPlus.ts:1391</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1391">IterPlus.ts:1391</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3179,7 +3380,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#nub">nub</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2930">IterPlus.ts:2930</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2930">IterPlus.ts:2930</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3203,7 +3404,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#nubby">nubBy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2873">IterPlus.ts:2873</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2873">IterPlus.ts:2873</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3258,7 +3459,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#nubwith">nubWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2907">IterPlus.ts:2907</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2907">IterPlus.ts:2907</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3318,7 +3519,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#partition">partition</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1412">IterPlus.ts:1412</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1412">IterPlus.ts:1412</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3372,7 +3573,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2990">IterPlus.ts:2990</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L3144">IterPlus.ts:3144</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3396,7 +3597,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#peekable">peekable</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1432">IterPlus.ts:1432</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1432">IterPlus.ts:1432</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3420,7 +3621,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#product-1">product</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1466">IterPlus.ts:1466</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1466">IterPlus.ts:1466</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3451,7 +3652,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#reduce">reduce</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1024">IterPlus.ts:1024</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1024">IterPlus.ts:1024</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3511,7 +3712,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#reduce">reduce</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1039">IterPlus.ts:1039</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1039">IterPlus.ts:1039</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3573,7 +3774,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#repeat-1">repeat</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1868">IterPlus.ts:1868</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1868">IterPlus.ts:1868</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3606,7 +3807,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#reverse">reverse</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1521">IterPlus.ts:1521</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1521">IterPlus.ts:1521</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3633,7 +3834,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#rotateleft">rotateLeft</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1896">IterPlus.ts:1896</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1896">IterPlus.ts:1896</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3674,7 +3875,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#rotateright">rotateRight</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1936">IterPlus.ts:1936</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1936">IterPlus.ts:1936</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3717,7 +3918,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#scan">scan</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2531">IterPlus.ts:2531</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2531">IterPlus.ts:2531</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3777,7 +3978,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#scan">scan</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2546">IterPlus.ts:2546</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2546">IterPlus.ts:2546</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3839,7 +4040,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#skip">skip</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1535">IterPlus.ts:1535</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1535">IterPlus.ts:1535</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3872,7 +4073,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#skipwhile">skipWhile</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1555">IterPlus.ts:1555</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1555">IterPlus.ts:1555</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3923,7 +4124,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#some">some</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L581">IterPlus.ts:581</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L581">IterPlus.ts:581</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3977,7 +4178,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#split">split</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1965">IterPlus.ts:1965</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1965">IterPlus.ts:1965</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4013,7 +4214,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#splitinclusive">splitInclusive</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2044">IterPlus.ts:2044</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2044">IterPlus.ts:2044</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4052,7 +4253,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#splitpred">splitPred</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2003">IterPlus.ts:2003</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2003">IterPlus.ts:2003</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4109,7 +4310,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#splitpredinclusive">splitPredInclusive</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2085">IterPlus.ts:2085</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2085">IterPlus.ts:2085</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4169,7 +4370,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#starmap">starmap</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L980">IterPlus.ts:980</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L980">IterPlus.ts:980</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4239,7 +4440,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#sum">sum</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1487">IterPlus.ts:1487</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1487">IterPlus.ts:1487</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4263,7 +4464,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#take">take</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1581">IterPlus.ts:1581</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1581">IterPlus.ts:1581</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4296,7 +4497,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#takewhile">takeWhile</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1601">IterPlus.ts:1601</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1601">IterPlus.ts:1601</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4337,6 +4538,96 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="tally" class="tsd-anchor"></a>
+					<h3>tally</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">tally<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#tally">tally</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2994">IterPlus.ts:2994</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Tallies elements of an iterator together.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <a href="_iterplus_.iterplus.html" class="tsd-signature-type">IterPlus</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>An object mapping keys to the number of times they appeared.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+					<a name="tallywith" class="tsd-anchor"></a>
+					<h3>tally<wbr>With</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">tally<wbr>With&lt;K&gt;<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#tallywith">tallyWith</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2974">IterPlus.ts:2974</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Tallies elements of an iterator together with a key function.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>K<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h4>
+									<div class="tsd-comment tsd-typography">
+										<p>The type of the key.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>key: <span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">K</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The key function.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>elem: <span class="tsd-signature-type">T</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">K</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>An object mapping keys to the number of times they appeared.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="tee" class="tsd-anchor"></a>
 					<h3>tee</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
@@ -4347,7 +4638,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#tee">tee</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1720">IterPlus.ts:1720</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1720">IterPlus.ts:1720</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4384,7 +4675,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#toarray">toArray</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2431">IterPlus.ts:2431</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2431">IterPlus.ts:2431</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4408,7 +4699,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#tomap">toMap</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2392">IterPlus.ts:2392</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2392">IterPlus.ts:2392</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4468,7 +4759,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#toobject">toObject</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2358">IterPlus.ts:2358</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2358">IterPlus.ts:2358</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4533,7 +4824,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#toset">toSet</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2418">IterPlus.ts:2418</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2418">IterPlus.ts:2418</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4557,7 +4848,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#unzip">unzip</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1626">IterPlus.ts:1626</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1626">IterPlus.ts:1626</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4596,7 +4887,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#windows">windows</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L2124">IterPlus.ts:2124</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L2124">IterPlus.ts:2124</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4637,7 +4928,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#zip">zip</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1684">IterPlus.ts:1684</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1684">IterPlus.ts:1684</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4679,7 +4970,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#zipwith">zipWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L1652">IterPlus.ts:1652</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L1652">IterPlus.ts:1652</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4752,7 +5043,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#combinations">combinations</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L308">IterPlus.ts:308</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L308">IterPlus.ts:308</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4800,7 +5091,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#combinationswithrepetition">combinationsWithRepetition</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L351">IterPlus.ts:351</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L351">IterPlus.ts:351</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4848,7 +5139,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#cycle">cycle</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L284">IterPlus.ts:284</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L284">IterPlus.ts:284</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4893,7 +5184,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#empty">empty</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L135">IterPlus.ts:135</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L135">IterPlus.ts:135</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4926,7 +5217,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#fromfunction">fromFunction</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L147">IterPlus.ts:147</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L147">IterPlus.ts:147</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4980,7 +5271,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#once">once</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L185">IterPlus.ts:185</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L185">IterPlus.ts:185</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -5022,7 +5313,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#oncewith">onceWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L169">IterPlus.ts:169</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L169">IterPlus.ts:169</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -5076,7 +5367,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#permutations">permutations</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L394">IterPlus.ts:394</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L394">IterPlus.ts:394</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -5124,7 +5415,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#permutationswithrepetition">permutationsWithRepetition</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L450">IterPlus.ts:450</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L450">IterPlus.ts:450</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -5172,7 +5463,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#powerset">powerset</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L495">IterPlus.ts:495</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L495">IterPlus.ts:495</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -5214,7 +5505,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#product-1">product</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L511">IterPlus.ts:511</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L511">IterPlus.ts:511</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -5256,7 +5547,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#repeat-1">repeat</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L219">IterPlus.ts:219</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L219">IterPlus.ts:219</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -5298,7 +5589,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#repeatwith">repeatWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L201">IterPlus.ts:201</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L201">IterPlus.ts:201</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -5352,7 +5643,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#successors">successors</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L238">IterPlus.ts:238</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L238">IterPlus.ts:238</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -5418,7 +5709,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_iterplus_.iterplus.html">IterPlus</a>.<a href="_iterplus_.iterplus.html#unfold">unfold</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/92d5165/src/IterPlus.ts#L255">IterPlus.ts:255</a></li>
+									<li>Defined in <a href="https://github.com/Aplet123/iterplus/blob/65a6d42/src/IterPlus.ts#L255">IterPlus.ts:255</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -5599,6 +5890,18 @@
 								<a href="_iterplus_.peekable.html#fuse" class="tsd-kind-icon">fuse</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#glob" class="tsd-kind-icon">glob</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#globby" class="tsd-kind-icon">glob<wbr>By</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#globwith" class="tsd-kind-icon">glob<wbr>With</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#group" class="tsd-kind-icon">group</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_iterplus_.peekable.html#hasprefix" class="tsd-kind-icon">has<wbr>Prefix</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
@@ -5756,6 +6059,12 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_iterplus_.peekable.html#takewhile" class="tsd-kind-icon">take<wbr>While</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#tally" class="tsd-kind-icon">tally</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="_iterplus_.peekable.html#tallywith" class="tsd-kind-icon">tally<wbr>With</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_iterplus_.peekable.html#tee" class="tsd-kind-icon">tee</a>

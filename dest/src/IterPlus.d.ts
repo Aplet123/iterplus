@@ -1062,6 +1062,49 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * @returns The nubbed iterator.
      */
     nub(): IterPlus<T>;
+    /**
+     * Groups elements of an iterator together with a key function.
+     *
+     * @typeParam K The type of the key.
+     * @param cmp A function that checks if elements are equal.
+     * @returns An object mapping keys to arrays of matching items.
+     */
+    group<K extends string | number | symbol>(key: (elem: T) => K): Record<K, T[]>;
+    /**
+     * Tallies elements of an iterator together with a key function.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     * @returns An object mapping keys to the number of times they appeared.
+     */
+    tallyWith<K extends string | number | symbol>(key: (elem: T) => K): Record<K, number>;
+    /**
+     * Tallies elements of an iterator together.
+     *
+     * @returns An object mapping keys to the number of times they appeared.
+     */
+    tally(this: IterPlus<string | number | symbol>): Record<string, number>;
+    /**
+     * Globs elements of an iterator together, with a comparison function.
+     *
+     * @param cmp A function that checks if elements are equal.
+     * @returns An iterator where every element is an array of consecutively equal elements.
+     */
+    globBy(cmp: (first: T, second: T) => boolean): IterPlus<T[]>;
+    /**
+     * Globs elements of an iterator together, with a key function.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     * @returns An iterator where every element is an array of consecutively equal elements.
+     */
+    globWith<K>(key: (elem: T) => K): IterPlus<T[]>;
+    /**
+     * Globs elements of an iterator together.
+     *
+     * @returns An iterator where every element is an array of consecutively equal elements.
+     */
+    glob(): IterPlus<T[]>;
 }
 /**
  * An iterator with a `peek`. method that can look one element in advance.

@@ -79,7 +79,7 @@ describe("Static functions", () => {
     });
     it(".unfold works", () => {
         const vals = [];
-        const mock = jest.fn((x) => (x <= 5 ? [2 * x, x + 1] : index_1.nullVal));
+        const mock = jest.fn((x) => x <= 5 ? [2 * x, x + 1] : index_1.nullVal);
         const iter = index_1.IterPlus.unfold(mock, 1);
         for (let i = 0; i < 5; i++) {
             vals.push(iter.next().value);
@@ -1190,7 +1190,9 @@ describe("Methods", () => {
             expectIter(index_1.iterplus([]).scan((a, _) => a, "foo")).toEqual(["foo"]);
         });
         it("errors on empty array", () => {
-            expect(() => index_1.iterplus([]).scan((a, _) => a).next()).toThrow(TypeError);
+            expect(() => index_1.iterplus([])
+                .scan((a, _) => a)
+                .next()).toThrow(TypeError);
         });
     });
     describe(".headEqualsBy", () => {
@@ -1330,7 +1332,9 @@ describe("Methods", () => {
         it("works normally", () => {
             expectIter(index_1.iterplus([]).nubWith((x) => x % 10)).toEqual([]);
             expectIter(index_1.iterplus([11, 21, 33, 41, 53, 63, 72, 81, 92, 13, 23]).nubWith((x) => x % 10)).toEqual([11, 33, 72]);
-            expectIter(index_1.iterplus([21, 11, 31]).nubWith((x) => x % 10)).toEqual([21]);
+            expectIter(index_1.iterplus([21, 11, 31]).nubWith((x) => x % 10)).toEqual([
+                21,
+            ]);
         });
     });
     describe(".nub", () => {
@@ -1338,6 +1342,77 @@ describe("Methods", () => {
             expectIter(index_1.iterplus([]).nub()).toEqual([]);
             expectIter(index_1.iterplus([1, 1, 3, 1, 3, 3, 2, 1, 2, 3, 3]).nub()).toEqual([1, 3, 2]);
             expectIter(index_1.iterplus([1, 1, 1]).nub()).toEqual([1]);
+        });
+    });
+    describe(".group", () => {
+        it("works normally", () => {
+            expect(index_1.iterplus([]).group((x) => x)).toEqual({});
+            expect(index_1.iterplus([1, 1, 2, 1, 3, 3]).group((x) => x)).toEqual({
+                1: [1, 1, 1],
+                2: [2],
+                3: [3, 3],
+            });
+            expect(index_1.iterplus([11, 21, 32, 41, 53, 63]).group((x) => x % 10)).toEqual({
+                1: [11, 21, 41],
+                2: [32],
+                3: [53, 63],
+            });
+        });
+    });
+    describe(".tallyWith", () => {
+        it("works normally", () => {
+            expect(index_1.iterplus([]).tallyWith((x) => x)).toEqual({});
+            expect(index_1.iterplus([1, 1, 2, 1, 3, 3]).tallyWith((x) => x)).toEqual({
+                1: 3,
+                2: 1,
+                3: 2,
+            });
+            expect(index_1.iterplus([11, 21, 32, 41, 53, 63]).tallyWith((x) => x % 10)).toEqual({
+                1: 3,
+                2: 1,
+                3: 2,
+            });
+        });
+    });
+    describe(".tally", () => {
+        it("works normally", () => {
+            expect(index_1.iterplus([]).tally()).toEqual({});
+            expect(index_1.iterplus([1, 1, 2, 1, 3, 3]).tally()).toEqual({
+                1: 3,
+                2: 1,
+                3: 2,
+            });
+        });
+    });
+    describe(".globBy", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([]).globBy((a, b) => a % 10 === b % 10)).toEqual([]);
+            expectIter(index_1.iterplus([12]).globBy((a, b) => a % 10 === b % 10)).toEqual([[12]]);
+            expectIter(index_1.iterplus([11, 21, 31]).globBy((a, b) => a % 10 === b % 10)).toEqual([[11, 21, 31]]);
+            expectIter(index_1.iterplus([11, 21, 31, 42, 51, 63, 73]).globBy((a, b) => a % 10 === b % 10)).toEqual([[11, 21, 31], [42], [51], [63, 73]]);
+        });
+    });
+    describe(".globWith", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([]).globWith((x) => x % 10)).toEqual([]);
+            expectIter(index_1.iterplus([12]).globWith((x) => x % 10)).toEqual([[12]]);
+            expectIter(index_1.iterplus([11, 21, 31]).globWith((x) => x % 10)).toEqual([
+                [11, 21, 31],
+            ]);
+            expectIter(index_1.iterplus([11, 21, 31, 42, 51, 63, 73]).globWith((x) => x % 10)).toEqual([[11, 21, 31], [42], [51], [63, 73]]);
+        });
+    });
+    describe(".glob", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([]).glob()).toEqual([]);
+            expectIter(index_1.iterplus([2]).glob()).toEqual([[2]]);
+            expectIter(index_1.iterplus([1, 1, 1]).glob()).toEqual([[1, 1, 1]]);
+            expectIter(index_1.iterplus([1, 1, 1, 2, 1, 3, 3]).glob()).toEqual([
+                [1, 1, 1],
+                [2],
+                [1],
+                [3, 3],
+            ]);
         });
     });
 });

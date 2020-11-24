@@ -2540,6 +2540,143 @@ class IterPlus {
         }
         return new /* o:Async- */ IterPlus(ret());
     }
+    /**
+     * Groups elements of an iterator together with a key function.
+     *
+     * @typeParam K The type of the key.
+     * @param cmp A function that checks if elements are equal.
+     * @returns An object mapping keys to arrays of matching items.
+     */
+    /* o:async */ group(key /* o:-> */) {
+        const ret = {};
+        /* r:for await */ for (const elem of this) {
+            const keyVal = /* o:await */ key(elem);
+            if (keyVal in ret) {
+                ret[keyVal].push(elem);
+            }
+            else {
+                ret[keyVal] = [elem];
+            }
+        }
+        return ret;
+    }
+    /**
+     * Tallies elements of an iterator together with a key function.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     * @returns An object mapping keys to the number of times they appeared.
+     */
+    /* o:async */ tallyWith(key /* o:-> */) {
+        const ret = {};
+        /* r:for await */ for (const elem of this) {
+            const keyVal = /* o:await */ key(elem);
+            if (keyVal in ret) {
+                ret[keyVal] += 1;
+            }
+            else {
+                ret[keyVal] = 1;
+            }
+        }
+        return ret;
+    }
+    /**
+     * Tallies elements of an iterator together.
+     *
+     * @returns An object mapping keys to the number of times they appeared.
+     */
+    /* o:async */ tally() {
+        const ret = {};
+        /* r:for await */ for (const elem of this) {
+            if (elem in ret) {
+                ret[elem.toString()] += 1;
+            }
+            else {
+                ret[elem.toString()] = 1;
+            }
+        }
+        return ret;
+    }
+    /**
+     * Globs elements of an iterator together, with a comparison function.
+     *
+     * @param cmp A function that checks if elements are equal.
+     * @returns An iterator where every element is an array of consecutively equal elements.
+     */
+    globBy(cmp /* o:-> */) {
+        const that = this;
+        /* o:async */ function* ret() {
+            let curGlob = [];
+            /* r:for await */ for (const elem of that) {
+                if (curGlob.length === 0 ||
+                    /* o:await */ cmp(curGlob[curGlob.length - 1], elem)) {
+                    curGlob.push(elem);
+                }
+                else {
+                    yield curGlob;
+                    curGlob = [elem];
+                }
+            }
+            if (curGlob.length > 0) {
+                yield curGlob;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+    /**
+     * Globs elements of an iterator together, with a key function.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     * @returns An iterator where every element is an array of consecutively equal elements.
+     */
+    globWith(key /* o:-> */) {
+        const that = this;
+        /* o:async */ function* ret() {
+            let curGlob = [];
+            let prevKey = undefined;
+            /* r:for await */ for (const elem of that) {
+                const elemKey = /* o:await */ key(elem);
+                if (curGlob.length === 0 || prevKey === elemKey) {
+                    curGlob.push(elem);
+                }
+                else {
+                    yield curGlob;
+                    curGlob = [elem];
+                }
+                prevKey = elemKey;
+            }
+            if (curGlob.length > 0) {
+                yield curGlob;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+    /**
+     * Globs elements of an iterator together.
+     *
+     * @returns An iterator where every element is an array of consecutively equal elements.
+     */
+    glob() {
+        const that = this;
+        /* o:async */ function* ret() {
+            let curGlob = [];
+            /* r:for await */ for (const elem of that) {
+                if (curGlob.length === 0 ||
+                    elem === curGlob[curGlob.length - 1]) {
+                    curGlob.push(elem);
+                }
+                else {
+                    yield curGlob;
+                    curGlob = [elem];
+                }
+            }
+            if (curGlob.length > 0) {
+                yield curGlob;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
 }
 exports.IterPlus = IterPlus;
 /**
