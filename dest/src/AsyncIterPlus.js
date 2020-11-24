@@ -3171,6 +3171,115 @@ class AsyncIterPlus {
             }
         }
     }
+    /**
+     * Removes duplicates from an iterator, including non-consecutive ones, with a comparison function.
+     *
+     * Unlike `nubWith` and `nub`, this does not use a set, so it is significantly slower.
+     *
+     * @param cmp A function that checks if elements are equal.
+     * @returns The nubbed iterator.
+     */
+    nubBy(cmp) {
+        const that = this;
+        function ret() {
+            return __asyncGenerator(this, arguments, function* ret_54() {
+                var e_54, _a;
+                const seen = [];
+                try {
+                    for (var that_21 = __asyncValues(that), that_21_1; that_21_1 = yield __await(that_21.next()), !that_21_1.done;) {
+                        const elem = that_21_1.value;
+                        let found = false;
+                        for (const item of seen) {
+                            if (yield __await(cmp(elem, item))) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (found) {
+                            continue;
+                        }
+                        seen.push(elem);
+                        yield yield __await(elem);
+                    }
+                }
+                catch (e_54_1) { e_54 = { error: e_54_1 }; }
+                finally {
+                    try {
+                        if (that_21_1 && !that_21_1.done && (_a = that_21.return)) yield __await(_a.call(that_21));
+                    }
+                    finally { if (e_54) throw e_54.error; }
+                }
+            });
+        }
+        return new AsyncIterPlus(ret());
+    }
+    /**
+     * Removes duplicates from an iterator, including non-consecutive ones, with a key function.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     * @returns The nubbed iterator.
+     */
+    nubWith(key) {
+        const that = this;
+        function ret() {
+            return __asyncGenerator(this, arguments, function* ret_55() {
+                var e_55, _a;
+                const seen = new Set();
+                try {
+                    for (var that_22 = __asyncValues(that), that_22_1; that_22_1 = yield __await(that_22.next()), !that_22_1.done;) {
+                        const elem = that_22_1.value;
+                        const keyVal = yield __await(key(elem));
+                        if (seen.has(keyVal)) {
+                            continue;
+                        }
+                        seen.add(keyVal);
+                        yield yield __await(elem);
+                    }
+                }
+                catch (e_55_1) { e_55 = { error: e_55_1 }; }
+                finally {
+                    try {
+                        if (that_22_1 && !that_22_1.done && (_a = that_22.return)) yield __await(_a.call(that_22));
+                    }
+                    finally { if (e_55) throw e_55.error; }
+                }
+            });
+        }
+        return new AsyncIterPlus(ret());
+    }
+    /**
+     * Removes duplicates from an iterator, including non-consecutive ones.
+     *
+     * @returns The nubbed iterator.
+     */
+    nub() {
+        const that = this;
+        function ret() {
+            return __asyncGenerator(this, arguments, function* ret_56() {
+                var e_56, _a;
+                const seen = new Set();
+                try {
+                    for (var that_23 = __asyncValues(that), that_23_1; that_23_1 = yield __await(that_23.next()), !that_23_1.done;) {
+                        const elem = that_23_1.value;
+                        if (seen.has(elem)) {
+                            continue;
+                        }
+                        seen.add(elem);
+                        yield yield __await(elem);
+                    }
+                }
+                catch (e_56_1) { e_56 = { error: e_56_1 }; }
+                finally {
+                    try {
+                        if (that_23_1 && !that_23_1.done && (_a = that_23.return)) yield __await(_a.call(that_23));
+                    }
+                    finally { if (e_56) throw e_56.error; }
+                }
+            });
+        }
+        return new AsyncIterPlus(ret());
+    }
 }
 exports.AsyncIterPlus = AsyncIterPlus;
 /**

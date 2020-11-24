@@ -2470,6 +2470,76 @@ class IterPlus {
             }
         }
     }
+    /**
+     * Removes duplicates from an iterator, including non-consecutive ones, with a comparison function.
+     *
+     * Unlike `nubWith` and `nub`, this does not use a set, so it is significantly slower.
+     *
+     * @param cmp A function that checks if elements are equal.
+     * @returns The nubbed iterator.
+     */
+    nubBy(cmp /* o:-> */) {
+        const that = this;
+        /* o:async */ function* ret() {
+            const seen = [];
+            /* r:for await */ for (const elem of that) {
+                let found = false;
+                for (const item of seen) {
+                    if ( /* o:await */cmp(elem, item)) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) {
+                    continue;
+                }
+                seen.push(elem);
+                yield elem;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+    /**
+     * Removes duplicates from an iterator, including non-consecutive ones, with a key function.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     * @returns The nubbed iterator.
+     */
+    nubWith(key /* o:-> */) {
+        const that = this;
+        /* o:async */ function* ret() {
+            const seen = new Set();
+            /* r:for await */ for (const elem of that) {
+                const keyVal = /* o:await */ key(elem);
+                if (seen.has(keyVal)) {
+                    continue;
+                }
+                seen.add(keyVal);
+                yield elem;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
+    /**
+     * Removes duplicates from an iterator, including non-consecutive ones.
+     *
+     * @returns The nubbed iterator.
+     */
+    nub() {
+        const that = this;
+        /* o:async */ function* ret() {
+            const seen = new Set();
+            /* r:for await */ for (const elem of that) {
+                if (seen.has(elem)) {
+                    continue;
+                }
+                seen.add(elem);
+                yield elem;
+            }
+        }
+        return new /* o:Async- */ IterPlus(ret());
+    }
 }
 exports.IterPlus = IterPlus;
 /**

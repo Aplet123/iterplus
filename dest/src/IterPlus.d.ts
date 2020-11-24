@@ -1039,6 +1039,29 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * @returns If every element is equal, or true if the iterator has one or less elements.
      */
     allEqual(): boolean;
+    /**
+     * Removes duplicates from an iterator, including non-consecutive ones, with a comparison function.
+     *
+     * Unlike `nubWith` and `nub`, this does not use a set, so it is significantly slower.
+     *
+     * @param cmp A function that checks if elements are equal.
+     * @returns The nubbed iterator.
+     */
+    nubBy(cmp: (first: T, second: T) => boolean): IterPlus<T>;
+    /**
+     * Removes duplicates from an iterator, including non-consecutive ones, with a key function.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     * @returns The nubbed iterator.
+     */
+    nubWith<K>(key: (elem: T) => K): IterPlus<T>;
+    /**
+     * Removes duplicates from an iterator, including non-consecutive ones.
+     *
+     * @returns The nubbed iterator.
+     */
+    nub(): IterPlus<T>;
 }
 /**
  * An iterator with a `peek`. method that can look one element in advance.

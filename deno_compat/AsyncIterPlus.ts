@@ -2766,6 +2766,81 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
             }
         }
     }
+
+    /**
+     * Removes duplicates from an iterator, including non-consecutive ones, with a comparison function.
+     *
+     * Unlike `nubWith` and `nub`, this does not use a set, so it is significantly slower.
+     *
+     * @param cmp A function that checks if elements are equal.
+     * @returns The nubbed iterator.
+     */
+    nubBy(
+        cmp: (first: T, second: T) => PromiseOrValue<boolean>
+    ): AsyncIterPlus<T> {
+        const that = this;
+        async function* ret() {
+            const seen: T[] = [];
+            for await (const elem of that) {
+                let found = false;
+                for (const item of seen) {
+                    if (await cmp(elem, item)) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) {
+                    continue;
+                }
+                seen.push(elem);
+                yield elem;
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Removes duplicates from an iterator, including non-consecutive ones, with a key function.
+     *
+     * @typeParam K The type of the key.
+     * @param key The key function.
+     * @returns The nubbed iterator.
+     */
+    nubWith<K>(key: (elem: T) => PromiseOrValue<K>): AsyncIterPlus<T> {
+        const that = this;
+        async function* ret() {
+            const seen = new Set();
+            for await (const elem of that) {
+                const keyVal = await key(elem);
+                if (seen.has(keyVal)) {
+                    continue;
+                }
+                seen.add(keyVal);
+                yield elem;
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Removes duplicates from an iterator, including non-consecutive ones.
+     *
+     * @returns The nubbed iterator.
+     */
+    nub(): AsyncIterPlus<T> {
+        const that = this;
+        async function* ret() {
+            const seen = new Set();
+            for await (const elem of that) {
+                if (seen.has(elem)) {
+                    continue;
+                }
+                seen.add(elem);
+                yield elem;
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
 }
 
 /**

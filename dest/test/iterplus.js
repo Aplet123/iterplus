@@ -1319,5 +1319,26 @@ describe("Methods", () => {
             expectIter(iter).toEqual([3, 4]);
         });
     });
+    describe(".nubBy", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([]).nubBy((a, b) => a % 10 === b % 10)).toEqual([]);
+            expectIter(index_1.iterplus([11, 21, 33, 41, 53, 63, 72, 81, 92, 13, 23]).nubBy((a, b) => a % 10 === b % 10)).toEqual([11, 33, 72]);
+            expectIter(index_1.iterplus([21, 11, 31]).nubBy((a, b) => a % 10 === b % 10)).toEqual([21]);
+        });
+    });
+    describe(".nubWith", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([]).nubWith((x) => x % 10)).toEqual([]);
+            expectIter(index_1.iterplus([11, 21, 33, 41, 53, 63, 72, 81, 92, 13, 23]).nubWith((x) => x % 10)).toEqual([11, 33, 72]);
+            expectIter(index_1.iterplus([21, 11, 31]).nubWith((x) => x % 10)).toEqual([21]);
+        });
+    });
+    describe(".nub", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([]).nub()).toEqual([]);
+            expectIter(index_1.iterplus([1, 1, 3, 1, 3, 3, 2, 1, 2, 3, 3]).nub()).toEqual([1, 3, 2]);
+            expectIter(index_1.iterplus([1, 1, 1]).nub()).toEqual([1]);
+        });
+    });
 });
 //# sourceMappingURL=iterplus.js.map
