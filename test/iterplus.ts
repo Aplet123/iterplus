@@ -1675,7 +1675,7 @@ describe("Methods", () => {
         });
     });
 
-    describe(".equals", () => {
+    describe(".headEquals", () => {
         it("works normally", () => {
             expect(iterplus([1, 2, 3]).headEquals([1, 2, 3])).toBe(true);
             expect(iterplus([1, 2, 3]).headEquals([1, 2, 4])).toBe(false);
@@ -1686,6 +1686,97 @@ describe("Methods", () => {
         it("short circuits", () => {
             const iter = iterplus([1, 2, 3, 4, 5]);
             expect(iter.headEquals([1, 2, 5, 6, 7])).toBe(false);
+            expectIter(iter).toEqual([4, 5]);
+        });
+    });
+
+    describe(".hasPrefixBy", () => {
+        it("works normally", () => {
+            expect(
+                iterplus(["a_foo", "b_foo", "c_foo"]).hasPrefixBy(
+                    ["a", "b", "c"],
+                    (a, b) => a === b + "_foo"
+                )
+            ).toBe(true);
+            expect(
+                iterplus(["a_foo", "b_bar", "c_foo"]).hasPrefixBy(
+                    ["a", "b", "c"],
+                    (a, b) => a === b + "_foo"
+                )
+            ).toBe(false);
+            expect(
+                iterplus(["a_foo", "b_foo", "c_foo", "d_foo"]).hasPrefixBy(
+                    ["a", "b", "c"],
+                    (a, b) => a === b + "_foo"
+                )
+            ).toBe(true);
+            expect(
+                iterplus(["a_foo", "b_foo", "c_foo"]).hasPrefixBy(
+                    ["a", "b", "c", "d"],
+                    (a, b) => a === b + "_foo"
+                )
+            ).toBe(false);
+        });
+
+        it("short circuits", () => {
+            const iter = iterplus([1, 2, 3, 4, 5]);
+            expect(iter.hasPrefixBy([0, 1, 3, 9, 10], (a, b) => a === b + 1)).toBe(
+                false
+            );
+            expectIter(iter).toEqual([4, 5]);
+        });
+    });
+
+    describe(".hasPrefixWith", () => {
+        it("works normally", () => {
+            expect(
+                iterplus(["a_foo", "b_foo", "c_foo"]).hasPrefixWith(
+                    ["a", "b", "c"],
+                    (x) => (x.endsWith("_foo") ? x : x + "_foo")
+                )
+            ).toBe(true);
+            expect(
+                iterplus(["a_foo", "b_bar", "c_foo"]).hasPrefixWith(
+                    ["a", "b", "c"],
+                    (x) => (x.endsWith("_foo") ? x : x + "_foo")
+                )
+            ).toBe(false);
+            expect(
+                iterplus(["a_foo", "b_foo", "c_foo", "d_foo"]).hasPrefixWith(
+                    ["a", "b", "c"],
+                    (x) => (x.endsWith("_foo") ? x : x + "_foo")
+                )
+            ).toBe(true);
+            expect(
+                iterplus(["a_foo", "b_foo", "c_foo"]).hasPrefixWith(
+                    ["a", "b", "c", "d"],
+                    (x) => (x.endsWith("_foo") ? x : x + "_foo")
+                )
+            ).toBe(false);
+        });
+
+        it("short circuits", () => {
+            const iter = iterplus([1, 2, 3, 4, 5]);
+            expect(
+                iter.hasPrefixWith([101, 102, 104, 109, 110], (x) =>
+                    x > 100 ? x - 100 : x
+                )
+            ).toBe(false);
+            expectIter(iter).toEqual([4, 5]);
+        });
+    });
+
+    describe(".hasPrefix", () => {
+        it("works normally", () => {
+            expect(iterplus([1, 2, 3]).hasPrefix([1, 2, 3])).toBe(true);
+            expect(iterplus([1, 2, 3]).hasPrefix([1, 2, 4])).toBe(false);
+            expect(iterplus([1, 2, 3, 4]).hasPrefix([1, 2, 3])).toBe(true);
+            expect(iterplus([1, 2, 3]).hasPrefix([1, 2, 3, 4])).toBe(false);
+        });
+
+        it("short circuits", () => {
+            const iter = iterplus([1, 2, 3, 4, 5]);
+            expect(iter.hasPrefix([1, 2, 5, 6, 7])).toBe(false);
             expectIter(iter).toEqual([4, 5]);
         });
     });

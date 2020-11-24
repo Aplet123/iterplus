@@ -2242,7 +2242,7 @@ class IterPlus {
      * However, if the first iterator terminates,
      * a value will still be yielded from the second so that `headEquals` is commutative.
      *
-     * @typeParam O The type of the Key.
+     * @typeParam K The type of the Key.
      * @param other Iterable to compare to.
      * @param key The key function.
      * @returns If the two iterators are equal.
@@ -2285,11 +2285,95 @@ class IterPlus {
             if (a.done || b.done) {
                 return true;
             }
-            else {
-                const eq = a.value === b.value;
-                if (!eq) {
-                    return false;
-                }
+            const eq = a.value === b.value;
+            if (!eq) {
+                return false;
+            }
+        }
+    }
+    /**
+     * Checks if this iterator is equal to another,
+     * while the second iterator still yields elements, using a comparison function.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * @typeParam O The type of the other iterable.
+     * @param other Iterable to compare to.
+     * @param cmp A function that checks if elements are equal.
+     * @returns If the first iterator starts with the second iterator.
+     */
+    /* o:async */ hasPrefixBy(other, cmp /* o:-> */) {
+        const iter = other[Symbol. /* r:asyncIterator */iterator]();
+        while (true) {
+            const a = /* o:await */ this.next();
+            const b = /* o:await */ iter.next();
+            if (b.done) {
+                return true;
+            }
+            if (a.done) {
+                return false;
+            }
+            const eq = /* o:await */ cmp(a.value, b.value);
+            if (!eq) {
+                return false;
+            }
+        }
+    }
+    /**
+     * Checks if this iterator is equal to another,
+     * while the second iterator still yields elements, with a key function.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * @typeParam K The type of the Key.
+     * @param other Iterable to compare to.
+     * @param key The key function.
+     * @returns If the first iterator starts with the second iterator.
+     */
+    /* o:async */ hasPrefixWith(other, key /* o:-> */) {
+        const iter = other[Symbol. /* r:asyncIterator */iterator]();
+        while (true) {
+            const a = /* o:await */ this.next();
+            const b = /* o:await */ iter.next();
+            if (b.done) {
+                return true;
+            }
+            if (a.done) {
+                return false;
+            }
+            const eq = 
+            /* o:await */ key(a.value) === /* o:await */ key(b.value);
+            if (!eq) {
+                return false;
+            }
+        }
+    }
+    /**
+     * Checks if this iterator is equal to another,
+     * while the second iterator still yields elements.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * @param other Iterable to compare to.
+     * @returns If the first iterator starts with the second iterator.
+     */
+    /* o:async */ hasPrefix(other) {
+        const iter = other[Symbol. /* r:asyncIterator */iterator]();
+        while (true) {
+            const a = /* o:await */ this.next();
+            const b = /* o:await */ iter.next();
+            if (b.done) {
+                return true;
+            }
+            if (a.done) {
+                return false;
+            }
+            const eq = a.value === b.value;
+            if (!eq) {
+                return false;
             }
         }
     }

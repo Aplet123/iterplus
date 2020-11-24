@@ -951,7 +951,7 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * However, if the first iterator terminates,
      * a value will still be yielded from the second so that `headEquals` is commutative.
      *
-     * @typeParam O The type of the Key.
+     * @typeParam K The type of the Key.
      * @param other Iterable to compare to.
      * @param key The key function.
      * @returns If the two iterators are equal.
@@ -971,6 +971,43 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * @returns If the two iterators are equal.
      */
     headEquals(other: Iterable<T>): boolean;
+    /**
+     * Checks if this iterator is equal to another,
+     * while the second iterator still yields elements, using a comparison function.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * @typeParam O The type of the other iterable.
+     * @param other Iterable to compare to.
+     * @param cmp A function that checks if elements are equal.
+     * @returns If the first iterator starts with the second iterator.
+     */
+    hasPrefixBy<O>(other: Iterable<O>, cmp: (first: T, second: O) => boolean): boolean;
+    /**
+     * Checks if this iterator is equal to another,
+     * while the second iterator still yields elements, with a key function.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * @typeParam K The type of the Key.
+     * @param other Iterable to compare to.
+     * @param key The key function.
+     * @returns If the first iterator starts with the second iterator.
+     */
+    hasPrefixWith<K>(other: Iterable<T>, key: (elem: T) => K): boolean;
+    /**
+     * Checks if this iterator is equal to another,
+     * while the second iterator still yields elements.
+     *
+     * This function is short-circuiting,
+     * so it stops on the first inequality.
+     *
+     * @param other Iterable to compare to.
+     * @returns If the first iterator starts with the second iterator.
+     */
+    hasPrefix(other: Iterable<T>): boolean;
 }
 /**
  * An iterator with a `peek`. method that can look one element in advance.
