@@ -5,16 +5,13 @@ import { AsyncIterPlus } from "./AsyncIterPlus";
  */
 export declare type PromiseOrValue<T> = T | Promise<T>;
 /**
- * The return type of `iterplus`.
- */
-declare type UpgradeIter<T> = T extends Iterable<infer I> ? IterPlus<I> : T extends AsyncIterable<infer I> ? AsyncIterPlus<I> : IterPlus<unknown> | AsyncIterPlus<unknown>;
-/**
  * Generates an `IterPlus` from an iterable or async iterable.
  *
  * @typeParam T The iterable/async iterable to upgrade.
  * @param iter The iterable to upgrade.
  */
-export declare function iterplus<T>(iter: T): UpgradeIter<T>;
+export declare function iterplus<T>(iter: Iterable<T>): IterPlus<T>;
+export declare function iterplus<T>(iter: AsyncIterable<T>): AsyncIterPlus<T>;
 /**
  * Creates an inclusive-exclusive range iterator that's useful for loops.
  *
@@ -62,4 +59,3 @@ export declare function liftAsync<T>(iterable: Iterable<T>): AsyncIterPlus<T>;
  * @returns The lifted function.
  */
 export declare function asyncify<A extends unknown[], R>(func: (...args: A) => R): (...args: A) => Promise<R>;
-export {};

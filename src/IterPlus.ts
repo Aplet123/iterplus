@@ -1461,20 +1461,37 @@ export class /* o:Async- */ IterPlus<T>
     /**
      * Returns the product of all elements in the iterator.
      *
-     * @returns The product, or 1 if the iterator is empty.
+     * @param empty The default value for an empty iterator. Defaults to 1.
+     * @returns The product.
      */
     /* o: async */ product(
-        this: /* o:Async- */ IterPlus<number> | /* o:Async- */ IterPlus<bigint>
-    ): /* o:Promise<- */ T /* o:-> */ {
-        let accum: any = 1;
+        this: /* o:Async- */ IterPlus<number>,
+        empty?: number
+    ): /* o:Promise<- */ number /* o:-> */;
+    /**
+     * Returns the product of all elements in the iterator.
+     *
+     * @param empty The default value for an empty iterator.
+     * **For bigint iterators it's advised to explicitly set this to 1n or another bigint.**
+     * @returns The product.
+     */
+    /* o: async */ product(
+        this: /* o:Async- */ IterPlus<bigint>,
+        empty: bigint
+    ): /* o:Promise<- */ bigint /* o:-> */;
+    /* o: async */ product(empty: any = 1): /* o:Promise<- */ any /* o:-> */ {
+        let accum: any;
         let typechecked = false;
         /* r:for await */ for (const elem of this) {
             if (!typechecked) {
                 accum = elem;
                 typechecked = true;
             } else {
-                accum = accum * (elem as number);
+                accum = accum * ((elem as unknown) as number);
             }
+        }
+        if (accum === undefined) {
+            return empty;
         }
         return (accum as unknown) as T;
     }
@@ -1482,13 +1499,36 @@ export class /* o:Async- */ IterPlus<T>
     /**
      * Returns the sum of all elements in the iterator.
      *
-     * @returns The sum, or 0 if the iterator is empty.
+     * @param empty The default value for an empty iterator. Defaults to 0.
+     * @returns The sum.
      */
-    /* o: async */ sum(): /* o:Promise<- */ T extends number
-        ? number
-        : T extends bigint
-        ? bigint
-        : string /* o:-> */ {
+    /* o: async */ sum(
+        this: /* o:Async- */ IterPlus<number>,
+        empty?: number
+    ): /* o:Promise<- */ number /* o:-> */;
+    /**
+     * Returns the sum of all elements in the iterator.
+     *
+     * @param empty The default value for an empty iterator.
+     * **For bigint iterators it's advised to explicitly set this to 0n or another bigint.**
+     * @returns The sum.
+     */
+    /* o: async */ sum(
+        this: /* o:Async- */ IterPlus<bigint>,
+        empty: bigint
+    ): /* o:Promise<- */ bigint /* o:-> */;
+    /**
+     * Returns the sum of all elements in the iterator.
+     *
+     * @param empty The default value for an empty iterator.
+     * **For string iterators it's advised to explicitly set this to "" or another string.**
+     * @returns The sum.
+     */
+    /* o: async */ sum(
+        this: /* o:Async- */ IterPlus<string>,
+        empty: string
+    ): /* o:Promise<- */ string /* o:-> */;
+    /* o: async */ sum(empty: any = 0): /* o:Promise<- */ any /* o:-> */ {
         let accum: any;
         let typechecked = false;
         /* r:for await */ for (const elem of this) {
@@ -1500,13 +1540,9 @@ export class /* o:Async- */ IterPlus<T>
             }
         }
         if (accum === undefined) {
-            accum = 0;
+            return empty;
         }
-        return (accum as unknown) as T extends number
-            ? number
-            : T extends bigint
-            ? bigint
-            : string;
+        return (accum as unknown) as T;
     }
 
     /**
@@ -2367,10 +2403,10 @@ export class /* o:Async- */ IterPlus<T>
                 } else if (duplicate === "maintain") {
                     // do nothing
                 } else {
-                    ret[key as any] = val;
+                    ret[(key as unknown) as string] = val;
                 }
             } else {
-                ret[key as any] = val;
+                ret[(key as unknown) as string] = val;
             }
         }
         return ret;
@@ -3051,7 +3087,7 @@ export class /* o:Async- */ IterPlus<T>
         const that = this;
         /* o:async */ function* ret() {
             let curGlob: T[] = [];
-            let prevKey: K = undefined as any;
+            let prevKey: K = (undefined as unknown) as K;
             /* r:for await */ for (const elem of that) {
                 const elemKey = /* o:await */ key(elem);
                 if (curGlob.length === 0 || prevKey === elemKey) {

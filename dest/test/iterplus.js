@@ -655,15 +655,16 @@ describe("Methods", () => {
     describe(".product", () => {
         it("works normally", () => {
             expect(index_1.iterplus([1, 2, 3, 4, 5]).product()).toBe(120);
-            expect(index_1.iterplus([1, 2, 3, 4, 5].map((v) => BigInt(v))).product()).toBe(BigInt(120));
-            expect(index_1.iterplus([]).product()).toBe(1);
+            expect(index_1.iterplus([1, 2, 3, 4, 5].map((v) => BigInt(v))).product(BigInt(1))).toBe(BigInt(120));
+            expect(index_1.iterplus([]).product(1)).toBe(1);
+            expect(index_1.iterplus([]).product(BigInt(1))).toBe(BigInt(1));
         });
     });
     describe(".sum", () => {
         it("works normally", () => {
             expect(index_1.iterplus([1, 2, 3, 4, 5]).sum()).toBe(15);
-            expect(index_1.iterplus([1, 2, 3, 4, 5].map((v) => BigInt(v))).sum()).toBe(BigInt(15));
-            expect(index_1.iterplus(["foo", "bar", "baz"]).sum()).toBe("foobarbaz");
+            expect(index_1.iterplus([1, 2, 3, 4, 5].map((v) => BigInt(v))).sum(BigInt(0))).toBe(BigInt(15));
+            expect(index_1.iterplus(["foo", "bar", "baz"]).sum("")).toBe("foobarbaz");
             expect(index_1.iterplus([]).sum()).toBe(0);
         });
     });

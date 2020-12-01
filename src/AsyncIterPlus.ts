@@ -1407,20 +1407,31 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
     /**
      * Returns the product of all elements in the iterator.
      *
-     * @returns The product, or 1 if the iterator is empty.
+     * @param empty The default value for an empty iterator. Defaults to 1.
+     * @returns The product.
      */
-    async product(
-        this: AsyncIterPlus<number> | AsyncIterPlus<bigint>
-    ): Promise<T> {
-        let accum: any = 1;
+    async product(this: AsyncIterPlus<number>, empty?: number): Promise<number>;
+    /**
+     * Returns the product of all elements in the iterator.
+     *
+     * @param empty The default value for an empty iterator.
+     * **For bigint iterators it's advised to explicitly set this to 1n or another bigint.**
+     * @returns The product.
+     */
+    async product(this: AsyncIterPlus<bigint>, empty: bigint): Promise<bigint>;
+    async product(empty: any = 1): Promise<any> {
+        let accum: any;
         let typechecked = false;
         for await (const elem of this) {
             if (!typechecked) {
                 accum = elem;
                 typechecked = true;
             } else {
-                accum = accum * (elem as number);
+                accum = accum * ((elem as unknown) as number);
             }
+        }
+        if (accum === undefined) {
+            return empty;
         }
         return (accum as unknown) as T;
     }
@@ -1428,11 +1439,27 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
     /**
      * Returns the sum of all elements in the iterator.
      *
-     * @returns The sum, or 0 if the iterator is empty.
+     * @param empty The default value for an empty iterator. Defaults to 0.
+     * @returns The sum.
      */
-    async sum(): Promise<
-        T extends number ? number : T extends bigint ? bigint : string
-    > {
+    async sum(this: AsyncIterPlus<number>, empty?: number): Promise<number>;
+    /**
+     * Returns the sum of all elements in the iterator.
+     *
+     * @param empty The default value for an empty iterator.
+     * **For bigint iterators it's advised to explicitly set this to 0n or another bigint.**
+     * @returns The sum.
+     */
+    async sum(this: AsyncIterPlus<bigint>, empty: bigint): Promise<bigint>;
+    /**
+     * Returns the sum of all elements in the iterator.
+     *
+     * @param empty The default value for an empty iterator.
+     * **For string iterators it's advised to explicitly set this to "" or another string.**
+     * @returns The sum.
+     */
+    async sum(this: AsyncIterPlus<string>, empty: string): Promise<string>;
+    async sum(empty: any = 0): Promise<any> {
         let accum: any;
         let typechecked = false;
         for await (const elem of this) {
@@ -1444,13 +1471,9 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
             }
         }
         if (accum === undefined) {
-            accum = 0;
+            return empty;
         }
-        return (accum as unknown) as T extends number
-            ? number
-            : T extends bigint
-            ? bigint
-            : string;
+        return (accum as unknown) as T;
     }
 
     /**
@@ -2295,10 +2318,10 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 } else if (duplicate === "maintain") {
                     // do nothing
                 } else {
-                    ret[key as any] = val;
+                    ret[(key as unknown) as string] = val;
                 }
             } else {
-                ret[key as any] = val;
+                ret[(key as unknown) as string] = val;
             }
         }
         return ret;
@@ -2948,7 +2971,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
         const that = this;
         async function* ret() {
             let curGlob: T[] = [];
-            let prevKey: K = undefined as any;
+            let prevKey: K = (undefined as unknown) as K;
             for await (const elem of that) {
                 const elemKey = await key(elem);
                 if (curGlob.length === 0 || prevKey === elemKey) {

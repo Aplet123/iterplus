@@ -1225,13 +1225,8 @@ class IterPlus {
         }
         return -1;
     }
-    /**
-     * Returns the product of all elements in the iterator.
-     *
-     * @returns The product, or 1 if the iterator is empty.
-     */
-    /* o: async */ product() {
-        let accum = 1;
+    /* o: async */ product(empty = 1) {
+        let accum;
         let typechecked = false;
         /* r:for await */ for (const elem of this) {
             if (!typechecked) {
@@ -1242,14 +1237,12 @@ class IterPlus {
                 accum = accum * elem;
             }
         }
+        if (accum === undefined) {
+            return empty;
+        }
         return accum;
     }
-    /**
-     * Returns the sum of all elements in the iterator.
-     *
-     * @returns The sum, or 0 if the iterator is empty.
-     */
-    /* o: async */ sum() {
+    /* o: async */ sum(empty = 0) {
         let accum;
         let typechecked = false;
         /* r:for await */ for (const elem of this) {
@@ -1262,7 +1255,7 @@ class IterPlus {
             }
         }
         if (accum === undefined) {
-            accum = 0;
+            return empty;
         }
         return accum;
     }

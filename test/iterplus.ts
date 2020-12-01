@@ -895,19 +895,20 @@ describe("Methods", () => {
         it("works normally", () => {
             expect(iterplus([1, 2, 3, 4, 5]).product()).toBe(120);
             expect(
-                iterplus([1, 2, 3, 4, 5].map((v) => BigInt(v))).product()
+                iterplus([1, 2, 3, 4, 5].map((v) => BigInt(v))).product(BigInt(1))
             ).toBe(BigInt(120));
-            expect(iterplus([] as number[]).product()).toBe(1);
+            expect(iterplus([]).product(1)).toBe(1);
+            expect(iterplus([]).product(BigInt(1))).toBe(BigInt(1));
         });
     });
 
     describe(".sum", () => {
         it("works normally", () => {
             expect(iterplus([1, 2, 3, 4, 5]).sum()).toBe(15);
-            expect(iterplus([1, 2, 3, 4, 5].map((v) => BigInt(v))).sum()).toBe(
+            expect(iterplus([1, 2, 3, 4, 5].map((v) => BigInt(v))).sum(BigInt(0))).toBe(
                 BigInt(15)
             );
-            expect(iterplus(["foo", "bar", "baz"]).sum()).toBe("foobarbaz");
+            expect(iterplus(["foo", "bar", "baz"]).sum("")).toBe("foobarbaz");
             expect(iterplus([] as number[]).sum()).toBe(0);
         });
     });

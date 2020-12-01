@@ -1634,14 +1634,9 @@ class AsyncIterPlus {
         }
         return -1;
     }
-    /**
-     * Returns the product of all elements in the iterator.
-     *
-     * @returns The product, or 1 if the iterator is empty.
-     */
-    async product() {
+    async product(empty = 1) {
         var e_32, _a;
-        let accum = 1;
+        let accum;
         let typechecked = false;
         try {
             for (var _b = __asyncValues(this), _c; _c = await _b.next(), !_c.done;) {
@@ -1662,14 +1657,12 @@ class AsyncIterPlus {
             }
             finally { if (e_32) throw e_32.error; }
         }
+        if (accum === undefined) {
+            return empty;
+        }
         return accum;
     }
-    /**
-     * Returns the sum of all elements in the iterator.
-     *
-     * @returns The sum, or 0 if the iterator is empty.
-     */
-    async sum() {
+    async sum(empty = 0) {
         var e_33, _a;
         let accum;
         let typechecked = false;
@@ -1693,7 +1686,7 @@ class AsyncIterPlus {
             finally { if (e_33) throw e_33.error; }
         }
         if (accum === undefined) {
-            accum = 0;
+            return empty;
         }
         return accum;
     }

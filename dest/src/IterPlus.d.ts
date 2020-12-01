@@ -584,15 +584,41 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
     /**
      * Returns the product of all elements in the iterator.
      *
-     * @returns The product, or 1 if the iterator is empty.
+     * @param empty The default value for an empty iterator. Defaults to 1.
+     * @returns The product.
      */
-    product(this: /* o:Async- */ IterPlus<number> | /* o:Async- */ IterPlus<bigint>): T;
+    product(this: IterPlus<number>, empty?: number): number;
+    /**
+     * Returns the product of all elements in the iterator.
+     *
+     * @param empty The default value for an empty iterator.
+     * **For bigint iterators it's advised to explicitly set this to 1n or another bigint.**
+     * @returns The product.
+     */
+    product(this: IterPlus<bigint>, empty: bigint): bigint;
     /**
      * Returns the sum of all elements in the iterator.
      *
-     * @returns The sum, or 0 if the iterator is empty.
+     * @param empty The default value for an empty iterator. Defaults to 0.
+     * @returns The sum.
      */
-    sum(): T extends number ? number : T extends bigint ? bigint : string;
+    sum(this: IterPlus<number>, empty?: number): number;
+    /**
+     * Returns the sum of all elements in the iterator.
+     *
+     * @param empty The default value for an empty iterator.
+     * **For bigint iterators it's advised to explicitly set this to 0n or another bigint.**
+     * @returns The sum.
+     */
+    sum(this: IterPlus<bigint>, empty: bigint): bigint;
+    /**
+     * Returns the sum of all elements in the iterator.
+     *
+     * @param empty The default value for an empty iterator.
+     * **For string iterators it's advised to explicitly set this to "" or another string.**
+     * @returns The sum.
+     */
+    sum(this: IterPlus<string>, empty: string): string;
     /**
      * Consumes the iterator and reverses it.
      *

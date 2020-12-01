@@ -3,12 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.asyncify = exports.liftAsync = exports.count = exports.range = exports.iterplus = void 0;
 const IterPlus_1 = require("./IterPlus");
 const AsyncIterPlus_1 = require("./AsyncIterPlus");
-/**
- * Generates an `IterPlus` from an iterable or async iterable.
- *
- * @typeParam T The iterable/async iterable to upgrade.
- * @param iter The iterable to upgrade.
- */
 function iterplus(iter) {
     if (IterPlus_1.canIter(iter)) {
         return new IterPlus_1.IterPlus(iter[Symbol.iterator]());

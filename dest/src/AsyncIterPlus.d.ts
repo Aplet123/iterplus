@@ -580,15 +580,41 @@ export declare class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
     /**
      * Returns the product of all elements in the iterator.
      *
-     * @returns The product, or 1 if the iterator is empty.
+     * @param empty The default value for an empty iterator. Defaults to 1.
+     * @returns The product.
      */
-    product(this: AsyncIterPlus<number> | AsyncIterPlus<bigint>): Promise<T>;
+    product(this: AsyncIterPlus<number>, empty?: number): Promise<number>;
+    /**
+     * Returns the product of all elements in the iterator.
+     *
+     * @param empty The default value for an empty iterator.
+     * **For bigint iterators it's advised to explicitly set this to 1n or another bigint.**
+     * @returns The product.
+     */
+    product(this: AsyncIterPlus<bigint>, empty: bigint): Promise<bigint>;
     /**
      * Returns the sum of all elements in the iterator.
      *
-     * @returns The sum, or 0 if the iterator is empty.
+     * @param empty The default value for an empty iterator. Defaults to 0.
+     * @returns The sum.
      */
-    sum(): Promise<T extends number ? number : T extends bigint ? bigint : string>;
+    sum(this: AsyncIterPlus<number>, empty?: number): Promise<number>;
+    /**
+     * Returns the sum of all elements in the iterator.
+     *
+     * @param empty The default value for an empty iterator.
+     * **For bigint iterators it's advised to explicitly set this to 0n or another bigint.**
+     * @returns The sum.
+     */
+    sum(this: AsyncIterPlus<bigint>, empty: bigint): Promise<bigint>;
+    /**
+     * Returns the sum of all elements in the iterator.
+     *
+     * @param empty The default value for an empty iterator.
+     * **For string iterators it's advised to explicitly set this to "" or another string.**
+     * @returns The sum.
+     */
+    sum(this: AsyncIterPlus<string>, empty: string): Promise<string>;
     /**
      * Consumes the iterator and reverses it.
      *

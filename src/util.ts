@@ -21,13 +21,13 @@ type UpgradeIter<T> = T extends Iterable<infer I>
  * @typeParam T The iterable/async iterable to upgrade.
  * @param iter The iterable to upgrade.
  */
-export function iterplus<T>(iter: T): UpgradeIter<T> {
+export function iterplus<T>(iter: Iterable<T>): IterPlus<T>;
+export function iterplus<T>(iter: AsyncIterable<T>): AsyncIterPlus<T>;
+export function iterplus(iter: any): any {
     if (canIter(iter)) {
-        return new IterPlus(iter[Symbol.iterator]()) as UpgradeIter<T>;
+        return new IterPlus(iter[Symbol.iterator]());
     } else if (canAsyncIter(iter)) {
-        return new AsyncIterPlus(iter[Symbol.asyncIterator]()) as UpgradeIter<
-            T
-        >;
+        return new AsyncIterPlus(iter[Symbol.asyncIterator]());
     } else {
         throw new Error("Object is not an iterable.");
     }
@@ -40,8 +40,7 @@ export function iterplus<T>(iter: T): UpgradeIter<T> {
  * @param dest The ending point, exclusive.
  * @param step The step, can be negative to go down.
  */
-// @ts-ignore
-export declare function range(
+export function range(
     start: bigint,
     dest?: bigint,
     step?: bigint
@@ -53,8 +52,7 @@ export declare function range(
  * @param dest The ending point, exclusive.
  * @param step The step, can be negative to go down.
  */
-// @ts-ignore
-export declare function range(
+export function range(
     start: number,
     dest?: number,
     step?: number
@@ -101,16 +99,14 @@ export function range<T>(start: T, dest?: T, step?: T): IterPlus<T> {
  * @param start The starting point.
  * @param step The step.
  */
-// @ts-ignore
-export declare function count(start: bigint, step?: bigint): IterPlus<bigint>;
+export function count(start: bigint, step?: bigint): IterPlus<bigint>;
 /**
  * Creates an iterator that keeps adding values to a starting point.
  *
  * @param start The starting point.
  * @param step The step.
  */
-// @ts-ignore
-export declare function count(start: number, step?: number): IterPlus<number>;
+export function count(start: number, step?: number): IterPlus<number>;
 export function count<T>(start: T, step?: T): IterPlus<T> {
     let actualStep: any = step;
     if (typeof start === "bigint" && step === undefined) {
