@@ -1000,9 +1000,7 @@ export class /* o:Async- */ IterPlus<T>
     flatMap<K>(
         func: (
             elem: T
-        ) => /* o:Iterable<K> | AsyncIterable<K> | Promise<Iterable<K> | Async- */ Iterable<
-            K
-        > /* o:-> */
+        ) => /* o:Iterable<K> | AsyncIterable<K> | Promise<Iterable<K> | Async- */ Iterable<K> /* o:-> */
     ): /* o:Async- */ IterPlus<K> {
         const that = this;
         /* o:async */ function* ret() {
@@ -3140,9 +3138,9 @@ export class /* o:Async- */ IterPlus<T>
  *
  * @typeParam T The item type of the iterator.
  */
-export class /* o:Async- */ Peekable<T> /* r:extends Async- */ extends IterPlus<
+export class /* o:Async- */ Peekable<
     T
-> {
+> /* r:extends Async- */ extends IterPlus<T> {
     private storedVal:
         | {has: true; val: IteratorResult<T>}
         | {has: false; val: unknown};
