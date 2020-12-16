@@ -1416,5 +1416,29 @@ describe("Methods", () => {
             ]);
         });
     });
+    describe(".stepBy", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([]).stepBy(1)).toEqual([]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5, 6]).stepBy(1)).toEqual([1, 2, 3, 4, 5, 6]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5]).stepBy(2)).toEqual([1, 3, 5]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5, 6]).stepBy(2)).toEqual([1, 3, 5]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5, 6]).stepBy(3)).toEqual([1, 4]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5, 6, 7]).stepBy(3)).toEqual([1, 4, 7]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5, 6]).stepBy(10)).toEqual([1]);
+            expectIter(index_1.iterplus([1, 2, 3, 4, 5, 6]).stepBy(Infinity)).toEqual([1]);
+        });
+    });
+    describe(".dropEnd", () => {
+        it("works normally", () => {
+            expectIter(index_1.iterplus([]).dropEnd(3)).toEqual([]);
+            expectIter(index_1.iterplus([1, 2, 3]).dropEnd(3)).toEqual([]);
+            expectIter(index_1.iterplus([1, 2, 3, 4]).dropEnd(5)).toEqual([]);
+            expectIter(index_1.iterplus([1, 2, 3, 4]).dropEnd(4)).toEqual([]);
+            expectIter(index_1.iterplus([1, 2, 3, 4]).dropEnd(3)).toEqual([1]);
+            expectIter(index_1.iterplus([1, 2, 3, 4]).dropEnd(2)).toEqual([1, 2]);
+            expectIter(index_1.iterplus([1, 2, 3, 4]).dropEnd(1)).toEqual([1, 2, 3]);
+            expectIter(index_1.iterplus([1, 2, 3, 4]).dropEnd(0)).toEqual([1, 2, 3, 4]);
+        });
+    });
 });
 //# sourceMappingURL=iterplus.js.map

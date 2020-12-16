@@ -3179,17 +3179,12 @@ class AsyncIterPlus {
                 var e_54, _a;
                 const seen = [];
                 try {
-                    for (var that_21 = __asyncValues(that), that_21_1; that_21_1 = yield __await(that_21.next()), !that_21_1.done;) {
+                    outer: for (var that_21 = __asyncValues(that), that_21_1; that_21_1 = yield __await(that_21.next()), !that_21_1.done;) {
                         const elem = that_21_1.value;
-                        let found = false;
                         for (const item of seen) {
                             if (yield __await(cmp(elem, item))) {
-                                found = true;
-                                break;
+                                continue outer;
                             }
-                        }
-                        if (found) {
-                            continue;
                         }
                         seen.push(elem);
                         yield yield __await(elem);
@@ -3477,6 +3472,72 @@ class AsyncIterPlus {
                 }
                 if (curGlob.length > 0) {
                     yield yield __await(curGlob);
+                }
+            });
+        }
+        return new AsyncIterPlus(ret());
+    }
+    /**
+     * Steps through an iterator by a certain amount, starting from the first.
+     *
+     * A step of 2 would yield the first element, then the third, then the fifth, and so on.
+     *
+     * @param step The step size.
+     * @returns An iterator that advances by the given step size.
+     */
+    stepBy(step) {
+        const that = this;
+        function ret() {
+            return __asyncGenerator(this, arguments, function* ret_60() {
+                while (true) {
+                    const next = yield __await(that.next());
+                    if (next.done) {
+                        return yield __await(void 0);
+                    }
+                    yield yield __await(next.value);
+                    for (let i = 0; i < step - 1; i++) {
+                        const skipped = yield __await(that.next());
+                        if (skipped.done) {
+                            return yield __await(void 0);
+                        }
+                    }
+                }
+            });
+        }
+        return new AsyncIterPlus(ret());
+    }
+    /**
+     * Drops elements from the iterator **from the end**.
+     *
+     * This uses memory proportional to the number of elements dropped,
+     * as the iterator must look ahead and store elements to know that it has not reached the end.
+     *
+     * @param n The number of elements to drop.
+     * @returns An iterator with the specified number of elements removed from the end.
+     */
+    dropEnd(n) {
+        const that = this;
+        function ret() {
+            return __asyncGenerator(this, arguments, function* ret_61() {
+                if (n <= 0) {
+                    yield __await(yield* __asyncDelegator(__asyncValues(that)));
+                    return yield __await(void 0);
+                }
+                const lookahead = new CircularBuffer_1.CircularBuffer();
+                for (let i = 0; i < n; i++) {
+                    const next = yield __await(that.next());
+                    if (next.done) {
+                        return yield __await(void 0);
+                    }
+                    lookahead.pushEnd(next.value);
+                }
+                while (true) {
+                    const next = yield __await(that.next());
+                    if (next.done) {
+                        return yield __await(void 0);
+                    }
+                    yield yield __await(lookahead.popStart());
+                    lookahead.pushEnd(next.value);
                 }
             });
         }

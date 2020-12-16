@@ -1131,6 +1131,25 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      * @returns An iterator where every element is an array of consecutively equal elements.
      */
     glob(): IterPlus<T[]>;
+    /**
+     * Steps through an iterator by a certain amount, starting from the first.
+     *
+     * A step of 2 would yield the first element, then the third, then the fifth, and so on.
+     *
+     * @param step The step size.
+     * @returns An iterator that advances by the given step size.
+     */
+    stepBy(step: number): IterPlus<T>;
+    /**
+     * Drops elements from the iterator **from the end**.
+     *
+     * This uses memory proportional to the number of elements dropped,
+     * as the iterator must look ahead and store elements to know that it has not reached the end.
+     *
+     * @param n The number of elements to drop.
+     * @returns An iterator with the specified number of elements removed from the end.
+     */
+    dropEnd(n: number): IterPlus<T>;
 }
 /**
  * An iterator with a `peek`. method that can look one element in advance.

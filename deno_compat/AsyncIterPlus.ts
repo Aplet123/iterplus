@@ -2804,16 +2804,11 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
         const that = this;
         async function* ret() {
             const seen: T[] = [];
-            for await (const elem of that) {
-                let found = false;
+            outer: for await (const elem of that) {
                 for (const item of seen) {
                     if (await cmp(elem, item)) {
-                        found = true;
-                        break;
+                        continue outer;
                     }
-                }
-                if (found) {
-                    continue;
                 }
                 seen.push(elem);
                 yield elem;
@@ -3009,6 +3004,70 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
             }
             if (curGlob.length > 0) {
                 yield curGlob;
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Steps through an iterator by a certain amount, starting from the first.
+     *
+     * A step of 2 would yield the first element, then the third, then the fifth, and so on.
+     *
+     * @param step The step size.
+     * @returns An iterator that advances by the given step size.
+     */
+    stepBy(step: number): AsyncIterPlus<T> {
+        const that = this;
+        async function* ret() {
+            while (true) {
+                const next = await that.next();
+                if (next.done) {
+                    return;
+                }
+                yield next.value;
+                for (let i = 0; i < step - 1; i++) {
+                    const skipped = await that.next();
+                    if (skipped.done) {
+                        return;
+                    }
+                }
+            }
+        }
+        return new AsyncIterPlus(ret());
+    }
+
+    /**
+     * Drops elements from the iterator **from the end**.
+     *
+     * This uses memory proportional to the number of elements dropped,
+     * as the iterator must look ahead and store elements to know that it has not reached the end.
+     *
+     * @param n The number of elements to drop.
+     * @returns An iterator with the specified number of elements removed from the end.
+     */
+    dropEnd(n: number): AsyncIterPlus<T> {
+        const that = this;
+        async function* ret() {
+            if (n <= 0) {
+                yield* that;
+                return;
+            }
+            const lookahead: CircularBuffer<T> = new CircularBuffer();
+            for (let i = 0; i < n; i++) {
+                const next = await that.next();
+                if (next.done) {
+                    return;
+                }
+                lookahead.pushEnd(next.value);
+            }
+            while (true) {
+                const next = await that.next();
+                if (next.done) {
+                    return;
+                }
+                yield lookahead.popStart();
+                lookahead.pushEnd(next.value);
             }
         }
         return new AsyncIterPlus(ret());
