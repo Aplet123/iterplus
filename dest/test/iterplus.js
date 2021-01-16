@@ -13,6 +13,67 @@ function genYielder(bound = 5) {
 function expectIter(iter) {
     return expect(Array.from(iter));
 }
+function expectAllEqual(...args) {
+    for (let i = 0; i < args.length - 1; i++) {
+        expect(args[i]).toEqual(args[i + 1]);
+    }
+}
+describe("CircularBuffer", () => {
+    it("works", () => {
+        const buf = new index_1.CircularBuffer([1, 2, 3]);
+        expectAllEqual(buf.toArray(), Array.from(buf), [1, 2, 3]);
+        expect(buf.size()).toBe(buf.toArray().length);
+        buf.clear();
+        buf.pushEnd(1);
+        buf.pushEnd(2);
+        buf.pushEnd(3);
+        buf.pushEnd(4);
+        expectAllEqual(buf.toArray(), Array.from(buf), [1, 2, 3, 4]);
+        expect(buf.size()).toBe(buf.toArray().length);
+        buf.pushStart(0);
+        expectAllEqual(buf.toArray(), Array.from(buf), [0, 1, 2, 3, 4]);
+        expect(buf.size()).toBe(buf.toArray().length);
+        for (let i = 0; i < buf.size(); i++) {
+            expect(buf.get(i)).toBe(i);
+            buf.set(i, buf.get(i) + 5);
+        }
+        expect(() => buf.get(-1)).toThrow();
+        expect(() => buf.get(5)).toThrow();
+        expect(() => buf.set(-1, 10)).toThrow();
+        expect(() => buf.set(5, 10)).toThrow();
+        expectAllEqual(buf.toArray(), Array.from(buf), [0, 1, 2, 3, 4].map((x) => x + 5));
+        expect(buf.size()).toBe(buf.toArray().length);
+        buf.popStart();
+        buf.popStart();
+        expectAllEqual(buf.toArray(), Array.from(buf), [2, 3, 4].map((x) => x + 5));
+        expect(buf.size()).toBe(buf.toArray().length);
+        buf.popEnd();
+        buf.popEnd();
+        expectAllEqual(buf.toArray(), Array.from(buf), [2].map((x) => x + 5));
+        expect(buf.size()).toBe(buf.toArray().length);
+        buf.pushEnd(3);
+        expect(buf.getEnd()).toBe(3);
+        buf.setEnd(buf.getEnd() + 5);
+        expect(buf.getEnd()).toBe(3 + 5);
+        expectAllEqual(buf.toArray(), Array.from(buf), [2, 3].map((x) => x + 5));
+        expect(buf.size()).toBe(buf.toArray().length);
+        buf.popEnd();
+        buf.popEnd();
+        expectAllEqual(buf.toArray(), Array.from(buf), []);
+        expect(buf.size()).toBe(buf.toArray().length);
+        expect(() => buf.popEnd()).toThrow();
+        expect(() => buf.popStart()).toThrow();
+        expect(() => buf.getEnd()).toThrow();
+        const arr = [];
+        for (let i = 0; i < 50; i++) {
+            buf.pushEnd(i);
+            arr.push(i);
+            buf.pushStart(-i);
+            arr.unshift(-i);
+        }
+        expectAllEqual(buf.toArray(), Array.from(buf), arr);
+    });
+});
 describe("Utility functions", () => {
     it("range works", () => {
         expectIter(index_1.range(1, 5)).toEqual([1, 2, 3, 4]);

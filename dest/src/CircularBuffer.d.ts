@@ -24,14 +24,21 @@ export declare class CircularBuffer<T> {
      * Constructs a new `CircularBuffer` from a dataset.
      *
      * @param init The initial data.
+     * @param capcity The initial capacity to allocate.
      */
-    constructor(init?: Iterable<T>);
+    constructor(init?: Iterable<T>, capacity?: number);
     /**
      * Returns the number of elements in the buffer.
      *
      * @returns The number of elements.
      */
     size(): number;
+    /**
+     * Returns the number of elements allocated.
+     *
+     * @returns The number of elements allocated.
+     */
+    capacity(): number;
     /**
      * Gets an element from the buffer. Errors on out of bound access.
      *
@@ -40,12 +47,24 @@ export declare class CircularBuffer<T> {
      */
     get(ind: number): T;
     /**
+     * Utility function to get the last element of the buffer. Errors on an empty buffer.
+     *
+     * @returns The element at the back.
+     */
+    getEnd(): T;
+    /**
      * Sets an element in the buffer. Errors on out of bounds access.
      *
      * @param ind The index to set.
      * @param val The value to set to.
      */
     set(ind: number, val: T): void;
+    /**
+     * Utility function to set the last element of the buffer. Errors on an empty buffer.
+     *
+     * @param val The value to set to.
+     */
+    setEnd(val: T): void;
     /**
      * Generates an iterator for the buffer.
      *
@@ -60,6 +79,18 @@ export declare class CircularBuffer<T> {
      * @returns The array.
      */
     toArray(): T[];
+    /**
+     * Resizes the buffer to a certain capacity.
+     *
+     * This function also makes the buffer contiguous,
+     * so `toArray` will return faster.
+     *
+     * If the capacity is too small,
+     * then it will automatically be scaled up to the length of the buffer.
+     *
+     * @param capacity The capacity to expand to.
+     */
+    resizeTo(capacity: number): void;
     /**
      * Expands the buffer if needed.
      */
@@ -92,4 +123,10 @@ export declare class CircularBuffer<T> {
      * @returns The popped value.
      */
     popStart(): T;
+    /**
+     * Clears the buffer, setting its length to 0.
+     *
+     * This doesn't deallocate any space.
+     */
+    clear(): void;
 }

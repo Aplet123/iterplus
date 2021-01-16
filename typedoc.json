@@ -1,11 +1,9 @@
 {
-    "inputFiles": ["./src"],
-    "mode": "modules",
+    "entryPoints": ["./src/index.ts"],
     "exclude": [],
     "out": "./docs",
     "theme": "default",
     "name": "iterplus",
     "includeVersion": true,
-    "readme": "./README.md",
-    "excludeNotExported": true
+    "readme": "./README.md"
 }

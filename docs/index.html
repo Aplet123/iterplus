@@ -3,10 +3,11 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>iterplus - v2.2.0</title>
-	<meta name="description" content="Documentation for iterplus - v2.2.0">
+	<title>iterplus - v2.3.0</title>
+	<meta name="description" content="Documentation for iterplus - v2.3.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
 </head>
 <body>
 <header>
@@ -22,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">iterplus - v2.2.0</a>
+					<a href="index.html" class="title">iterplus - v2.3.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -49,12 +50,7 @@
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
-			<ul class="tsd-breadcrumb">
-				<li>
-					<a href="globals.html">Globals</a>
-				</li>
-			</ul>
-			<h1>iterplus - v2.2.0</h1>
+			<h1>Project iterplus - v2.3.0</h1>
 		</div>
 	</div>
 </header>
@@ -69,59 +65,66 @@
 				<a href="#why-iterplus" id="why-iterplus" style="color: inherit; text-decoration: none;">
 					<h1>Why Iterplus?</h1>
 				</a>
-				<p>Javascript iterators are weak. Really weak. Like, the only method they have is to get the next value levels of weak. To make matters worse, non-Array containers in Javascript have little to no utility methods, making using them incredibly clunky. By adding powerful functionality to iterators, every single data container gains additional functionality. Also, iterators are lazy, which means they save memory and avoid unncessary calculations.</p>
+				<p>Javascript iterators are weak. Really weak. Like, the only method they have is to get the next value levels of weak. To make matters worse, non-Array containers in Javascript have little to no utility methods, making using them incredibly clunky. By adding powerful functionality to iterators, every single data container gains additional functionality. Also, iterators are lazy, which means they save memory and avoid unnecessary calculations.</p>
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 					<h1>Installation</h1>
 				</a>
 				<p>Iterplus is available on npm! Just install it with:</p>
-				<pre><code class="language-sh">npm install iterplus</code></pre>
+				<pre><code class="language-sh"><span style="color: #000000">npm install iterplus</span>
+</code></pre>
+				<p>You can also find a deno-compatible version on deno.land:</p>
+				<pre><code><span style="color: #000000">https:</span><span style="color: #008000">//deno.land/x/iterplus@v2.3.0/index.ts</span>
+</code></pre>
 				<p>It can also be bundled for the web, but you&#39;ll have to figure that out for now.</p>
 				<a href="#sample-code" id="sample-code" style="color: inherit; text-decoration: none;">
 					<h1>Sample Code</h1>
 				</a>
 				<p>Here are some Leetcode problems solved using iterplus (you can find these in <code>samples/</code>):</p>
-				<pre><code class="language-ts"><span class="hljs-comment">// https://leetcode.com/problems/longest-common-prefix/</span>
-<span class="hljs-keyword">import</span> {iterplus} <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;iterplus&quot;</span>;
+				<pre><code class="language-ts"><span style="color: #008000">// https://leetcode.com/problems/longest-common-prefix/</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">iterplus</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;iterplus&quot;</span><span style="color: #000000">;</span>
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">longestCommonPrefix</span>(<span class="hljs-params">strs: <span class="hljs-built_in">string</span>[]</span>): <span class="hljs-title">string</span> </span>{
-    <span class="hljs-keyword">return</span> iterplus(strs[<span class="hljs-number">0</span>])
-        .zip(...strs.slice(<span class="hljs-number">1</span>))
-        .takeWhile(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> x.every(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> v === x[<span class="hljs-number">0</span>]))
-        .map(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> x[<span class="hljs-number">0</span>])
-        .collect()
-        .join(<span class="hljs-string">&quot;&quot;</span>);
-}
+<span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">longestCommonPrefix</span><span style="color: #000000">(</span><span style="color: #001080">strs</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">[]): </span><span style="color: #267F99">string</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #795E26">iterplus</span><span style="color: #000000">(</span><span style="color: #001080">strs</span><span style="color: #000000">[</span><span style="color: #098658">0</span><span style="color: #000000">])</span>
+<span style="color: #000000">        .</span><span style="color: #795E26">zip</span><span style="color: #000000">(...</span><span style="color: #001080">strs</span><span style="color: #000000">.</span><span style="color: #795E26">slice</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">))</span>
+<span style="color: #000000">        .</span><span style="color: #795E26">takeWhile</span><span style="color: #000000">(</span><span style="color: #001080">x</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">x</span><span style="color: #000000">.</span><span style="color: #795E26">every</span><span style="color: #000000">(</span><span style="color: #001080">v</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">v</span><span style="color: #000000"> === </span><span style="color: #001080">x</span><span style="color: #000000">[</span><span style="color: #098658">0</span><span style="color: #000000">]))</span>
+<span style="color: #000000">        .</span><span style="color: #795E26">map</span><span style="color: #000000">(</span><span style="color: #001080">x</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">x</span><span style="color: #000000">[</span><span style="color: #098658">0</span><span style="color: #000000">])</span>
+<span style="color: #000000">        .</span><span style="color: #795E26">collect</span><span style="color: #000000">()</span>
+<span style="color: #000000">        .</span><span style="color: #795E26">join</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">}</span>
 
-<span class="hljs-built_in">console</span>.log(longestCommonPrefix([<span class="hljs-string">&quot;flower&quot;</span>,<span class="hljs-string">&quot;flow&quot;</span>,<span class="hljs-string">&quot;flight&quot;</span>]) || <span class="hljs-string">&quot;(nothing)&quot;</span>); <span class="hljs-comment">// fl</span>
-<span class="hljs-built_in">console</span>.log(longestCommonPrefix([<span class="hljs-string">&quot;dog&quot;</span>,<span class="hljs-string">&quot;racecar&quot;</span>,<span class="hljs-string">&quot;car&quot;</span>]) || <span class="hljs-string">&quot;(nothing)&quot;</span>); <span class="hljs-comment">// (nothing)</span></code></pre>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #795E26">longestCommonPrefix</span><span style="color: #000000">([</span><span style="color: #A31515">&quot;flower&quot;</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;flow&quot;</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;flight&quot;</span><span style="color: #000000">]) || </span><span style="color: #A31515">&quot;(nothing)&quot;</span><span style="color: #000000">); </span><span style="color: #008000">// fl</span>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #795E26">longestCommonPrefix</span><span style="color: #000000">([</span><span style="color: #A31515">&quot;dog&quot;</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;racecar&quot;</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;car&quot;</span><span style="color: #000000">]) || </span><span style="color: #A31515">&quot;(nothing)&quot;</span><span style="color: #000000">); </span><span style="color: #008000">// (nothing)</span>
+</code></pre>
 				<hr/>
-				<pre><code class="language-ts"><span class="hljs-comment">// https://leetcode.com/problems/implement-strstr/</span>
-<span class="hljs-keyword">import</span> {range} <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;iterplus&quot;</span>;
+				<pre><code class="language-ts"><span style="color: #008000">// https://leetcode.com/problems/implement-strstr/</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">range</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;iterplus&quot;</span><span style="color: #000000">;</span>
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">strStr</span>(<span class="hljs-params">haystack: <span class="hljs-built_in">string</span>, needle: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">number</span> </span>{
-    <span class="hljs-keyword">return</span> range(haystack.length)
-        .findIndex(<span class="hljs-function"><span class="hljs-params">i</span> =&gt;</span> haystack.substr(i, needle.length) === needle);
-}
+<span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">strStr</span><span style="color: #000000">(</span><span style="color: #001080">haystack</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">, </span><span style="color: #001080">needle</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">): </span><span style="color: #267F99">number</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #795E26">range</span><span style="color: #000000">(</span><span style="color: #001080">haystack</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000">)</span>
+<span style="color: #000000">        .</span><span style="color: #795E26">findIndex</span><span style="color: #000000">(</span><span style="color: #001080">i</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">haystack</span><span style="color: #000000">.</span><span style="color: #795E26">substr</span><span style="color: #000000">(</span><span style="color: #001080">i</span><span style="color: #000000">, </span><span style="color: #001080">needle</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000">) === </span><span style="color: #001080">needle</span><span style="color: #000000">);</span>
+<span style="color: #000000">}</span>
 
-<span class="hljs-built_in">console</span>.log(strStr(<span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-string">&quot;ll&quot;</span>)); <span class="hljs-comment">// 2</span>
-<span class="hljs-built_in">console</span>.log(strStr(<span class="hljs-string">&quot;chicken&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>)); <span class="hljs-comment">// 0</span>
-<span class="hljs-built_in">console</span>.log(strStr(<span class="hljs-string">&quot;chicken&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>)); <span class="hljs-comment">// -1</span></code></pre>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #795E26">strStr</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;hello&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;ll&quot;</span><span style="color: #000000">)); </span><span style="color: #008000">// 2</span>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #795E26">strStr</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;chicken&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;c&quot;</span><span style="color: #000000">)); </span><span style="color: #008000">// 0</span>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #795E26">strStr</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;chicken&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;d&quot;</span><span style="color: #000000">)); </span><span style="color: #008000">// -1</span>
+</code></pre>
 				<hr/>
-				<pre><code class="language-ts"><span class="hljs-comment">// https://leetcode.com/problems/search-insert-position/</span>
-<span class="hljs-keyword">import</span> {iterplus} <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;iterplus&quot;</span>;
+				<pre><code class="language-ts"><span style="color: #008000">// https://leetcode.com/problems/search-insert-position/</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">iterplus</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;iterplus&quot;</span><span style="color: #000000">;</span>
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">searchInsert</span>(<span class="hljs-params">nums: <span class="hljs-built_in">number</span>[], target: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">number</span> </span>{
-    <span class="hljs-keyword">return</span> iterplus(nums)
-        .concat([<span class="hljs-literal">Infinity</span>])
-        .enumerate()
-        .skipWhile(<span class="hljs-function">(<span class="hljs-params">[_, v]</span>) =&gt;</span> v &lt; target)
-        .nextVal()![<span class="hljs-number">0</span>];
-}
+<span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">searchInsert</span><span style="color: #000000">(</span><span style="color: #001080">nums</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000">[], </span><span style="color: #001080">target</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000">): </span><span style="color: #267F99">number</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #795E26">iterplus</span><span style="color: #000000">(</span><span style="color: #001080">nums</span><span style="color: #000000">)</span>
+<span style="color: #000000">        .</span><span style="color: #795E26">concat</span><span style="color: #000000">([</span><span style="color: #0000FF">Infinity</span><span style="color: #000000">])</span>
+<span style="color: #000000">        .</span><span style="color: #795E26">enumerate</span><span style="color: #000000">()</span>
+<span style="color: #000000">        .</span><span style="color: #795E26">skipWhile</span><span style="color: #000000">(([</span><span style="color: #001080">_</span><span style="color: #000000">, </span><span style="color: #001080">v</span><span style="color: #000000">]) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">v</span><span style="color: #000000"> &lt; </span><span style="color: #001080">target</span><span style="color: #000000">)</span>
+<span style="color: #000000">        .</span><span style="color: #795E26">nextVal</span><span style="color: #000000">()![</span><span style="color: #098658">0</span><span style="color: #000000">];</span>
+<span style="color: #000000">}</span>
 
-<span class="hljs-built_in">console</span>.log(searchInsert([<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], <span class="hljs-number">5</span>)); <span class="hljs-comment">// 2</span>
-<span class="hljs-built_in">console</span>.log(searchInsert([<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], <span class="hljs-number">2</span>)); <span class="hljs-comment">// 1</span>
-<span class="hljs-built_in">console</span>.log(searchInsert([<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], <span class="hljs-number">7</span>)); <span class="hljs-comment">// 4</span>
-<span class="hljs-built_in">console</span>.log(searchInsert([<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], <span class="hljs-number">0</span>)); <span class="hljs-comment">// 0</span>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #795E26">searchInsert</span><span style="color: #000000">([</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">5</span><span style="color: #000000">, </span><span style="color: #098658">6</span><span style="color: #000000">], </span><span style="color: #098658">5</span><span style="color: #000000">)); </span><span style="color: #008000">// 2</span>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #795E26">searchInsert</span><span style="color: #000000">([</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">5</span><span style="color: #000000">, </span><span style="color: #098658">6</span><span style="color: #000000">], </span><span style="color: #098658">2</span><span style="color: #000000">)); </span><span style="color: #008000">// 1</span>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #795E26">searchInsert</span><span style="color: #000000">([</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">5</span><span style="color: #000000">, </span><span style="color: #098658">6</span><span style="color: #000000">], </span><span style="color: #098658">7</span><span style="color: #000000">)); </span><span style="color: #008000">// 4</span>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #795E26">searchInsert</span><span style="color: #000000">([</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">5</span><span style="color: #000000">, </span><span style="color: #098658">6</span><span style="color: #000000">], </span><span style="color: #098658">0</span><span style="color: #000000">)); </span><span style="color: #008000">// 0</span>
+
 </code></pre>
 				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
 					<h1>Documentation</h1>
@@ -132,28 +135,64 @@
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_asynciterplus_.html">&quot;<wbr>Async<wbr>Iter<wbr>Plus&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_circularbuffer_.html">&quot;<wbr>Circular<wbr>Buffer&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_iterplus_.html">&quot;<wbr>Iter<wbr>Plus&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_index_.html">&quot;index&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_util_.html">&quot;util&quot;</a>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/asynciterplus.html" class="tsd-kind-icon">Async<wbr>Iter<wbr>Plus</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/asyncpeekable.html" class="tsd-kind-icon">Async<wbr>Peekable</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/circularbuffer.html" class="tsd-kind-icon">Circular<wbr>Buffer</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/iterplus.html" class="tsd-kind-icon">Iter<wbr>Plus</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/peekable.html" class="tsd-kind-icon">Peekable</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#null" class="tsd-kind-icon">Null</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="modules.html#promiseorvalue" class="tsd-kind-icon">Promise<wbr>OrValue</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="modules.html#nullval" class="tsd-kind-icon">null<wbr>Val</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#asyncify" class="tsd-kind-icon">asyncify</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#canasynciter" class="tsd-kind-icon">can<wbr>Async<wbr>Iter</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#caniter" class="tsd-kind-icon">can<wbr>Iter</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#count" class="tsd-kind-icon">count</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#isasynciter" class="tsd-kind-icon">is<wbr>Async<wbr>Iter</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#isiter" class="tsd-kind-icon">is<wbr>Iter</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#iterplus" class="tsd-kind-icon">iterplus</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#liftasync" class="tsd-kind-icon">lift<wbr>Async</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#range" class="tsd-kind-icon">range</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
@@ -164,14 +203,17 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
 			</ul>
 		</div>
 	</div>

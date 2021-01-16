@@ -13,4 +13,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./IterPlus"), exports);
 __exportStar(require("./AsyncIterPlus"), exports);
 __exportStar(require("./util"), exports);
+__exportStar(require("./CircularBuffer"), exports);
 //# sourceMappingURL=index.js.map

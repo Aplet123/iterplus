@@ -11,16 +11,14 @@ class CircularBuffer {
      * Constructs a new `CircularBuffer` from a dataset.
      *
      * @param init The initial data.
+     * @param capcity The initial capacity to allocate.
      */
-    constructor(init = []) {
-        const data = [];
-        for (const elem of init) {
-            data.push(elem);
-        }
+    constructor(init = [], capacity = 32) {
+        let data = [...init];
         const totlen = data.length;
         // initialize to a minimum length of 32 to get table doubling started faster
-        while (data.length < 32) {
-            data.push(null);
+        if (data.length < capacity) {
+            data = data.concat(Array(capacity - data.length).fill(null));
         }
         this.data = data;
         this.start = 0;
@@ -36,6 +34,14 @@ class CircularBuffer {
         return this.len;
     }
     /**
+     * Returns the number of elements allocated.
+     *
+     * @returns The number of elements allocated.
+     */
+    capacity() {
+        return this.data.length;
+    }
+    /**
      * Gets an element from the buffer. Errors on out of bound access.
      *
      * @param ind The index to get.
@@ -48,6 +54,18 @@ class CircularBuffer {
         return this.data[(this.start + ind) % this.data.length];
     }
     /**
+     * Utility function to get the last element of the buffer. Errors on an empty buffer.
+     *
+     * @returns The element at the back.
+     */
+    getEnd() {
+        const size = this.size();
+        if (size === 0) {
+            throw new RangeError("Cannot get back of empty circular buffer.");
+        }
+        return this.data[(this.end - 1 + this.data.length) % this.data.length];
+    }
+    /**
      * Sets an element in the buffer. Errors on out of bounds access.
      *
      * @param ind The index to set.
@@ -58,6 +76,18 @@ class CircularBuffer {
             throw new RangeError("Index out of bounds.");
         }
         this.data[(this.start + ind) % this.data.length] = val;
+    }
+    /**
+     * Utility function to set the last element of the buffer. Errors on an empty buffer.
+     *
+     * @param val The value to set to.
+     */
+    setEnd(val) {
+        const size = this.size();
+        if (size === 0) {
+            throw new RangeError("Cannot set back of empty circular buffer.");
+        }
+        this.data[(this.end - 1 + this.data.length) % this.data.length] = val;
     }
     /**
      * Generates an iterator for the buffer.
@@ -77,28 +107,42 @@ class CircularBuffer {
      * @returns The array.
      */
     toArray() {
-        if (this.start < this.end) {
+        if (this.start <= this.end) {
             return this.data.slice(this.start, this.end);
         }
-        return [
-            ...this.data.slice(this.start),
-            ...this.data.slice(0, this.end),
-        ];
+        if (this.end === 0) {
+            return this.data.slice(this.start);
+        }
+        return this.data.slice(this.start).concat(this.data.slice(0, this.end));
+    }
+    /**
+     * Resizes the buffer to a certain capacity.
+     *
+     * This function also makes the buffer contiguous,
+     * so `toArray` will return faster.
+     *
+     * If the capacity is too small,
+     * then it will automatically be scaled up to the length of the buffer.
+     *
+     * @param capacity The capacity to expand to.
+     */
+    resizeTo(capacity) {
+        const newData = new Array(capacity);
+        let i = 0;
+        for (const elem of this) {
+            newData[i] = elem;
+            i++;
+        }
+        this.start = 0;
+        this.end = i;
+        this.data = newData;
     }
     /**
      * Expands the buffer if needed.
      */
     possiblyExpand() {
         if (this.size() >= this.data.length - 1) {
-            const newData = new Array(this.data.length * 2);
-            let i = 0;
-            for (const elem of this) {
-                newData[i] = elem;
-                i++;
-            }
-            this.start = 0;
-            this.end = i;
-            this.data = newData;
+            this.resizeTo(this.data.length * 2);
         }
     }
     /**
@@ -106,15 +150,7 @@ class CircularBuffer {
      */
     possiblyShrink() {
         if (this.size() * 4 <= this.data.length) {
-            const newData = new Array(Math.floor(this.data.length / 2));
-            let i = 0;
-            for (const elem of this) {
-                newData[i] = elem;
-                i++;
-            }
-            this.start = 0;
-            this.end = i;
-            this.data = newData;
+            this.resizeTo(Math.ceil(this.data.length / 2));
         }
     }
     /**
@@ -168,6 +204,16 @@ class CircularBuffer {
         this.possiblyShrink();
         this.len--;
         return ret;
+    }
+    /**
+     * Clears the buffer, setting its length to 0.
+     *
+     * This doesn't deallocate any space.
+     */
+    clear() {
+        this.start = 0;
+        this.end = 0;
+        this.len = 0;
     }
 }
 exports.CircularBuffer = CircularBuffer;

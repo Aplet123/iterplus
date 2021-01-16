@@ -11,7 +11,7 @@ npm install iterplus
 ```
 You can also find a deno-compatible version on deno.land:
 ```
-https://deno.land/x/iterplus@v2.2.0/index.ts
+https://deno.land/x/iterplus@v2.3.0/index.ts
 ```
 It can also be bundled for the web, but you'll have to figure that out for now.
 
