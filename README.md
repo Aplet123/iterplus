@@ -65,5 +65,32 @@ console.log(searchInsert([1, 3, 5, 6], 0)); // 0
 
 ```
 
+# Usage
+
+## Node
+
+```ts
+import {iterplus, range} from "iterplus";
+
+console.log(iterplus([1,2,3,4,5,6,7]).sum())
+
+for (const i of range(0, 13)) {
+    console.log(i)
+}
+```
+
+## Deno
+
+```ts
+
+import {iterplus, range} from "https://raw.githubusercontent.com/Aplet123/iterplus/master/deno_compat/index.ts";
+
+console.log(iterplus([1,2,3,4,5,6,7]).sum())
+
+for (const i of range(0, 13)) {
+    console.log(i)
+}
+```
+
 # Documentation
 You can find the generated docs at [https://aplet123.github.io/iterplus/](https://aplet123.github.io/iterplus/).
