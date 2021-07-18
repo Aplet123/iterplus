@@ -1029,7 +1029,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                     "Reduce of empty iterator with no initializer."
                 );
             }
-            accum = (next.value as unknown) as A;
+            accum = next.value as unknown as A;
         } else {
             accum = initializer as A;
         }
@@ -1447,13 +1447,13 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 accum = elem;
                 typechecked = true;
             } else {
-                accum = accum * ((elem as unknown) as number);
+                accum = accum * (elem as unknown as number);
             }
         }
         if (accum === undefined) {
             return empty;
         }
-        return (accum as unknown) as T;
+        return accum as unknown as T;
     }
 
     /**
@@ -1493,7 +1493,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
         if (accum === undefined) {
             return empty;
         }
-        return (accum as unknown) as T;
+        return accum as unknown as T;
     }
 
     /**
@@ -1768,12 +1768,12 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
             count++;
         }
         if (bigint) {
-            count = (BigInt(count) as unknown) as number;
+            count = BigInt(count) as unknown as number;
         }
         if (count === 0) {
             throw new RangeError("Cannot average an empty iterator.");
         }
-        return ((accum / count) as unknown) as T;
+        return (accum / count) as unknown as T;
     }
 
     /**
@@ -2338,10 +2338,10 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                 } else if (duplicate === "maintain") {
                     // do nothing
                 } else {
-                    ret[(key as unknown) as string] = val;
+                    ret[key as unknown as string] = val;
                 }
             } else {
-                ret[(key as unknown) as string] = val;
+                ret[key as unknown as string] = val;
             }
         }
         return ret;
@@ -2525,7 +2525,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                         "Scan of empty iterator with no initializer."
                     );
                 }
-                accum = (next.value as unknown) as A;
+                accum = next.value as unknown as A;
             } else {
                 accum = initializer as A;
             }
@@ -2986,7 +2986,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
         const that = this;
         async function* ret() {
             let curGlob: T[] = [];
-            let prevKey: K = (undefined as unknown) as K;
+            let prevKey: K = undefined as unknown as K;
             for await (const elem of that) {
                 const elemKey = await key(elem);
                 if (curGlob.length === 0 || prevKey === elemKey) {

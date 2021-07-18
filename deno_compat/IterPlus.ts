@@ -66,7 +66,8 @@ type /* o:Async- */ IterableMap<T extends unknown[]> = {
 /**
  * The type of null to use.
  */
-/* o://- */ export type /* o:Async- */ Null = typeof /* r:asyncNullVal */ nullVal;
+/* o://- */ export type /* o:Async- */ Null =
+    typeof /* r:asyncNullVal */ nullVal;
 /* o:import {Null} from "./IterPlus"; */
 
 /**
@@ -78,7 +79,8 @@ type /* o:Async- */ IterableMap<T extends unknown[]> = {
  * @typeParam T The item type of the iterator.
  */
 export class /* o:Async- */ IterPlus<T>
-    implements CurIter<T>, /* o:Async- */ Iterable<T> {
+    implements CurIter<T>, /* o:Async- */ Iterable<T>
+{
     /**
      * The internal iterator that this wraps around.
      */
@@ -1068,7 +1070,7 @@ export class /* o:Async- */ IterPlus<T>
                     "Reduce of empty iterator with no initializer."
                 );
             }
-            accum = (next.value as unknown) as A;
+            accum = next.value as unknown as A;
         } else {
             accum = initializer as A;
         }
@@ -1504,13 +1506,13 @@ export class /* o:Async- */ IterPlus<T>
                 accum = elem;
                 typechecked = true;
             } else {
-                accum = accum * ((elem as unknown) as number);
+                accum = accum * (elem as unknown as number);
             }
         }
         if (accum === undefined) {
             return empty;
         }
-        return (accum as unknown) as T;
+        return accum as unknown as T;
     }
 
     /**
@@ -1559,7 +1561,7 @@ export class /* o:Async- */ IterPlus<T>
         if (accum === undefined) {
             return empty;
         }
-        return (accum as unknown) as T;
+        return accum as unknown as T;
     }
 
     /**
@@ -1838,12 +1840,12 @@ export class /* o:Async- */ IterPlus<T>
             count++;
         }
         if (bigint) {
-            count = (BigInt(count) as unknown) as number;
+            count = BigInt(count) as unknown as number;
         }
         if (count === 0) {
             throw new RangeError("Cannot average an empty iterator.");
         }
-        return ((accum / count) as unknown) as T;
+        return (accum / count) as unknown as T;
     }
 
     /**
@@ -2420,10 +2422,10 @@ export class /* o:Async- */ IterPlus<T>
                 } else if (duplicate === "maintain") {
                     // do nothing
                 } else {
-                    ret[(key as unknown) as string] = val;
+                    ret[key as unknown as string] = val;
                 }
             } else {
-                ret[(key as unknown) as string] = val;
+                ret[key as unknown as string] = val;
             }
         }
         return ret;
@@ -2613,7 +2615,7 @@ export class /* o:Async- */ IterPlus<T>
                         "Scan of empty iterator with no initializer."
                     );
                 }
-                accum = (next.value as unknown) as A;
+                accum = next.value as unknown as A;
             } else {
                 accum = initializer as A;
             }
@@ -3099,7 +3101,7 @@ export class /* o:Async- */ IterPlus<T>
         const that = this;
         /* o:async */ function* ret() {
             let curGlob: T[] = [];
-            let prevKey: K = (undefined as unknown) as K;
+            let prevKey: K = undefined as unknown as K;
             /* r:for await */ for (const elem of that) {
                 const elemKey = /* o:await */ key(elem);
                 if (curGlob.length === 0 || prevKey === elemKey) {
