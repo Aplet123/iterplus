@@ -418,6 +418,20 @@ describe("Methods", () => {
         });
     });
 
+    describe(".collectWith", () => {
+        it("works normally", () => {
+            expect(iterplus([2, 1, 3]).collectWith(Array.from)).toEqual([2, 1, 3]);
+            expect(iterplus([2, 1, 3]).collectWith((x) => new Set(x))).toEqual(new Set([2, 1, 3]));
+        });
+    });
+
+    describe(".construct", () => {
+        it("works normally", () => {
+            expect(iterplus([2, 1, 3]).construct(Set)).toEqual(new Set([2, 1, 3]));
+            expect(iterplus([["a", 1], ["b", 2]]).construct(Map)).toEqual(new Map([["a", 1], ["b", 2]]));
+        });
+    });
+
     describe(".count", () => {
         it("works normally", () => {
             expect(iterplus([1, 2, 3, 4]).count()).toBe(4);

@@ -270,6 +270,20 @@ export declare class IterPlus<T> implements CurIter<T>, /* o:Async- */ Iterable<
      */
     collect(): T[];
     /**
+     * Calls a specified collector function with this iterator as its only argument.
+     *
+     * @param collector The collector to use.
+     * @returns The return value of the collector.
+     */
+    collectWith<R>(collector: (iter: IterPlus<T>) => R): R;
+    /**
+     * Calls a specified constructor with this iterator as its only argument.
+     *
+     * @param ctor The constructor to use.
+     * @returns The constructed value.
+     */
+    construct<R>(ctor: new (item: IterPlus<T>) => R): R;
+    /**
      * Counts the number of items in this iterator.
      *
      * @returns The number of items in the iterator.
