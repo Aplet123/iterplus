@@ -1,6 +1,6 @@
 {
   "name": "iterplus",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "The best of Rust/Haskell/Python iterators in Javascript.",
   "main": "dest/src/index.js",
   "types": "dest/src/index.d.ts",

@@ -87,7 +87,7 @@ class AsyncIterPlus {
      * @returns The next value, or null if the iterator ended.
      */
     async nextVal() {
-        const elem = await this.internal.next();
+        const elem = await this.next();
         if (elem.done) {
             return IterPlus_2.nullVal;
         }

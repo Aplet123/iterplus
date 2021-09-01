@@ -109,7 +109,7 @@ export class /* o:Async- */ IterPlus<T>
      * @returns The next value, or null if the iterator ended.
      */
     /* o:async */ nextVal(): /* o:Promise<- */ T | Null /* o:-> */ {
-        const elem = /* o:await */ this.internal.next();
+        const elem = /* o:await */ this.next();
         if (elem.done) {
             return nullVal;
         }

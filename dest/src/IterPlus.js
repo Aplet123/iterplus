@@ -66,7 +66,7 @@ class IterPlus {
      * @returns The next value, or null if the iterator ended.
      */
     /* o:async */ nextVal() {
-        const elem = /* o:await */ this.internal.next();
+        const elem = /* o:await */ this.next();
         if (elem.done) {
             return exports.nullVal;
         }

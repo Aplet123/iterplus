@@ -100,7 +100,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
      * @returns The next value, or null if the iterator ended.
      */
     async nextVal(): Promise<T | Null> {
-        const elem = await this.internal.next();
+        const elem = await this.next();
         if (elem.done) {
             return nullVal;
         }
