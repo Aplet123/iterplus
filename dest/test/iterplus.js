@@ -701,17 +701,26 @@ describe("Methods", () => {
     describe(".peekable", () => {
         it("works normally", () => {
             const iter = index_1.iterplus([1, 2, 3]).peekable();
+            expect(iter.hasCached()).toBe(false);
             expect(iter.peek().value).toBe(1);
             expect(iter.peek().value).toBe(1);
+            expect(iter.peekVal()).toBe(1);
+            expect(iter.hasCached()).toBe(true);
             expect(iter.peek().done).toBe(false);
             expect(iter.next().value).toBe(1);
+            expect(iter.hasCached()).toBe(false);
             expect(iter.next().value).toBe(2);
+            expect(iter.hasCached()).toBe(false);
             expect(iter.peek().value).toBe(3);
+            expect(iter.hasCached()).toBe(true);
             expect(iter.peek().done).toBe(false);
             expect(iter.next().value).toBe(3);
             expect(iter.peek().done).toBe(true);
             expect(iter.peek().done).toBe(true);
+            expect(iter.hasCached()).toBe(true);
+            expect(iter.peekVal()).toBe(null);
             expect(iter.next().done).toBe(true);
+            expect(iter.hasCached()).toBe(false);
         });
     });
     describe(".findIndex", () => {

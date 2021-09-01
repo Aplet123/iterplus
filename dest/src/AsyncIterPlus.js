@@ -3597,7 +3597,7 @@ class AsyncPeekable extends AsyncIterPlus {
     /**
      * Peeks the next element in the iterator and does not consume it.
      *
-     * @returns The next element.
+     * @returns The next element as an iterator result.
      */
     async peek() {
         if (this.storedVal.has) {
@@ -3605,6 +3605,30 @@ class AsyncPeekable extends AsyncIterPlus {
         }
         this.storedVal = { has: true, val: await this.internal.next() };
         return this.storedVal.val;
+    }
+    /**
+     * Peeks the next element in the iterator and does not consume it.
+     *
+     * Nullable version of `peek`.
+     *
+     * @returns The next element, or `null` if the iterator is finished.
+     */
+    async peekVal() {
+        const res = await this.peek();
+        if (res.done) {
+            return IterPlus_2.nullVal;
+        }
+        return res.value;
+    }
+    /**
+     * Checks if there's a value cached from a previous `peek`.
+     *
+     * Will return `true` even if the cached value is the end of the iterator.
+     *
+     * @returns If there's a value cached.
+     */
+    hasCached() {
+        return this.storedVal.has;
     }
 }
 exports.AsyncPeekable = AsyncPeekable;

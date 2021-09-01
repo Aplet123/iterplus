@@ -66,8 +66,7 @@ type /* o:Async- */ IterableMap<T extends unknown[]> = {
 /**
  * The type of null to use.
  */
-/* o://- */ export type /* o:Async- */ Null =
-    typeof /* r:asyncNullVal */ nullVal;
+/* o://- */ export type Null = typeof nullVal;
 /* o:import {Null} from "./IterPlus"; */
 
 /**
@@ -3253,7 +3252,7 @@ export class /* o:Async- */ Peekable<
     /**
      * Peeks the next element in the iterator and does not consume it.
      *
-     * @returns The next element.
+     * @returns The next element as an iterator result.
      */
     /* o:async */ peek(): /* o:Promise<- */ IteratorResult<T> /* o:-> */ {
         if (this.storedVal.has) {
@@ -3261,5 +3260,31 @@ export class /* o:Async- */ Peekable<
         }
         this.storedVal = {has: true, val: /* o:await */ this.internal.next()};
         return this.storedVal.val;
+    }
+
+    /**
+     * Peeks the next element in the iterator and does not consume it.
+     *
+     * Nullable version of `peek`.
+     *
+     * @returns The next element, or `null` if the iterator is finished.
+     */
+    /* o:async */ peekVal(): /* o:Promise<- */ T | Null /* o:-> */ {
+        const res = /* o:await */ this.peek();
+        if (res.done) {
+            return nullVal;
+        }
+        return res.value;
+    }
+
+    /**
+     * Checks if there's a value cached from a previous `peek`.
+     *
+     * Will return `true` even if the cached value is the end of the iterator.
+     *
+     * @returns If there's a value cached.
+     */
+    hasCached() {
+        return this.storedVal.has;
     }
 }

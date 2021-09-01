@@ -1184,8 +1184,24 @@ export declare class Peekable<T>/* r:extends Async- */  extends IterPlus<T> {
     /**
      * Peeks the next element in the iterator and does not consume it.
      *
-     * @returns The next element.
+     * @returns The next element as an iterator result.
      */
     peek(): IteratorResult<T>;
+    /**
+     * Peeks the next element in the iterator and does not consume it.
+     *
+     * Nullable version of `peek`.
+     *
+     * @returns The next element, or `null` if the iterator is finished.
+     */
+    peekVal(): /* o:Promise<- */ T | Null;
+    /**
+     * Checks if there's a value cached from a previous `peek`.
+     *
+     * Will return `true` even if the cached value is the end of the iterator.
+     *
+     * @returns If there's a value cached.
+     */
+    hasCached(): boolean;
 }
 export {};

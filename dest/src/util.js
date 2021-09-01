@@ -1,20 +1,28 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.asyncify = exports.liftAsync = exports.count = exports.range = exports.iterplus = void 0;
+exports.asyncify = exports.liftAsync = exports.count = exports.range = exports.asyncIterplus = exports.iterplus = void 0;
 const IterPlus_1 = require("./IterPlus");
 const AsyncIterPlus_1 = require("./AsyncIterPlus");
+/**
+ * Generates an `IterPlus` from an iterable.
+ *
+ * @typeParam T The iteration type.
+ * @param iter The iterable to upgrade.
+ */
 function iterplus(iter) {
-    if (IterPlus_1.canIter(iter)) {
-        return new IterPlus_1.IterPlus(iter[Symbol.iterator]());
-    }
-    else if (AsyncIterPlus_1.canAsyncIter(iter)) {
-        return new AsyncIterPlus_1.AsyncIterPlus(iter[Symbol.asyncIterator]());
-    }
-    else {
-        throw new Error("Object is not an iterable.");
-    }
+    return new IterPlus_1.IterPlus(iter[Symbol.iterator]());
 }
 exports.iterplus = iterplus;
+/**
+ * Generates an `AsyncIterPlus` from an async iterable.
+ *
+ * @typeParam T The iteration type.
+ * @param iter The async iterable to upgrade.
+ */
+function asyncIterplus(iter) {
+    return new AsyncIterPlus_1.AsyncIterPlus(iter[Symbol.asyncIterator]());
+}
+exports.asyncIterplus = asyncIterplus;
 function range(start, dest, step) {
     let actualStep = step;
     let zero;

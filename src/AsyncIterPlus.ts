@@ -61,7 +61,7 @@ import {nullVal} from "./IterPlus";
 /**
  * The type of null to use.
  */
-//export type AsyncNull = typeof asyncNullVal;
+//export type Null = typeof nullVal;
 import {Null} from "./IterPlus";
 
 /**
@@ -3136,7 +3136,7 @@ export class AsyncPeekable<T> extends AsyncIterPlus<T> {
     /**
      * Peeks the next element in the iterator and does not consume it.
      *
-     * @returns The next element.
+     * @returns The next element as an iterator result.
      */
     async peek(): Promise<IteratorResult<T>> {
         if (this.storedVal.has) {
@@ -3144,5 +3144,31 @@ export class AsyncPeekable<T> extends AsyncIterPlus<T> {
         }
         this.storedVal = {has: true, val: await this.internal.next()};
         return this.storedVal.val;
+    }
+
+    /**
+     * Peeks the next element in the iterator and does not consume it.
+     *
+     * Nullable version of `peek`.
+     *
+     * @returns The next element, or `null` if the iterator is finished.
+     */
+    async peekVal(): Promise<T | Null> {
+        const res = await this.peek();
+        if (res.done) {
+            return nullVal;
+        }
+        return res.value;
+    }
+
+    /**
+     * Checks if there's a value cached from a previous `peek`.
+     *
+     * Will return `true` even if the cached value is the end of the iterator.
+     *
+     * @returns If there's a value cached.
+     */
+    hasCached() {
+        return this.storedVal.has;
     }
 }
