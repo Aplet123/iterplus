@@ -240,7 +240,7 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
         init: PromiseOrValue<A>
     ): AsyncIterPlus<T> {
         async function* ret() {
-            let accum = await init;
+            let accum: A = await init;
             while (true) {
                 const pair = await func(accum);
                 if (pair === nullVal) {
@@ -1702,7 +1702,8 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
         if (count <= 0) {
             return [];
         }
-        const stored: CircularBuffer<T> = new CircularBuffer();
+        const stored: CircularBuffer<Promise<IteratorResult<T>>> =
+            new CircularBuffer();
         let init = 0;
         let finished = false;
         const that = this;
@@ -1715,15 +1716,20 @@ export class AsyncIterPlus<T> implements CurIter<T>, AsyncIterable<T> {
                     if (finished) {
                         return;
                     }
-                    const elem = await that.next();
+                    const prom = that.next();
+                    stored.pushEnd(prom);
+                    const elem = await prom;
                     if (elem.done) {
                         finished = true;
                         return;
                     }
-                    stored.pushEnd(elem.value);
                     yield elem.value;
                 } else {
-                    yield stored.get(n - init);
+                    const elem = await stored.get(n - init);
+                    if (elem.done) {
+                        return;
+                    }
+                    yield elem.value;
                     const minind = Math.min(...indices);
                     while (minind > init) {
                         init++;

@@ -257,7 +257,7 @@ export class /* o:Async- */ IterPlus<T>
         init: /* o:PromiseOrValue<- */ A /* o:-> */
     ): /* o:Async- */ IterPlus<T> {
         /* o:async */ function* ret() {
-            let accum = /* o:await */ init;
+            let accum: A = /* o:await */ init;
             while (true) {
                 const pair = /* o:await */ func(accum);
                 if (pair === nullVal) {
@@ -1775,7 +1775,9 @@ export class /* o:Async- */ IterPlus<T>
         if (count <= 0) {
             return [];
         }
-        const stored: CircularBuffer<T> = new CircularBuffer();
+        const stored: CircularBuffer<
+            /* o:Promise<- */ IteratorResult<T> /* o:-> */
+        > = new CircularBuffer();
         let init = 0;
         let finished = false;
         const that = this;
@@ -1788,15 +1790,20 @@ export class /* o:Async- */ IterPlus<T>
                     if (finished) {
                         return;
                     }
-                    const elem = /* o:await */ that.next();
+                    const prom = that.next();
+                    stored.pushEnd(prom);
+                    const elem = /* o:await */ prom;
                     if (elem.done) {
                         finished = true;
                         return;
                     }
-                    stored.pushEnd(elem.value);
                     yield elem.value;
                 } else {
-                    yield stored.get(n - init);
+                    const elem = /* o:await */ stored.get(n - init);
+                    if (elem.done) {
+                        return;
+                    }
+                    yield elem.value;
                     const minind = Math.min(...indices);
                     while (minind > init) {
                         init++;

@@ -1949,16 +1949,21 @@ class AsyncIterPlus {
                         if (finished) {
                             return yield __await(void 0);
                         }
-                        const elem = yield __await(that.next());
+                        const prom = that.next();
+                        stored.pushEnd(prom);
+                        const elem = yield __await(prom);
                         if (elem.done) {
                             finished = true;
                             return yield __await(void 0);
                         }
-                        stored.pushEnd(elem.value);
                         yield yield __await(elem.value);
                     }
                     else {
-                        yield yield __await(stored.get(n - init));
+                        const elem = yield __await(stored.get(n - init));
+                        if (elem.done) {
+                            return yield __await(void 0);
+                        }
+                        yield yield __await(elem.value);
                         const minind = Math.min(...indices);
                         while (minind > init) {
                             init++;

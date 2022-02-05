@@ -189,7 +189,7 @@ class IterPlus {
     }
     static unfold(func /* o:-> */, init /* o:-> */) {
         /* o:async */ function* ret() {
-            let accum = /* o:await */ init;
+            let accum = init;
             while (true) {
                 const pair = /* o:await */ func(accum);
                 if (pair === exports.nullVal) {
@@ -1483,16 +1483,21 @@ class IterPlus {
                     if (finished) {
                         return;
                     }
-                    const elem = /* o:await */ that.next();
+                    const prom = that.next();
+                    stored.pushEnd(prom);
+                    const elem = /* o:await */ prom;
                     if (elem.done) {
                         finished = true;
                         return;
                     }
-                    stored.pushEnd(elem.value);
                     yield elem.value;
                 }
                 else {
-                    yield stored.get(n - init);
+                    const elem = /* o:await */ stored.get(n - init);
+                    if (elem.done) {
+                        return;
+                    }
+                    yield elem.value;
                     const minind = Math.min(...indices);
                     while (minind > init) {
                         init++;
